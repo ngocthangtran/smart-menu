@@ -23,49 +23,54 @@ function getData(nameRef) {
     return data;
 }
 
-function addData(nameRef, data) {
+function addData(nameRef, data, res) {
     const ref = database.ref(nameRef)
     const key = ref.child('posts').push().key;
-    ref.child(key).set(
-        data, function (error) {
-            if (error) {
-                // The write failed...
-                console.log("Failed with error: " + error)
-            } else {
-                // The write was successful...
-                console.log("success")
-            }
-        })
-}
-
-function repairData(nameRef, newData, key) {
-    var productRef = database.ref(nameRef);
-    productRef.child(key).set(newData, (error)=>{
+    ref.child(key).set(data, function (error) {
         if (error) {
-            // The write failed...
-            console.log("Failed with error: " + error)
+            res.status(200).send({
+                "message": "more failed product"
+            })
         } else {
-            // The write was successful...
-            console.log("success")
+            res.status(200).send({
+                "message": "add product successful ",
+                "key": key
+            })
         }
     })
 }
 
-function deleteData(nameRef, key) {
+function repairData(nameRef, newData, key, res) {
     var productRef = database.ref(nameRef);
-    productRef.child(key).remove((error)=>{
+    productRef.child(key).set(newData, (error) => {
         if (error) {
-            // The write failed...
-            console.log("Failed with error: " + error)
+            res.status(202).send(error)
         } else {
-            // The write was successful...
-            console.log("success")
+            res.status(200).send({
+                "message": "repair product successful ",
+                "key": key
+            })
         }
     })
 }
 
+function deleteData(nameRef, key, res) {
+    var productRef = database.ref(nameRef);
+    productRef.child(key).remove((error) => {
+        if (error) {
+            res.status(202).send(error)
+        } else {
+            res.status(200).send({
+                "message": "delete product successful ",
+                "key": key
+            })
+        }
+    })
+}
+// deleteData("product", "Ma2DsLKQdoGGeLh3rUE", "asdsa");
 module.exports = {
     getData,
     addData,
-    repairData
+    repairData,
+    deleteData
 }

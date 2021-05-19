@@ -1,0 +1,58 @@
+Menu:
+- Product:
+    Lấy sản phẩm: Method: GET localhost:3000/menu
+
+    Thêm sản phẩm: Method: POST localhost:3000/menu/addproduct
+        - body{
+            "name":"Trà sữa chân châu",
+            "link_img":"link",
+            "side":{
+                "M":25000,
+                "s":20000,
+                "l":30000
+            }
+        }
+        - res:
+            + complete:
+            {
+                "message": "mode successful product",
+                "key": "-Ma2EYrhIr29RnPpGds8"
+            }
+            + err{
+                err:"dasdsadasdasd"
+            }
+    sửa sản phẩm: Method: POST localhost:3000/menu/repairproduct
+    - body{
+            "key":"Ma2DsLKQdoGGeLh3rUE",
+            "data":{
+                "name":"Trà sữa chân châu chau",
+                "link_img":"link",
+                "side":{
+                    "M":25000,
+                    "s":20000,
+                    "l":30000
+                }
+            }
+        }
+    - res:
+            + complete:
+            {
+                "message": "repair successful product",
+                "key": "-Ma2EYrhIr29RnPpGds8"
+            }
+            + err{
+                err:"dasdsadasdasd"
+            }
+    Xóa sản phẩm: Method: POST localhost:3000/menu/deleteproduct
+     - body{
+            "key":"Ma2DsLKQdoGGeLh3rUE",
+        }
+    - res:
+            + complete:
+            {
+                "message": "deleteData successful product",
+                "key": "-Ma2EYrhIr29RnPpGds8"
+            }
+            + err{
+                err:"dasdsadasdasd"
+            }
