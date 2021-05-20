@@ -2,7 +2,7 @@ const express = require('express');
 const route = express.Router();
 const firebase = require('../firebase/handling');
 
-route.get('/', async (req, res) => {
+route.get('/product', async (req, res) => {
     let data = await firebase.getData('product');
     res.status(200).send(data);
 })
@@ -21,5 +21,7 @@ route.get('/deleteproduct', (req, res) => {
     const {key} = req.body;
     firebase.deleteData("product", key, res)
 })
+
+route.get('/listtable', (req, res)=>{})
 
 module.exports = route;
