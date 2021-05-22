@@ -158,12 +158,14 @@ a {
     right: 15px;
 }
 
+/* tọa mũi tên quay */
 .dropdown-icon {
-    height: 15px;
-    width: 15px;
+    --side:15px;
+    --color:var(--text-color);
+    height: var(--side);
+    width: var(--side);
     position: relative;
     cursor: pointer;
-    
 }
 
 .dropdown-icon::after,
@@ -174,7 +176,9 @@ a {
     height: var(--height);
     border: 2.5px;
     position: absolute;
-    top: calc(50%)
+    top: calc(50%-var(--height)/2);
+    background-color: var(--color);
+    transition: transform 0.3s ease;
 }
 
 .dropdown-icon::before {
@@ -184,7 +188,35 @@ a {
 }
 
 .dropdown-icon::after{
-    left: calc(50% - var(--height) / 3);
+    right: calc(50% - var(--height) / 3);
     transform-origin: right;
     transform: rotate(45deg);
+}
+
+.dropdown-icon.active::after{
+    transform: rotate(-45deg);
+}
+.dropdown-icon.active::before{
+    transform: rotate(45deg);
+}
+.sidebar-menu>li>a:hover>.dropdown-icon{
+    --color:var(--main-color)
+}
+
+/* trong dropdown */
+
+.sidebar-menu-dropdown-conten{
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.25s ease-in-out;
+}
+
+/* .sidebar-menu-dropdown-conten.active{
+    height: 1;
+    background-color: black;
+} */
+
+.sidebar-menu-dropdown-conten >li>a{
+    padding-left: 50px;
 }
