@@ -46,3 +46,145 @@ a {
     box-shadow: var(--shadow);
     overflow-y: auto;
 }
+
+.sidebar-logo {
+    height: var(--sidebar-logo-size);
+    position: relative;
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-logo img {
+    height: var(--sidebar-logo-img-size);
+    max-width: 100%;
+}
+
+.sidebar-close {
+    display: none;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.sidebar-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-user-name {
+    margin-left: 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.sidebar-user-info img {
+    width: var(--profile-img-size);
+    height: var(--profile-img-size);
+    border-radius: 10px;
+}
+
+.btn {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--main-color);
+    border-radius: 0.25rem;
+}
+
+.btn i {
+    font-size: 1.25rem;
+}
+
+.btn-outline {
+    padding: 5px;
+    border: 2xp solid var(--main-color);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-outline:hover {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.sidebar-menu {
+    padding: 10px 0;
+    list-style-type: none;
+}
+
+.sidebar-menu>li>a {
+    width: 100%;
+    padding: 15px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    transition: color 0.2s ease-in-out;
+}
+
+.sidebar-menu>li>a.active {
+    background-color: var(--menu-item-active-bg);
+    color: var(--main-color);
+    border-radius: 4px solid var(--main-color);
+}
+
+.sidebar-menu>li>a:hover {
+    color: var(--main-color);
+}
+
+.sidebar-menu>li>a>i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+
+}
+
+.sidebar-menu-dropdown {
+    position: relative;
+}
+
+.sidebar-menu-dropdown .dropdown-icon {
+    position: absolute;
+    right: 15px;
+}
+
+.dropdown-icon {
+    height: 15px;
+    width: 15px;
+    position: relative;
+    cursor: pointer;
+    
+}
+
+.dropdown-icon::after,
+.dropdown-icon::before {
+    --height: 2px;
+    content: "";
+    width: 50%;
+    height: var(--height);
+    border: 2.5px;
+    position: absolute;
+    top: calc(50%)
+}
+
+.dropdown-icon::before {
+    left: calc(50% - var(--height) / 3);
+    transform-origin: center left;
+    transform: rotate(-45deg);
+}
+
+.dropdown-icon::after{
+    left: calc(50% - var(--height) / 3);
+    transform-origin: right;
+    transform: rotate(45deg);
+}
