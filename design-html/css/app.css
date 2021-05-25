@@ -206,7 +206,6 @@ a {
     --color: var(--main-color)
 }
 
-/* trong dropdown */
 
 .sidebar-menu-dropdown-conten {
     padding: 0;
@@ -214,11 +213,6 @@ a {
     overflow: hidden;
     transition: height 0.25s ease-in-out;
 }
-
-/* .sidebar-menu-dropdown-conten.active{
-    height: 1;
-    background-color: black;
-} */
 
 .sidebar-menu-dropdown-conten>li>a {
     padding-left: 50px;
@@ -250,7 +244,7 @@ a {
     padding: 20px;
     height: 100%;
 }
-
+/* couter */
 .row {
     max-height: 100px;
     display: grid;
@@ -283,6 +277,9 @@ a {
     color: var(--main-color);
 }
 
+
+/*list table */
+
 .tables {
     position: relative;
     height: 90%;
@@ -297,7 +294,7 @@ a {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    height: 80%;
+    display: none;
 }
 
 .card {
@@ -349,4 +346,11 @@ a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+/* click item */
+
+.detail{
+    /* background-color: black;
+    height: 100%; */
 }

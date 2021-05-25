@@ -1,0 +1,132 @@
+:root {
+    --header-height: 3rem;
+
+    /* Color */
+    --first-color: #3498db;
+    --first-color-light: #c4c7f5;
+    --dark-color: #0e1026;
+    --white-color: #fbfbfb;
+
+    /* Font size */
+    --body-font: 'Open Sans', .sans-serif;
+    --nav-name-font-size: 1.5rem;
+    --normal-font-size: 0.938rem;
+
+    /* z-index */
+    --z-fixed: 100;
+}
+
+@media screen and (min-width:768px) {
+    :root {
+        --nav-name-font-size: 1rem;
+        --normal-font-size: 1rem; 
+    }
+ 
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: var(--header-height) 0 0 0;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    font-weight: 600;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a{
+    text-decoration: none; 
+}
+
+.bg-gril{
+    max-width: 1024px;
+    display: grid;
+    grid-template-columns: 100%;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    padding: 0 1rem;
+    background-color: #fff;
+    z-index: var(--z-fixed);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.header-logo{
+     color: var(--dark-color);
+}
+
+.header-toggle{
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+    nav{
+        position: fixed;
+        top: 0;
+        left: -100%;
+        background-color: var(--first-color);
+        width: 80%;
+        height: 100vh;
+        padding: 2rem 0;
+        z-index: var(--z-fixed);
+        transition: 0.5s;
+        overflow-y: auto j;
+    }
+    .nav-conten{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-perfil{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .nav-img{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-img img{
+        width: 70px;
+    }
+    .nav-name{
+        display: block;
+        font-size: var(--nav-name-font-size);
+        color: var(--white-color);
+    }
+    .nav-item{
+        margin-bottom: 2rem;
+    }
+    .nav-link{
+        color: var(--first-color-light);
+    }
+    .show{
+        left: 0;
+    }
+}
