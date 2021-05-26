@@ -19,33 +19,33 @@
 @media screen and (min-width:768px) {
     :root {
         --nav-name-font-size: 1rem;
-        --normal-font-size: 1rem; 
+        --normal-font-size: 1rem;
     }
- 
+
 }
 
-*{
+* {
     box-sizing: border-box;
 }
 
-body{
+body {
     margin: var(--header-height) 0 0 0;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     font-weight: 600;
 }
 
-ul{
+ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-a{
-    text-decoration: none; 
+a {
+    text-decoration: none;
 }
 
-.bg-gril{
+.bg-gril {
     max-width: 1024px;
     display: grid;
     grid-template-columns: 100%;
@@ -53,7 +53,7 @@ a{
     margin-right: 1.5rem;
 }
 
-.header{
+.header {
     position: fixed;
     top: 0;
     left: 0;
@@ -68,17 +68,22 @@ a{
     box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
 }
 
-.header-logo{
-     color: var(--dark-color);
+.header-logo {
+    color: var(--dark-color);
 }
 
-.header-toggle{
+.header-toggle {
     font-size: 1.7rem;
     cursor: pointer;
 }
 
+.cart {
+    color: var(--dark-color);
+    font-size: 2rem;
+}
+
 @media screen and (max-width:768px) {
-    nav{
+    nav {
         position: fixed;
         top: 0;
         left: -100%;
@@ -90,12 +95,13 @@ a{
         transition: 0.5s;
         overflow-y: auto j;
     }
-    .nav-conten{
+
+    .nav-conten {
         display: flex;
         flex-direction: column;
     }
 
-    .nav-perfil{
+    .nav-perfil {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -103,7 +109,15 @@ a{
         margin-bottom: 3rem;
     }
 
-    .nav-img{
+    .nav-perfil:div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .nav-img {
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -112,21 +126,127 @@ a{
         justify-content: center;
     }
 
-    .nav-img img{
+    .nav-img img {
         width: 70px;
     }
-    .nav-name{
+
+    .info {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+    }
+
+    .nav-name {
         display: block;
         font-size: var(--nav-name-font-size);
         color: var(--white-color);
+
     }
-    .nav-item{
+
+    .nav-cart {
+        display: block;
+        font-size: var(--nav-name-font-size);
+        color: var(--white-color);
+        padding-right: 0.7em;
+    }
+
+    .nav-item {
         margin-bottom: 2rem;
     }
-    .nav-link{
+
+    .nav-link {
         color: var(--first-color-light);
     }
-    .show{
+
+    .show {
         left: 0;
     }
+
+    /* card css */
+    .cards {
+        margin: 0 auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+
+    .card-image {
+        object-fit: cover;
+        width: 100%;
+        height: 300px;
+    }
+
+    .card-conten {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 10px 0;
+    }
+
+    .btn {
+        background: #76B3FA;
+        border-radius: 100px;
+        color: #fff;
+        font-size: 1.2em;
+        width: 100%;
+        height: 2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+
+    .food-info {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        font-size: 1.2em;
+        font-weight: 700;
+    }
+
+    .card-details{
+        display: none;
+        transition: 5s ease-in-out;
+        
+    }
+
+    .card-details.active{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        
+    }
+
+    .count{
+        display: flex;
+        /* flex-direction: row; */
+        border: 1px solid #76B3FA;
+        font-size: 1.5em;
+        font-weight: 700;
+    }
+
+    .count .plus{
+        margin: 10px 25px;
+    }
+
+    .count .minus{
+        margin: 10px 25px;
+    }
+
+    .count .number-count{
+        margin: 10px 0;
+        
+    }
+
+    .btn-price{
+        display: flex;
+        margin: 5px;
+        width: 100%;
+    }
+
 }
