@@ -209,17 +209,17 @@ a {
     }
 
     .card-details{
-        display: none;
-        transition: 5s ease-in-out;
-        
-    }
-
-    .card-details.active{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
-        
+        transition: 0.25s ease-in-out;
+        height: 0;
+        overflow: hidden;
+    }
+    
+    .card-details.active{
+        height: 140px;
     }
 
     .count{
