@@ -4,6 +4,7 @@ Menu:
 
     Thêm sản phẩm: Method: POST localhost:3000/menu/addproduct
         - body{
+            "category":"Hấp",
             "name":"Trà sữa chân châu",
             "link_img":"link",
             "side":{

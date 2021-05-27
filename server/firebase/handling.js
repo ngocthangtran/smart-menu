@@ -1,14 +1,14 @@
 const firebase = require('firebase');
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCylXcB_gWmWG7segUUasaqNu4pYRbpZw8",
-    authDomain: "test-fa7d0.firebaseapp.com",
-    databaseURL: "https://test-fa7d0-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "test-fa7d0",
-    storageBucket: "test-fa7d0.appspot.com",
-    messagingSenderId: "351398061682",
-    appId: "1:351398061682:web:53c8414d93d6631d4404eb",
-    measurementId: "G-7LPHEVZKSR"
+    apiKey: "AIzaSyDOVvt4pDHFUZ52fdyFvn38UWi3jU0-nTo",
+  authDomain: "smart-menu-d89c1.firebaseapp.com",
+  databaseURL: "https://smart-menu-d89c1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "smart-menu-d89c1",
+  storageBucket: "smart-menu-d89c1.appspot.com",
+  messagingSenderId: "787219176254",
+  appId: "1:787219176254:web:c38ebfe85207cd80c36a6f",
+  measurementId: "G-5Y191LWY7G"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -25,6 +25,7 @@ function getData(nameRef) {
 
 function addData(nameRef, data, res) {
     const ref = database.ref(nameRef)
+    console.log(typeof(data))
     const key = ref.child('posts').push().key;
     ref.child(key).set(data, function (error) {
         if (error) {
@@ -67,6 +68,7 @@ function deleteData(nameRef, key, res) {
         }
     })
 }
+
 // deleteData("product", "Ma2DsLKQdoGGeLh3rUE", "asdsa");
 module.exports = {
     getData,
