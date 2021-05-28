@@ -36,6 +36,7 @@ a {
 
 }
 
+/* sidebar */
 .sidebar {
     background-color: var(--box-bg);
     position: fixed;
@@ -218,9 +219,8 @@ a {
     padding-left: 50px;
 }
 
+/* endsidebar */
 
-
-/* main css */
 .main {
     padding-left: var(--sidebar-side);
     height: 100vh;
@@ -243,113 +243,4 @@ a {
 .main-content {
     padding: 20px;
     height: 100%;
-}
-/* couter */
-.row {
-    max-height: 100px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.box {
-    background-color: var(--box-bg);
-    padding: 20px;
-    border: 0.5 solid var(--boder-color);
-    border-radius: var(--box-boder-radius);
-}
-
-.counter-title {
-    margin-bottom: 20px;
-    text-transform: capitalize;
-}
-
-.counter-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.counter-info>i {
-    color: var(--main-color);
-}
-
-
-/*list table */
-
-.tables {
-    position: relative;
-    height: 90%;
-    margin-top: 40px;
-    overflow-y: auto;
-    border-radius: var(--box-boder-radius);
-}
-.tables::-webkit-scrollbar{
-    display: none;
-}
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.card {
-    background-color: var(--box-bg);
-    padding: 20px;
-    border: 0.5 solid --boder-color;
-    border-radius: var(--box-boder-radius);
-}
-
-.card-head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2em;
-}
-
-.card-status {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    text-transform: capitalize;
-
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-left: 5px;
-}
-
-.green {
-    background-color: #27ae60;
-}
-
-.yellow {
-    background-color: #f1c40f;
-}
-
-.red {
-    background-color: #e74c3c;
-}
-
-.card-info {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* click item */
-
-.detail{
-    /* background-color: black;
-    height: 100%; */
 }
