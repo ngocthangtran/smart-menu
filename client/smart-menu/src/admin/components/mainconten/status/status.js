@@ -62,8 +62,85 @@ class status extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <div class="card-name">
+                                    Bàn 1
+                            </div>
+                                <div class="card-status">
+                                    Trống
+                                <div class="dot green"></div>
+                                </div>
+                            </div>
+                            <div class="card-info">
+                                <div class="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div class="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <div class="card-name">
+                                    Bàn 1
+                            </div>
+                                <div class="card-status">
+                                    Trống
+                                <div class="dot green"></div>
+                                </div>
+                            </div>
+                            <div class="card-info">
+                                <div class="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div class="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <div class="card-name">
+                                    Bàn 1
+                            </div>
+                                <div class="card-status">
+                                    Trống
+                                <div class="dot green"></div>
+                                </div>
+                            </div>
+                            <div class="card-info">
+                                <div class="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div class="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <div class="card-name">
+                                    Bàn 1
+                            </div>
+                                <div class="card-status">
+                                    Trống
+                                <div class="dot green"></div>
+                                </div>
+                            </div>
+                            <div class="card-info">
+                                <div class="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div class="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
             </>
         );
     }

@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f4f0f3;
+    font-family: "Roboto", sans-serif;
+}
+
+.price-contaier {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    /* min-height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.price-card {
+    width: 18rem;
+    /* background-color: black; */
+    border: 0.5px solid #b2bec3;
+}
+
+img {
+    object-fit: cover;
+    width: 18rem;
+    height: 12rem;
+}
+
+.card-body{
+    padding: 10px;
+}
+
+.card-body>h5 {
+    font-size: 1.25rem;
+}
+
+.food-conten{
+    display: grid;
+    /* grid-template-columns: 5rem 3rem; */
+    grid-template-columns: repeat(2,1fr);
+    margin-top: 5px;
+}
+
+.text-title{
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.food-conten>p{
+    margin: 0 1.5rem;
+}
+
+a{
+    margin-top: 20px;
+    text-decoration: none;
+    color: #dfe6e9;
+}
+
+.btn{
+    display: flex;
+    background-color: #74b9ff;
+    width: 10em;
+    height: 2.2em;
+    font-weight: 400;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}

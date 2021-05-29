@@ -6,13 +6,15 @@ import {
     Link
 } from "react-router-dom";
 
-import Status from './components/mainconten/status/status'
+import Status from './components/mainconten/status/status';
+import Listmenu from './components/mainconten/menu/menu';
 
 import './admin.css';
 
 
 const MainConten = (props) => {
     let Conten = props.conten
+    console.log(props.nameMain);
     return (
         <div className='main'>
             <div class="main-head">
@@ -21,7 +23,7 @@ const MainConten = (props) => {
                 </div>
             </div>
             <div className='main-content'>
-                <Conten/>
+                <Conten />
             </div>
         </div>
     )
@@ -86,7 +88,7 @@ class admin extends Component {
                             </Link>
                             <ul className="sidebar-menu sidebar-menu-dropdown-conten">
                                 <li>
-                                    <Link to='/'>
+                                    <Link to='/menu'>
                                         danh sách
                         </Link>
                                 </li>
@@ -134,6 +136,9 @@ class admin extends Component {
                 <Switch>
                     <Route exact path='/status'>
                         <MainConten nameMain="Trạng thái" conten={Status} />
+                    </Route>
+                    <Route exact path='/menu'>
+                        <MainConten nameMain="Danh sách thực đơn" conten={Listmenu} />
                     </Route>
                 </Switch>
             </Router>
