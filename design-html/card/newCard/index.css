@@ -9,19 +9,32 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-.price-contaier {
+.category-food {
+    font-size: 1.3em;
+    font-weight: 500;
+    
+}
+
+.category-head {
+    background-color: #95a5a6;
+    border-radius: 0.25em;
+    height: 2rem;
+    padding: 0 0 0 1rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    /* min-height: 100vh; */
-    display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-.price-card {
-    width: 18rem;
-    /* background-color: black; */
+.category-item {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2em;
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+.food-card {
+    width: 18.1rem;
     border: 0.5px solid #b2bec3;
 }
 
@@ -31,7 +44,7 @@ img {
     height: 12rem;
 }
 
-.card-body{
+.card-body {
     padding: 10px;
 }
 
@@ -39,29 +52,29 @@ img {
     font-size: 1.25rem;
 }
 
-.food-conten{
+.food-conten {
     display: grid;
     /* grid-template-columns: 5rem 3rem; */
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     margin-top: 5px;
 }
 
-.text-title{
+.text-title {
     grid-row-start: 1;
     grid-row-end: 3;
 }
 
-.food-conten>p{
+.food-conten>p {
     margin: 0 1.5rem;
 }
 
-a{
+a {
     margin-top: 20px;
     text-decoration: none;
     color: #dfe6e9;
 }
 
-.btn{
+.btn {
     display: flex;
     background-color: #74b9ff;
     width: 10em;
