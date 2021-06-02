@@ -33,7 +33,7 @@ class menu extends Component {
                             </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn-detail">Chi tiết</a>
+                                <a href="/" class="btn-detail">Chi tiết</a>
                             </div>
                         </div>
                         <div class="food-card">
@@ -58,7 +58,7 @@ class menu extends Component {
                             </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn-detail">Chi tiết</a>
+                                <a href="/" class="btn-detail">Chi tiết</a>
                             </div>
                         </div>
                         <div class="food-card">
@@ -83,7 +83,7 @@ class menu extends Component {
                             </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn-detail">Chi tiết</a>
+                                <a href="/" class="btn-detail">Chi tiết</a>
                             </div>
                         </div>
                         <div class="food-card">
@@ -108,7 +108,7 @@ class menu extends Component {
                             </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn-detail">Chi tiết</a>
+                                <a href="/" class="btn-detail">Chi tiết</a>
                             </div>
                         </div>
                         <div class="food-card">
@@ -133,7 +133,7 @@ class menu extends Component {
                             </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn-detail">Chi tiết</a>
+                                <a href="/" class="btn-detail">Chi tiết</a>
                             </div>
                         </div>
                         <div class="food-card">
@@ -158,7 +158,7 @@ class menu extends Component {
                             </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn-detail">Chi tiết</a>
+                                <a href="/" class="btn-detail">Chi tiết</a>
                             </div>
                         </div>
                     </div>

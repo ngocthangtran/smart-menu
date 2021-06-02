@@ -55,7 +55,7 @@ class admin extends Component {
             <Router>
                 <div className="sidebar">
                     <div className="sidebar-logo">
-                        <img src={process.env.PUBLIC_URL + '/asset/img/Logo-1.jpg'} />
+                        <img src={process.env.PUBLIC_URL + '/asset/img/Logo-1.jpg'} alt="logo" />
                         <div className="sidebar-close">
                             <i className='bx bx-left-arrow-alt'></i>
                         </div>
@@ -63,7 +63,7 @@ class admin extends Component {
 
                     <div className="sidebar-user">
                         <div className="sidebar-user-info">
-                            <img src={process.env.PUBLIC_URL + '/asset/img/avt.jpg'} />
+                            <img src={process.env.PUBLIC_URL + '/asset/img/avt.jpg'} alt="a"/>
                             <div className="sidebar-user-name">
                                 Trần Ngọc Thăng
                         </div>
