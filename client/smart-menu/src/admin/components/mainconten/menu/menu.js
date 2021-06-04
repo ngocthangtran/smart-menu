@@ -9,7 +9,7 @@ class menu extends Component {
                 <div class="category-food">
                     <div class="category-head">
                         Hấp
-        </div>
+                    </div>
                     <div class="category-item">
                         <div class="food-card">
                             <img src="https://fakeimg.pl/400x300/009578/fff/" alt=""></img>

@@ -8,17 +8,17 @@ import {
 
 import Status from './components/mainconten/status/status';
 import Listmenu from './components/mainconten/menu/menu';
+import AddNewFood from './components/mainconten/menu/addnewfood';
 
 import './admin.css';
 
 
 const MainConten = (props) => {
     let Conten = props.conten
-    console.log(props.nameMain);
     return (
         <div className='main'>
-            <div class="main-head">
-                <div class="main-title">
+            <div className="main-head">
+                <div className="main-title">
                     {props.nameMain}
                 </div>
             </div>
@@ -93,7 +93,7 @@ class admin extends Component {
                         </Link>
                                 </li>
                                 <li>
-                                    <Link to='/'>
+                                    <Link to='/newfood'>
                                         Thêm món
                         </Link>
                                 </li>
@@ -139,6 +139,9 @@ class admin extends Component {
                     </Route>
                     <Route exact path='/menu'>
                         <MainConten nameMain="Danh sách thực đơn" conten={Listmenu} />
+                    </Route>
+                    <Route exact path='/newfood'>
+                        <MainConten nameMain="Thêm món mới" conten={AddNewFood} />
                     </Route>
                 </Switch>
             </Router>
