@@ -15,25 +15,24 @@
     background-color: #95a5a6;
     border-radius: 0.25em;
     height: 2rem;
-    padding: 0 0 0 1rem;
+    /* padding: 0 0 0 1rem; */
     display: flex;
     align-items: center;
 }
 
 .category-item {
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 10px;
 }
 
 .food-card {
-    margin-top: 20px;
     border: 0.5px solid #b2bec3;
     background-color: #ffffff;
+    width: 250px;
+    height: 400px;
+    margin: 10px 0;
+    border-radius: 5px;
 }
 
 .category-item .food-card>img {

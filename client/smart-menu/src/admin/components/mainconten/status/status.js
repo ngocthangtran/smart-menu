@@ -6,134 +6,134 @@ class status extends Component {
     render() {
         return (
             <>
-                <div class="row">
-                    <div class="box">
-                        <div class="counter-title">
+                <div className="row">
+                    <div className="box">
+                        <div className="counter-title">
                             Số bàn sử dụng
                     </div>
-                        <div class="counter-info">
-                            <div class="counter-count">
+                        <div className="counter-info">
+                            <div className="counter-count">
                                 6060
                         </div>
-                            <i class='bx bxs-category'></i>
+                            <i className='bx bxs-category'></i>
                         </div>
                     </div>
-                    <div class="box">
-                        <div class="counter-title">
+                    <div className="box">
+                        <div className="counter-title">
                             Số món đã bán
                     </div>
-                        <div class="counter-info">
-                            <div class="counter-count">
+                        <div className="counter-info">
+                            <div className="counter-count">
                                 50
                         </div>
-                            <i class='bx bx-shopping-bag'></i>
+                            <i className='bx bx-shopping-bag'></i>
                         </div>
                     </div>
-                    <div class="box">
-                        <div class="counter-title">
+                    <div className="box">
+                        <div className="counter-title">
                             Thu nhập
                     </div>
-                        <div class="counter-info">
-                            <div class="counter-count">
+                        <div className="counter-info">
+                            <div className="counter-count">
                                 9.520.000đ
                         </div>
-                            <i class='bx bx-dollar'></i>
+                            <i className='bx bx-dollar'></i>
                         </div>
                     </div>
                 </div>
-                <div class="tables">
+                <div className="tables">
                     <div className='cards'>
-                        <div class="card">
-                            <div class="card-head">
-                                <div class="card-name">
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
                                     Bàn 1
                             </div>
-                                <div class="card-status">
+                                <div className="card-status">
                                     Trống
-                                <div class="dot green"></div>
+                                <div className="dot green"></div>
                                 </div>
                             </div>
-                            <div class="card-info">
-                                <div class="card-info-title">
+                            <div className="card-info">
+                                <div className="card-info-title">
                                     Số người: <br></br> số món: <br></br> Số tiền:
                                 </div>
-                                <div class="card-info-count">
+                                <div className="card-info-count">
                                     5 <br></br> 3 <br></br> 1.500.200đ
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-head">
-                                <div class="card-name">
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
                                     Bàn 1
                             </div>
-                                <div class="card-status">
+                                <div className="card-status">
                                     Trống
-                                <div class="dot green"></div>
+                                <div className="dot green"></div>
                                 </div>
                             </div>
-                            <div class="card-info">
-                                <div class="card-info-title">
+                            <div className="card-info">
+                                <div className="card-info-title">
                                     Số người: <br></br> số món: <br></br> Số tiền:
                                 </div>
-                                <div class="card-info-count">
+                                <div className="card-info-count">
                                     5 <br></br> 3 <br></br> 1.500.200đ
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-head">
-                                <div class="card-name">
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
                                     Bàn 1
                             </div>
-                                <div class="card-status">
+                                <div className="card-status">
                                     Trống
-                                <div class="dot green"></div>
+                                <div className="dot green"></div>
                                 </div>
                             </div>
-                            <div class="card-info">
-                                <div class="card-info-title">
+                            <div className="card-info">
+                                <div className="card-info-title">
                                     Số người: <br></br> số món: <br></br> Số tiền:
                                 </div>
-                                <div class="card-info-count">
+                                <div className="card-info-count">
                                     5 <br></br> 3 <br></br> 1.500.200đ
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-head">
-                                <div class="card-name">
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
                                     Bàn 1
                             </div>
-                                <div class="card-status">
+                                <div className="card-status">
                                     Trống
-                                <div class="dot green"></div>
+                                <div className="dot green"></div>
                                 </div>
                             </div>
-                            <div class="card-info">
-                                <div class="card-info-title">
+                            <div className="card-info">
+                                <div className="card-info-title">
                                     Số người: <br></br> số món: <br></br> Số tiền:
                                 </div>
-                                <div class="card-info-count">
+                                <div className="card-info-count">
                                     5 <br></br> 3 <br></br> 1.500.200đ
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-head">
-                                <div class="card-name">
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
                                     Bàn 1
                             </div>
-                                <div class="card-status">
+                                <div className="card-status">
                                     Trống
-                                <div class="dot green"></div>
+                                <div className="dot green"></div>
                                 </div>
                             </div>
-                            <div class="card-info">
-                                <div class="card-info-title">
+                            <div className="card-info">
+                                <div className="card-info-title">
                                     Số người: <br></br> số món: <br></br> Số tiền:
                                 </div>
-                                <div class="card-info-count">
+                                <div className="card-info-count">
                                     5 <br></br> 3 <br></br> 1.500.200đ
                                 </div>
                             </div>
