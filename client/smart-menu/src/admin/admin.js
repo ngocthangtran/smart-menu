@@ -42,7 +42,7 @@ class admin extends Component {
                 let dropdown_content_lis = dropdown_content.querySelectorAll('li')
 
                 let active_height = dropdown_content_lis[0].clientHeight * dropdown_content_lis.length
-                console.log(dropdown_content_lis[0].clientHeight)
+                // console.log(dropdown_content_lis[0].clientHeight)
 
                 dropdown_content.classList.toggle('active')
 
