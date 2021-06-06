@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import { shortenMoney } from '../../../../utils/shortenMoney';
 import { getAddMenu } from '../../../Api-admin';
 
 import './menu.css'
 
 const CardFood = (props) => {
     const { productDetail } = props
-    const minPrice = productDetail.side.M
+    var minPrice = productDetail.side[0]
+    productDetail.side.map(item=>{
+        if(item<minPrice){
+            minPrice = item
+        }
+    })
     return (
         <div className="food-card">
             <img src={productDetail.link_img} alt=""></img>
@@ -25,7 +31,7 @@ const CardFood = (props) => {
                             Giá:
                                          </div>
                         <div className="text-conten">
-                            Từ {minPrice}
+                            Từ {shortenMoney(minPrice)}
                         </div>
                     </div>
                 </div>

@@ -25,8 +25,8 @@ function getData(nameRef) {
 
 function addData(nameRef, data, res) {
     const ref = database.ref(nameRef)
-    console.log(typeof(data))
     const key = ref.child('posts').push().key;
+    data.key = key
     ref.child(key).set(data, function (error) {
         if (error) {
             res.status(200).send({

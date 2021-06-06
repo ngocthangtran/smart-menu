@@ -1,6 +1,6 @@
 Menu:
 - Product:
-    Lấy sản phẩm: Method: GET localhost:3000/menu
+    Lấy sản phẩm: Method: GET localhost:3000/menu/product
 
     Thêm sản phẩm: Method: POST localhost:3000/menu/addproduct
         - body{

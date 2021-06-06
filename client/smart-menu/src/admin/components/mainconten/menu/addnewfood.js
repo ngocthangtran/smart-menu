@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { storage } from "../../../Api-admin/firebase";
+
 import { shortenMoney } from '../../../../utils/shortenMoney';
-import { getAddMenu } from '../../../Api-admin';
+import { addDataProduct, getAddMenu } from '../../../Api-admin';
 
 
 import './addnewfood.css'
@@ -10,19 +12,26 @@ class addnewfood extends Component {
         this.state = {
             name: '',
             category: [],
+            categorySelect: '',
             link_img: '',
-            side: {
-                1: 150000,
-                2: 200000,
-                3: 250000,
-            },
+            side: [150000,200000,250000],
             imgAsFile: {},
             price: ''
         }
+        this.addName = this.addName.bind(this);
         this.uploadToFireBase = this.uploadToFireBase.bind(this);
         this.deletePrice = this.deletePrice.bind(this);
         this.addPrice = this.addPrice.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
+        this.addNewCategoty = this.addNewCategoty.bind(this)
+        this.selectOnchange = this.selectOnchange.bind(this)
+        this.postData = this.postData.bind(this)
+    }
+
+    addName(e) {
+        this.setState({
+            name: e.target.value
+        })
     }
 
     onClickAddPrice() {
@@ -45,26 +54,36 @@ class addnewfood extends Component {
     }
     deletePrice(item) {
         var { side } = this.state
-        delete side[item]
+        side.splice(item, 1)
         this.setState({
             side: side
         })
     }
 
     addPrice(e) {
-        e.preventDefault();
         this.setState({
-            price: e.target.value
+            price: parseInt(e.target.value)
         })
     }
     onKeyUp(e) {
         if (e.charCode === 13) {
-            const { side } = this.state;
-            side[Object.keys(side).length + 1] = this.state.price
-            this.setState({
-                side: side,
-                price: ''
-            })
+            if (e.target.id === "addNewPrice") {
+                const { side } = this.state;
+                side.push(this.state.price) 
+                console.log(side)
+                this.setState({
+                    side: side,
+                    price: ''
+                })
+            }
+            if (e.target.id === "addNewCategory") {
+                const { category } = this.state;
+                category.push(e.target.value)
+                this.setState({
+                    categorySelect: e.target.value,
+                    categorySelect: ''
+                })
+            }
         }
     }
     selectOnchange(e) {
@@ -74,22 +93,59 @@ class addnewfood extends Component {
             dropdownInput.style.height = dropdownInput.classList.contains('active') ? '95px' : '0'
             dropdownInput.style.marginBottom = dropdownInput.classList.contains('active') ? '60px' : '0'
         }
-        else{
+        else {
             dropdownInput.classList.remove('active')
             dropdownInput.style.height = dropdownInput.classList.contains('active') ? '95px' : '0'
             dropdownInput.style.marginBottom = dropdownInput.classList.contains('active') ? '60px' : '0'
+            this.setState({
+                categorySelect: e.target.value
+            })
         }
+
+    }
+    addNewCategoty(e) {
+        this.setState({
+            categorySelect: e.target.value
+        })
     }
     componentDidMount() {
+        var dropdownInput = document.querySelector('.dropdown-input.all');
+        dropdownInput.classList.toggle('active')
+        dropdownInput.style.height = dropdownInput.classList.contains('active') ? '95px' : '0'
+        dropdownInput.style.marginBottom = dropdownInput.classList.contains('active') ? '60px' : '0'
         getAddMenu().then(res => {
             this.setState({
                 category: Object.keys(res.data)
             })
         })
     }
+
+    postData() {
+        //uploadImg
+        const { imgAsFile } = this.state
+        const upLoadTask = storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
+        upLoadTask.on('state_changed',
+            (snapShot) => {
+                console.log(snapShot)
+            }, (err) => {
+                console.error(err)
+            }, () => {
+                storage.ref('images').child(imgAsFile.name).getDownloadURL()
+                    .then(fireBaseUrl => {
+                        //tra link img
+                        const dataConvent = {
+                            "category": this.state.categorySelect,
+                            "name": this.state.name,
+                            "link_img": fireBaseUrl,
+                            "side": this.state.side
+                        }
+                        addDataProduct(dataConvent).then(res=>console.log(res)).catch(err=>console.log(err))
+                    })
+            })
+    }
+
     render() {
         const { category, side } = this.state
-        console.log(category)
         return (
             <>
                 <div className="signup-form" action="/register" method="post">
@@ -101,23 +157,22 @@ class addnewfood extends Component {
                             <div className="form-group left">
                                 <label className="label-title">Tên món *</label>
                                 <input type="text" id="firstname" className="form-input" placeholder="Nhập tên món ở đây"
-                                    required="required" />
+                                    value={this.state.name} onChange={this.addName} />
                             </div>
                             <div className="form-group right">
                                 <label className="label-title">Danh mục</label>
                                 <select className="form-input" onChange={this.selectOnchange}>
-                                    <option>Hấp</option>
-                                    <option>Nướng</option>
-                                    <option>Xào</option>
-                                    <option>Chiên</option>
                                     <option >Thêm</option>
+                                    {
+                                        this.state.category.map((item, index) => <option key={index}>{item}</option>)
+                                    }
                                 </select>
                             </div>
                             <div className="dropdown-input all">
                                 <div className="form-group">
                                     <label className="label-title">Thêm danh mục *</label>
-                                    <input type="text" id="firstname" className="form-input" placeholder="Thêm danh mục"
-                                        required="required" />
+                                    <input type="text" id="addNewCategory" className="form-input" placeholder="Thêm danh mục"
+                                        value={this.state.categorySelect} onChange={this.addNewCategoty} onKeyPress={this.onKeyUp} />
                                 </div>
                             </div>
                         </div>
@@ -157,6 +212,7 @@ class addnewfood extends Component {
                                         type="number"
                                         className="form-input"
                                         placeholder="Ví dụ:150000 - Hoàn thành nhấn enter"
+                                        id="addNewPrice"
                                         value={this.state.price}
                                         onChange={this.addPrice}
                                         onKeyPress={this.onKeyUp}
@@ -169,7 +225,7 @@ class addnewfood extends Component {
                     </div>
                     <div className="form-footer">
                         <span>*Testing</span>
-                        <button type="submit" className="btn-addnewfood">Create</button>
+                        <button type="submit" className="btn-addnewfood" onClick={this.postData}>Create</button>
                     </div>
 
                 </div>
