@@ -1,5 +1,5 @@
 .row {
-    max-height: 10%;
+    /* max-height: 10%; */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -38,7 +38,7 @@
 .tables {
     position: relative;
     height: 86%;
-    margin-top: 40px;
+    margin-top: 20px;
     overflow-y: auto;
     border-radius: var(--box-boder-radius);
 }

@@ -3,7 +3,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useLocation
 } from "react-router-dom";
 
 import Status from './components/mainconten/status/status';
@@ -12,9 +13,14 @@ import AddNewFood from './components/mainconten/menu/addnewfood';
 
 import './admin.css';
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 const MainConten = (props) => {
     let Conten = props.conten
+    let query = useQuery()
+    const category = query.get('category'), key = query.get('key')
     return (
         <div className='main'>
             <div className="main-head">
@@ -23,7 +29,9 @@ const MainConten = (props) => {
                 </div>
             </div>
             <div className='main-content'>
-                <Conten />
+                <Conten
+                    category={category}
+                    productKey={key} />
             </div>
         </div>
     )
@@ -51,6 +59,7 @@ class admin extends Component {
         })
     }
     render() {
+
         return (
             <Router>
                 <div className="sidebar">
@@ -63,7 +72,7 @@ class admin extends Component {
 
                     <div className="sidebar-user">
                         <div className="sidebar-user-info">
-                            <img src={process.env.PUBLIC_URL + '/asset/img/avt.jpg'} alt="a"/>
+                            <img src={process.env.PUBLIC_URL + '/asset/img/avt.jpg'} alt="a" />
                             <div className="sidebar-user-name">
                                 Trần Ngọc Thăng
                         </div>
@@ -126,7 +135,7 @@ class admin extends Component {
                             </ul>
                         </li>
                         <li>
-                            <Link to='/'>
+                            <Link to='/test/123456'>
                                 <i className='bx bxs-user-pin bx-flip-horizontal'></i>
                                 <span>User</span>
                             </Link>
@@ -142,6 +151,9 @@ class admin extends Component {
                     </Route>
                     <Route exact path='/food'>
                         <MainConten nameMain="Thêm món mới" conten={AddNewFood} />
+                    </Route>
+                    <Route exact path='/menu/product/:key'>
+                        <MainConten nameMain="Chi tiết" conten={AddNewFood} />
                     </Route>
                 </Switch>
             </Router>

@@ -57,3 +57,4 @@ Menu:
             + err{
                 err:"dasdsadasdasd"
             }
+    Lấy một sản phẩm: Method: GET localhost:5000/menu/product/?category=Hấp&key=-MbVRM7ha66EfBvwFUb1

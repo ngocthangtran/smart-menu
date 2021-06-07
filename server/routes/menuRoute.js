@@ -11,7 +11,6 @@ route.get('/allproduct', async (req, res) => {
 route.get('/product', async (req, res) => {
     console.log(req.query)
     firebase.getaData(`product/${req.query.category}/${req.query.key}`, res);
-    // res.status(200).send(data);
 })
 
 route.post('/addproduct/', (req, res) => {

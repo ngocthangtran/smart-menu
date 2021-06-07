@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { storage } from "../../../Api-admin/firebase";
 
 import { shortenMoney } from '../../../../utils/shortenMoney';
-import { addDataProduct, getAddMenu } from '../../../Api-admin';
+import { addDataProduct, getAddMenu, getProduct } from '../../../Api-admin';
 
 
 import './addnewfood.css'
@@ -10,6 +10,7 @@ class addnewfood extends Component {
     constructor() {
         super()
         this.state = {
+            key: '',
             name: '',
             category: [],
             categorySelect: '',
@@ -118,6 +119,18 @@ class addnewfood extends Component {
                 category: Object.keys(res.data)
             })
         })
+        const { category, productKey } = this.props
+        if (category && productKey){
+            getProduct(category,productKey).then(res=>{
+                this.setState({
+                    name:res.data.name,
+                    categorySelect:res.data.category,
+                    link_img:res.data.link_img,
+                    side:res.data.side
+                })
+            })
+        }
+        
     }
 
     postData() {
