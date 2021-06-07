@@ -3,9 +3,15 @@ const express = require('express');
 const route = express.Router();
 const firebase = require('../firebase/handling');
 
-route.get('/product', async (req, res) => {
+route.get('/allproduct', async (req, res) => {
     let data = await firebase.getData('product');
     res.status(200).send(data);
+})
+
+route.get('/product', async (req, res) => {
+    console.log(req.query)
+    firebase.getaData(`product/${req.query.category}/${req.query.key}`, res);
+    // res.status(200).send(data);
 })
 
 route.post('/addproduct/', (req, res) => {
@@ -22,6 +28,5 @@ route.get('/deleteproduct', (req, res) => {
     const {key} = req.body;
     firebase.deleteData(`product/${data.category}`, key, res)
 })
-
 
 module.exports = route;

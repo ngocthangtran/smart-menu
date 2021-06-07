@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 import { shortenMoney } from '../../../../utils/shortenMoney';
 import { getAddMenu } from '../../../Api-admin';
 
@@ -6,9 +12,10 @@ import './menu.css'
 
 const CardFood = (props) => {
     const { productDetail } = props
+    console.log(productDetail)
     var minPrice = productDetail.side[0]
-    productDetail.side.map(item=>{
-        if(item<minPrice){
+    productDetail.side.map(item => {
+        if (item < minPrice) {
             minPrice = item
         }
     })
@@ -35,7 +42,10 @@ const CardFood = (props) => {
                         </div>
                     </div>
                 </div>
-                <a href="/" className="btn-detail">Chi tiết</a>
+                <div className='group-icon'>
+                    <a className="btn-detail">Chi tiết</a>
+                    <i class='bx bxs-trash-alt'></i>
+                </div>
             </div>
         </div>
     )
@@ -60,31 +70,31 @@ class menu extends Component {
     render() {
         const { products, category } = this.state;
         return (
-            <>
+            <Router>
                 <div className="category-food">
                     {
                         products.map((item, index) => {
                             return (
-                                <>
-                                    <div className="category-head" key={index}>
+                                <div key={index}>
+                                    <div className="category-head">
                                         {category[index]}
                                     </div>
                                     <div className="category-item">
                                         {
-                                            Object.values(item).map((product) => {
+                                            Object.values(item).map((product, index) => {
                                                 return (
-                                                    <CardFood productDetail={product} />
+                                                    <CardFood productDetail={product} key={index}/>
                                                 )
                                             })
                                         }
                                     </div>
-                                </>
+                                </div>
                             )
                         })
                     }
 
                 </div>
-            </>
+            </Router>
         );
     }
 }

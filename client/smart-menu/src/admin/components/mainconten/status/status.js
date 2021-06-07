@@ -138,9 +138,428 @@ class status extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-head">
+                                <div className="card-name">
+                                    Bàn 1
+                            </div>
+                                <div className="card-status">
+                                    Trống
+                                <div className="dot green"></div>
+                                </div>
+                            </div>
+                            <div className="card-info">
+                                <div className="card-info-title">
+                                    Số người: <br></br> số món: <br></br> Số tiền:
+                                </div>
+                                <div className="card-info-count">
+                                    5 <br></br> 3 <br></br> 1.500.200đ
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
+
             </>
         );
     }

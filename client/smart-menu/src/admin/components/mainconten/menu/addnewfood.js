@@ -14,7 +14,7 @@ class addnewfood extends Component {
             category: [],
             categorySelect: '',
             link_img: '',
-            side: [150000,200000,250000],
+            side: [150000, 200000, 250000],
             imgAsFile: {},
             price: ''
         }
@@ -69,7 +69,7 @@ class addnewfood extends Component {
         if (e.charCode === 13) {
             if (e.target.id === "addNewPrice") {
                 const { side } = this.state;
-                side.push(this.state.price) 
+                side.push(this.state.price)
                 console.log(side)
                 this.setState({
                     side: side,
@@ -126,9 +126,9 @@ class addnewfood extends Component {
         const upLoadTask = storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
         upLoadTask.on('state_changed',
             (snapShot) => {
-                console.log(snapShot)
+                // console.log(snapShot)
             }, (err) => {
-                console.error(err)
+                // console.error(err)
             }, () => {
                 storage.ref('images').child(imgAsFile.name).getDownloadURL()
                     .then(fireBaseUrl => {
@@ -139,7 +139,18 @@ class addnewfood extends Component {
                             "link_img": fireBaseUrl,
                             "side": this.state.side
                         }
-                        addDataProduct(dataConvent).then(res=>console.log(res)).catch(err=>console.log(err))
+                        addDataProduct(dataConvent).then(res => {
+                            alert("Thêm sản phẩm thành công")
+                            this.setState({
+                                name: '',
+                                category: [],
+                                categorySelect: '',
+                                link_img: '',
+                                side: [150000, 200000, 250000],
+                                imgAsFile: {},
+                                price: ''
+                            })
+                        }).catch(err => console.log(err))
                     })
             })
     }

@@ -2,8 +2,6 @@
     font-size: 1.3em;
     font-weight: 500;
     position: relative;
-    height: 90%;
-    overflow-y: auto;
     border-radius: var(--box-boder-radius);
 }
 
@@ -15,7 +13,7 @@
     background-color: #95a5a6;
     border-radius: 0.25em;
     height: 2rem;
-    /* padding: 0 0 0 1rem; */
+    padding: 0 0 0 1rem;
     display: flex;
     align-items: center;
 }
@@ -30,7 +28,6 @@
     border: 0.5px solid #b2bec3;
     background-color: #ffffff;
     width: 250px;
-    height: 400px;
     margin: 10px 0;
     border-radius: 5px;
 }
@@ -73,10 +70,23 @@
 .btn-detail {
     display: flex;
     background-color: #74b9ff;
-    width: 10em;
+    width: 70%;
     height: 2.2em;
     font-weight: 400;
     border-radius: 5px;
     justify-content: center;
+    align-items: center;
+}
+
+.group-icon>i{
+    font-size: 30px;
+}
+
+.group-icon{
+    margin-top: 10px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center;
 }

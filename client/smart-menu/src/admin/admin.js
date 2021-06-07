@@ -93,7 +93,7 @@ class admin extends Component {
                         </Link>
                                 </li>
                                 <li>
-                                    <Link to='/newfood'>
+                                    <Link to='/food'>
                                         Thêm món
                         </Link>
                                 </li>
@@ -140,7 +140,7 @@ class admin extends Component {
                     <Route exact path='/menu'>
                         <MainConten nameMain="Danh sách thực đơn" conten={Listmenu} />
                     </Route>
-                    <Route exact path='/newfood'>
+                    <Route exact path='/food'>
                         <MainConten nameMain="Thêm món mới" conten={AddNewFood} />
                     </Route>
                 </Switch>
