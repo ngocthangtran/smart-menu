@@ -19,8 +19,8 @@ route.post('/addproduct/', (req, res) => {
 })
 
 route.post('/repairproduct', (req, res) => {
-    const { key, data } = req.body;
-    firebase.repairData(`product/${data.category}`, data, key, res)
+    const data = req.body;
+    firebase.repairData(`product/${data.category}`, data, data.key, res)
 })
 
 route.get('/deleteproduct', (req, res) => {

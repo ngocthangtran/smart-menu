@@ -39,7 +39,7 @@ const CardFood = (props) => {
                     </div>
                 </div>
                 <div className='group-icon'>
-                    <Link to={`/menu/product/product?category=${productDetail.category}&key=${productDetail.key}`} className="btn-detail">Chi tiết</Link>
+                    <Link to={`/menu/product?category=${productDetail.category}&key=${productDetail.key}`} className="btn-detail">Chi tiết</Link>
                     <i className='bx bxs-trash-alt'></i>
                 </div>
             </div>

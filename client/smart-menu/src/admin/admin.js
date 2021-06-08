@@ -83,7 +83,7 @@ class admin extends Component {
                     </div>
                     <ul className="sidebar-menu">
                         <li>
-                            <Link to='/status' className="active">
+                            <Link to='/' className="active">
                                 <i className='bx bx-home'></i>
                                 <span>Trạng thái</span>
                             </Link>
@@ -143,7 +143,7 @@ class admin extends Component {
                     </ul>
                 </div>
                 <Switch>
-                    <Route exact path='/status'>
+                    <Route exact  path='/'>
                         <MainConten nameMain="Trạng thái" conten={Status} />
                     </Route>
                     <Route exact path='/menu'>
@@ -152,7 +152,7 @@ class admin extends Component {
                     <Route exact path='/food'>
                         <MainConten nameMain="Thêm món mới" conten={AddNewFood} />
                     </Route>
-                    <Route exact path='/menu/product/:key'>
+                    <Route exact path='/menu/:key'>
                         <MainConten nameMain="Chi tiết" conten={AddNewFood} />
                     </Route>
                 </Switch>

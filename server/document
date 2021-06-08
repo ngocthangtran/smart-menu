@@ -24,8 +24,8 @@ Menu:
             }
     sửa sản phẩm: Method: POST localhost:3000/menu/repairproduct
     - body{
-            "key":"Ma2DsLKQdoGGeLh3rUE",
             "data":{
+                "key":"Ma2DsLKQdoGGeLh3rUE",
                 "name":"Trà sữa chân châu chau",
                 "link_img":"link",
                 "side":{

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { storage } from "../../../Api-admin/firebase";
 
 import { shortenMoney } from '../../../../utils/shortenMoney';
-import { addDataProduct, getAddMenu, getProduct } from '../../../Api-admin';
+import { addDataProduct, getAddMenu, getProduct, repairData } from '../../../Api-admin';
 
 
 import './addnewfood.css'
@@ -16,8 +16,9 @@ class addnewfood extends Component {
             categorySelect: '',
             link_img: '',
             side: [150000, 200000, 250000],
-            imgAsFile: {},
-            price: ''
+            imgAsFile: null,
+            price: '',
+            demoImg: null
         }
         this.addName = this.addName.bind(this);
         this.uploadToFireBase = this.uploadToFireBase.bind(this);
@@ -27,6 +28,8 @@ class addnewfood extends Component {
         this.addNewCategoty = this.addNewCategoty.bind(this)
         this.selectOnchange = this.selectOnchange.bind(this)
         this.postData = this.postData.bind(this)
+        this.repairData = this.repairData.bind(this)
+        this.postImg = this.postImg.bind(this)
     }
 
     addName(e) {
@@ -49,7 +52,7 @@ class addnewfood extends Component {
         }
 
         this.setState({
-            link_img: URL.createObjectURL(imgAsFile),
+            demoImg: URL.createObjectURL(imgAsFile),
             imgAsFile: imgAsFile
         })
     }
@@ -109,51 +112,71 @@ class addnewfood extends Component {
             categorySelect: e.target.value
         })
     }
-    componentDidMount() {
-        var dropdownInput = document.querySelector('.dropdown-input.all');
-        dropdownInput.classList.toggle('active')
-        dropdownInput.style.height = dropdownInput.classList.contains('active') ? '95px' : '0'
-        dropdownInput.style.marginBottom = dropdownInput.classList.contains('active') ? '60px' : '0'
-        getAddMenu().then(res => {
-            this.setState({
-                category: Object.keys(res.data)
-            })
-        })
-        const { category, productKey } = this.props
-        if (category && productKey){
-            getProduct(category,productKey).then(res=>{
-                this.setState({
-                    name:res.data.name,
-                    categorySelect:res.data.category,
-                    link_img:res.data.link_img,
-                    side:res.data.side
-                })
-            })
-        }
-        
-    }
 
-    postData() {
+
+    async postImg() {
         //uploadImg
         const { imgAsFile } = this.state
         const upLoadTask = storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile)
-        upLoadTask.on('state_changed',
-            (snapShot) => {
-                // console.log(snapShot)
-            }, (err) => {
-                // console.error(err)
-            }, () => {
-                storage.ref('images').child(imgAsFile.name).getDownloadURL()
-                    .then(fireBaseUrl => {
-                        //tra link img
+        upLoadTask.on('state_changed', (snapShot) => { }, (err) => { })
+        let link = storage.ref('images').child(this.state.imgAsFile.name).getDownloadURL()
+        return link
+    }
+
+    postData() {
+        console.log(this.state.imgAsFile)
+        if (this.state.imgAsFile) {
+            this.postImg().then((res) => {
+                console.log(res)
+                const dataConvent = {
+                    "category": this.state.categorySelect,
+                    "name": this.state.name,
+                    "link_img": res,
+                    "side": this.state.side
+                }
+                console.log(dataConvent)
+                addDataProduct(dataConvent).then(res => {
+                    alert("Thêm sản phẩm thành công")
+                    this.setState({
+                        name: '',
+                        categorySelect: '',
+                        link_img: '',
+                        demoImg: null,
+                        side: [150000, 200000, 250000],
+                        imgAsFile: {},
+                        price: ''
+                    })
+                }).catch(err => {
+                    alert("Thêm sản phẩm không thành công")
+                    console.log(err)
+                })
+            })
+        }
+
+        else {
+            alert("Để dễ dàng sử dụng phải có ảnh minh họa")
+        }
+    }
+
+    repairData() {
+        if (this.state.imgAsFile) {
+            var links = this.state.link_img.split('?')[0].split('/')
+            links = links[links.length - 1].split('%2F')
+            const nameRef = links[0], nameImg = links[1]
+            storage.ref(nameRef).child(nameImg)
+                .delete()
+                .then(() => {
+                    this.postImg().then(res => {
+                        console.log(res)
                         const dataConvent = {
+                            "key": this.state.key,
                             "category": this.state.categorySelect,
                             "name": this.state.name,
-                            "link_img": fireBaseUrl,
+                            "link_img": res,
                             "side": this.state.side
                         }
-                        addDataProduct(dataConvent).then(res => {
-                            alert("Thêm sản phẩm thành công")
+                        repairData(dataConvent).then((res) => {
+                            alert("Sửa sản phẩm thành công")
                             this.setState({
                                 name: '',
                                 category: [],
@@ -161,15 +184,82 @@ class addnewfood extends Component {
                                 link_img: '',
                                 side: [150000, 200000, 250000],
                                 imgAsFile: {},
-                                price: ''
+                                price: '',
+                                demoImg: null
                             })
-                        }).catch(err => console.log(err))
+                        }).catch(err => console.error(err))
                     })
-            })
+                })
+        } else {
+            const dataConvent = {
+                "key": this.state.key,
+                "category": this.state.categorySelect,
+                "name": this.state.name,
+                "link_img": this.state.link_img,
+                "side": this.state.side,
+                demoImg: null
+            }
+            repairData(dataConvent).then((res) => {
+                alert("Sửa sản phẩm thành công")
+                this.setState({
+                    name: '',
+                    category: [],
+                    categorySelect: '',
+                    link_img: '',
+                    side: [150000, 200000, 250000],
+                    imgAsFile: {},
+                    price: '',
+                    demoImg: null
+                })
+            }).catch(err => console.error(err))
+        }
     }
 
+    componentDidMount() {
+        var dropdownInput = document.querySelector('.dropdown-input.all');
+        dropdownInput.classList.toggle('active')
+        dropdownInput.style.height = dropdownInput.classList.contains('active') ? '95px' : '0'
+        dropdownInput.style.marginBottom = dropdownInput.classList.contains('active') ? '60px' : '0'
+
+        getAddMenu().then(res => {
+            this.setState({
+                category: Object.keys(res.data)
+            })
+        })
+        const { category, productKey } = this.props
+        if (category && productKey) {
+            getProduct(category, productKey).then(res => {
+                this.setState({
+                    name: res.data.name,
+                    categorySelect: res.data.category,
+                    link_img: res.data.link_img,
+                    demoImg: res.data.link_img,
+                    side: res.data.side,
+                    key: productKey
+                })
+            })
+            dropdownInput.classList.remove('active')
+            dropdownInput.style.height = dropdownInput.classList.contains('active') ? '95px' : '0'
+            dropdownInput.style.marginBottom = dropdownInput.classList.contains('active') ? '60px' : '0'
+        }
+
+    }
+    componentWillReceiveProps() {
+        if (this.props.category === null) {
+            this.setState({
+                key: '',
+                name: '',
+                categorySelect: '',
+                link_img: '',
+                side: [150000, 200000, 250000],
+                imgAsFile: {},
+                price: '',
+                demoImg: null
+            })
+        }
+    }
     render() {
-        const { category, side } = this.state
+        const { side } = this.state
         return (
             <>
                 <div className="signup-form" action="/register" method="post">
@@ -186,10 +276,19 @@ class addnewfood extends Component {
                             <div className="form-group right">
                                 <label className="label-title">Danh mục</label>
                                 <select className="form-input" onChange={this.selectOnchange}>
-                                    <option >Thêm</option>
                                     {
-                                        this.state.category.map((item, index) => <option key={index}>{item}</option>)
+                                        this.state.category.map((item, index) => {
+                                            if (this.state.categorySelect === item) {
+                                                return (
+                                                    <option selected='selected' key={index}>{item}</option>
+                                                )
+                                            }
+                                            return (
+                                                <option key={index}>{item}</option>
+                                            )
+                                        })
                                     }
+                                    <option >Thêm</option>
                                 </select>
                             </div>
                             <div className="dropdown-input all">
@@ -207,7 +306,7 @@ class addnewfood extends Component {
                             </div>
                             <div className="form-group right">
                                 <img src={
-                                    this.state.link_img.length !== 0 ? this.state.link_img : process.env.PUBLIC_URL + '/asset/img/no-img.png'
+                                    this.state.demoImg != null ? this.state.demoImg : process.env.PUBLIC_URL + '/asset/img/no-img.png'
                                 }
                                     alt=""></img>
                             </div>
@@ -249,7 +348,13 @@ class addnewfood extends Component {
                     </div>
                     <div className="form-footer">
                         <span>*Testing</span>
-                        <button type="submit" className="btn-addnewfood" onClick={this.postData}>Create</button>
+                        {
+                            this.props.category != null && <button className="btn-addnewfood" onClick={this.repairData}>Hoàn thành</button>
+                        }
+                        {
+                            this.props.category == null && <button className="btn-addnewfood" onClick={this.postData}>Thêm món</button>
+                        }
+
                     </div>
 
                 </div>
