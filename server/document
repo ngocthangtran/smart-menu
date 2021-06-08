@@ -44,7 +44,7 @@ Menu:
             + err{
                 err:"dasdsadasdasd"
             }
-    Xóa sản phẩm: Method: POST localhost:3000/menu/deleteproduct
+    Xóa sản phẩm: Method: GET localhost:3000/menu/deleteproduct
      - body{
             "key":"Ma2DsLKQdoGGeLh3rUE",
         }

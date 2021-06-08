@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { storage } from "../../../Api-admin/firebase";
 
 import { shortenMoney } from '../../../../utils/shortenMoney';
-import { addDataProduct, getAddMenu, getProduct, repairData } from '../../../Api-admin';
+import { addDataProduct, getAddMenu, getProduct, repairProduct } from '../../../Api-admin';
 
 
 import './addnewfood.css'
@@ -175,7 +175,7 @@ class addnewfood extends Component {
                             "link_img": res,
                             "side": this.state.side
                         }
-                        repairData(dataConvent).then((res) => {
+                        repairProduct(dataConvent).then((res) => {
                             alert("Sửa sản phẩm thành công")
                             this.setState({
                                 name: '',
@@ -199,7 +199,7 @@ class addnewfood extends Component {
                 "side": this.state.side,
                 demoImg: null
             }
-            repairData(dataConvent).then((res) => {
+            repairProduct(dataConvent).then((res) => {
                 alert("Sửa sản phẩm thành công")
                 this.setState({
                     name: '',

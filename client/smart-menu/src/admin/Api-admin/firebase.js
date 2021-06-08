@@ -1,20 +1,30 @@
 import firebase from 'firebase/app';
 import 'firebase/storage'
+import 'firebase/database'
 
 var firebaseConfig = {
-    apiKey: "AIzaSyCylXcB_gWmWG7segUUasaqNu4pYRbpZw8",
-    authDomain: "test-fa7d0.firebaseapp.com",
-    projectId: "test-fa7d0",
-    storageBucket: "test-fa7d0.appspot.com",
-    messagingSenderId: "351398061682",
-    appId: "1:351398061682:web:53c8414d93d6631d4404eb",
-    measurementId: "G-7LPHEVZKSR"
+    apiKey: "AIzaSyDOVvt4pDHFUZ52fdyFvn38UWi3jU0-nTo",
+    authDomain: "smart-menu-d89c1.firebaseapp.com",
+    databaseURL: "https://smart-menu-d89c1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "smart-menu-d89c1",
+    storageBucket: "smart-menu-d89c1.appspot.com",
+    messagingSenderId: "787219176254",
+    appId: "1:787219176254:web:c38ebfe85207cd80c36a6f",
+    measurementId: "G-5Y191LWY7G"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const storage = firebase.storage()
+const database = firebase.database();
 // firebase.analytics();
 
+const deleteImg = (link_img) => {
+    var links = link_img.split('?')[0].split('/')
+    links = links[links.length - 1].split('%2F')
+    const nameRef = links[0], nameImg = links[1]
+    return storage.ref(nameRef).child(nameImg).delete();
+}
+
 export {
-    storage, firebase as default
+    deleteImg, storage, database, firebase as default
 }

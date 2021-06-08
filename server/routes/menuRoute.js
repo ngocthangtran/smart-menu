@@ -23,9 +23,9 @@ route.post('/repairproduct', (req, res) => {
     firebase.repairData(`product/${data.category}`, data, data.key, res)
 })
 
-route.get('/deleteproduct', (req, res) => {
-    const {key} = req.body;
-    firebase.deleteData(`product/${data.category}`, key, res)
+route.get('/deleteproduct/', (req, res) => {
+    const { category, key } = req.query;
+    firebase.deleteData(`product/${category}`, key, res)
 })
 
 module.exports = route;

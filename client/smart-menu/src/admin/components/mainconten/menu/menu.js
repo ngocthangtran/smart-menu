@@ -3,7 +3,8 @@ import {
     Link
 } from "react-router-dom";
 import { shortenMoney } from '../../../../utils/shortenMoney';
-import { getAddMenu } from '../../../Api-admin';
+import { addDataProduct, deleteProduct, getAddMenu } from '../../../Api-admin';
+import { database, deleteImg } from '../../../Api-admin/firebase';
 
 import './menu.css'
 
@@ -15,6 +16,16 @@ const CardFood = (props) => {
             minPrice = item
         }
     })
+    const deleteData = () => {
+        const { link_img } = productDetail;
+        deleteImg(link_img).then((res) => {
+            console.log(res)
+            console.log("Xoa anh thanh cong")
+        })
+        deleteProduct(productDetail.category, productDetail.key).then(res => {
+            console.log(res)
+        }).catch(err => console.log(err))
+    }
     return (
         <div className="food-card">
             <img src={productDetail.link_img} alt=""></img>
@@ -40,7 +51,7 @@ const CardFood = (props) => {
                 </div>
                 <div className='group-icon'>
                     <Link to={`/menu/product?category=${productDetail.category}&key=${productDetail.key}`} className="btn-detail">Chi tiết</Link>
-                    <i className='bx bxs-trash-alt'></i>
+                    <i className='bx bxs-trash-alt' onClick={deleteData}></i>
                 </div>
             </div>
         </div>
@@ -56,12 +67,16 @@ class menu extends Component {
         }
     }
     componentDidMount() {
-        getAddMenu().then(res => {
+        database.ref('product').on('value', (listProduct) => {
+            var data = listProduct.val()
             this.setState({
-                category: Object.keys(res.data).map(k => k),
-                products: Object.keys(res.data).map(k => res.data[k])
+                category: Object.keys(data).map(k => k),
+                products: Object.keys(data).map(k => data[k])
             })
         })
+
+        // getAddMenu().then(res => {
+        // })
     }
     render() {
         const { products, category } = this.state;
