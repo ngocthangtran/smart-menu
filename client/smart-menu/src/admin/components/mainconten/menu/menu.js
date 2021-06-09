@@ -3,7 +3,7 @@ import {
     Link
 } from "react-router-dom";
 import { shortenMoney } from '../../../../utils/shortenMoney';
-import { addDataProduct, deleteProduct, getAddMenu } from '../../../Api-admin';
+import { deleteProduct } from '../../../Api-admin';
 import { database, deleteImg } from '../../../Api-admin/firebase';
 
 import './menu.css'
@@ -69,10 +69,12 @@ class menu extends Component {
     componentDidMount() {
         database.ref('product').on('value', (listProduct) => {
             var data = listProduct.val()
-            this.setState({
-                category: Object.keys(data).map(k => k),
-                products: Object.keys(data).map(k => data[k])
-            })
+            if(data){
+                this.setState({
+                    category: Object.keys(data).map(k => k),
+                    products: Object.keys(data).map(k => data[k])
+                })
+            }
         })
 
         // getAddMenu().then(res => {
