@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {
     Link
 } from "react-router-dom";
-import { shortenMoney } from '../../../../utils/shortenMoney';
-import { deleteProduct } from '../../../Api-admin';
-import { database, deleteImg } from '../../../Api-admin/firebase';
+import { shortenMoney } from '../../../utils/shortenMoney';
+import { deleteProduct } from '../../Api-admin';
+import { database, deleteImg } from '../../../utils/firebase';
 
 import './menu.css'
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { storage } from "../../../Api-admin/firebase";
+import { storage } from "../../../utils/firebase";
 
-import { shortenMoney } from '../../../../utils/shortenMoney';
-import { addDataProduct, getAddMenu, getProduct, repairProduct } from '../../../Api-admin';
+import { shortenMoney } from '../../../utils/shortenMoney';
+import { addDataProduct, getAddMenu, getProduct, repairProduct } from '../../Api-admin';
 
 
 import './addnewfood.css'

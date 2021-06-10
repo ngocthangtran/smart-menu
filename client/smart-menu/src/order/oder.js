@@ -1,10 +1,21 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-// import {BrowserRouter as Router, Link, } from 'react-router-dom'
+import { database } from '../utils/firebase';
+import { BrowserRouter as Router, Link, Route, Switch, useLocation } from 'react-router-dom'
 
 import './oder.css'
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 const Header = (props) => {
+    const { category } = props;
+
+    let query = useQuery()
+    const categoryName = query.get('category')
+    console.log(categoryName)
+
     useEffect(() => {
         const togglee = document.getElementById('header-menu'),
             nav = document.getElementById('nav-menu');
@@ -12,6 +23,7 @@ const Header = (props) => {
             nav.classList.toggle('show')
             togglee.classList.toggle('bx-x')
         })
+
     })
     return (
         <div className="header">
@@ -34,12 +46,15 @@ const Header = (props) => {
                     </div>
                     <div className="nav-menu">
                         <ul className="nav-list">
-                            {/* <li className="nav-item"><a href="" className="nav-link active">Hấp</a></li>
-                            <li className="nav-item"><a href="" className="nav-link"></a>Nướng</li>
-                            <li className="nav-item"><a href="" className="nav-link"></a>Xào</li>
-                            <li className="nav-item"><a href="" className="nav-link"></a>Lẩu</li>
-                            <li className="nav-item"><a href="" className="nav-link"></a>Đồ uống</li> */}
-
+                            {
+                                Object.keys(category).length != 0 && category.map((item, index) => {
+                                    return (
+                                        <li className="nav-item" key={index}>
+                                            <Link to={`/?category=${item}`} className="nav-link active">{item}</Link>
+                                        </li>
+                                    )
+                                })
+                            }
                         </ul>
                     </div>
                 </div>
@@ -51,16 +66,13 @@ const Header = (props) => {
 
 
 const Conten = (props) => {
-    const arr = [1, 2, 3, 4]
+
+    
+
+
     return (
         <div className="cards-food">
-            {
-                arr.map((el, i) => {
-                    return (
-                        <Card number={el} key={i}/>
-                    )
-                })
-            }
+            <Card />
         </div>
     )
 }
@@ -86,7 +98,7 @@ const Card = (props) => {
                     </div>
                 </div>
             </div>
-            <div className={classNames('card-details',{'active':clickCardFood})}  >
+            <div className={classNames('card-details', { 'active': clickCardFood })}  >
                 <div className="count">
                     <div className="plus">
                         -
@@ -114,32 +126,44 @@ const Card = (props) => {
     )
 }
 
-const ShowCard = (props)=>{
-    return(
-        <div class="shop-cart">
-        <div class="icon-show">
-            <i class='bx bx-chevron-up'></i>
-        </div>
-        <div class="shop-cart-conten">
-            <div class="item">
-                <i class='bx bx-x'></i>
-                <img src="https://cdn.caythuocdangian.com/2019/05/de-hap-la-tia-to.jpg"
-                    alt=""></img>
+const ShowCard = (props) => {
+    return (
+        <div className="shop-cart">
+            <div className="icon-show">
+                <i className='bx bx-chevron-up'></i>
+            </div>
+            <div className="shop-cart-conten">
+                <div className="item">
+                    <i className='bx bx-x'></i>
+                    <img src="https://cdn.caythuocdangian.com/2019/05/de-hap-la-tia-to.jpg"
+                        alt=""></img>
+                </div>
             </div>
         </div>
-    </div>
     )
 }
 
 
-function oder(props) {
+function Oder(props) {
+    const [products, setProducts] = useState(0),
+        [category, setCategory] = useState({})
+
+    useEffect(() => {
+        database.ref('product').on('value', (listProduct) => {
+            var data = listProduct.val()
+            if (data) {
+                setCategory(Object.keys(data).map(k => k))
+                setProducts(Object.keys(data).map(k => data[k]))
+            }
+        })
+    }, [])
     return (
-        <>
-            <Header />
+        <Router>
+            <Header category={category} />
             <Conten />
-            <ShowCard/>
-        </>
+            <ShowCard />
+        </Router>
     );
 }
 
-export default oder;
+export default Oder;

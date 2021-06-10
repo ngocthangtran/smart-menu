@@ -7,9 +7,9 @@ import {
     useLocation
 } from "react-router-dom";
 
-import Status from './components/mainconten/status/status';
-import Listmenu from './components/mainconten/menu/menu';
-import AddNewFood from './components/mainconten/menu/addnewfood';
+import Status from './components/status/status';
+import Listmenu from './components/menu/menu';
+import AddNewFood from './components/menu/addnewfood';
 
 import './admin.css';
 
@@ -21,6 +21,7 @@ const MainConten = (props) => {
     let Conten = props.conten
     let query = useQuery()
     const category = query.get('category'), key = query.get('key')
+    console.log(category)
     return (
         <div className='main'>
             <div className="main-head">
