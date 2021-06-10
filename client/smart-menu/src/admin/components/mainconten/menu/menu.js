@@ -11,11 +11,12 @@ import './menu.css'
 const CardFood = (props) => {
     const { productDetail } = props
     var minPrice = productDetail.side[0]
-    productDetail.side.map(item => {
-        if (item < minPrice) {
-            minPrice = item
+    productDetail.side.forEach(element => {
+        if (element < minPrice) {
+            minPrice = element
         }
-    })
+    });
+
     const deleteData = () => {
         const { link_img } = productDetail;
         deleteImg(link_img).then((res) => {
@@ -69,7 +70,7 @@ class menu extends Component {
     componentDidMount() {
         database.ref('product').on('value', (listProduct) => {
             var data = listProduct.val()
-            if(data){
+            if (data) {
                 this.setState({
                     category: Object.keys(data).map(k => k),
                     products: Object.keys(data).map(k => data[k])

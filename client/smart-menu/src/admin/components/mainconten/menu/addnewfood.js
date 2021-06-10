@@ -85,7 +85,7 @@ class addnewfood extends Component {
                 category.push(e.target.value)
                 this.setState({
                     categorySelect: e.target.value,
-                    categorySelect: ''
+                    // categorySelect: ''
                 })
             }
         }
