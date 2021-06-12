@@ -140,7 +140,11 @@ a {
     }
 
     .nav-link {
-        color: var(--first-color-light);
+        color: white;
+    }
+
+    .nav-link.active{
+        color: black;
     }
 
     .show {

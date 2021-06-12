@@ -4,6 +4,7 @@ import { database } from '../utils/firebase';
 import { BrowserRouter as Router, Link, Route, Switch, useLocation } from 'react-router-dom'
 
 import './oder.css'
+import { shortenMoney } from '../utils/shortenMoney';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -11,31 +12,41 @@ function useQuery() {
 
 const Header = (props) => {
     const { category } = props;
-
-    let query = useQuery()
+    const query = useQuery()
     const categoryName = query.get('category')
-    console.log(categoryName)
+    // useEffect(() => {
+    //     const navLink = document.querySelectorAll('.nav-link');
+    //     function linkAction() {
+    //         /*Active link*/
+    //         navLink.forEach(n => n.classList.remove('active'));
+    //         navLink.forEach(n => console.log(n));
 
-    useEffect(() => {
-        const togglee = document.getElementById('header-menu'),
-            nav = document.getElementById('nav-menu');
-        togglee.addEventListener('click', () => {
-            nav.classList.toggle('show')
-            togglee.classList.toggle('bx-x')
-        })
+    //         this.classList.add('active');
+    //     }
+    //     navLink.forEach(n => n.addEventListener('click', linkAction));
+    // })
 
-    })
+    // handing click class: header-toggle
+    const [isClickToggle, setIsClickToggle] = useState(false)
+    const onClickToggle = () => {
+        setIsClickToggle(!isClickToggle)
+    }
+
+    //handling onclik link
+    const onClickLink = ()=>{
+        setIsClickToggle(!isClickToggle)
+    }
     return (
         <div className="header">
             <a href="#" className="header-logo">
                 Nhà hàng Hưng Thịnh
-        </a>
+            </a>
 
-            <div className="header-toggle">
+            <div className="header-toggle" onClick={onClickToggle}>
                 <i className='bx bx-menu' id='header-menu'></i>
             </div>
 
-            <nav className="nav" id='nav-menu'>
+            <nav className={classNames('nav', { 'show': isClickToggle })} id='nav-menu'>
                 <div className="nav-conten bg-gril">
                     <div className="nav-perfil">
                         <div className="nav-img">
@@ -47,10 +58,17 @@ const Header = (props) => {
                     <div className="nav-menu">
                         <ul className="nav-list">
                             {
-                                Object.keys(category).length != 0 && category.map((item, index) => {
+                                Object.keys(category).length !== 0 && category.map((item, index) => {
                                     return (
                                         <li className="nav-item" key={index}>
-                                            <Link to={`/?category=${item}`} className="nav-link active">{item}</Link>
+                                            {/* {
+                                                category[index]=== categoryName&&
+                                            } */}
+                                            <Link to={`/?category=${item}`}
+                                                className={classNames('nav-link', { 'active': categoryName ===category[index]})} 
+                                                onClick={onClickLink}>
+                                                {item}
+                                            </Link>
                                         </li>
                                     )
                                 })
@@ -66,13 +84,29 @@ const Header = (props) => {
 
 
 const Conten = (props) => {
-
-    
-
-
+    let query = useQuery()
+    const categoryName = query.get('category')
+    const [data, setData] = useState({})
+    var ref = `product/${categoryName != null ? categoryName : props.category[0]}`
+    useEffect(() => {
+        database.ref(ref).on("value", res => {
+            if (res.val()) {
+                setData(res.val())
+            }
+        })
+    }, [ref])
     return (
         <div className="cards-food">
-            <Card />
+            {
+                Object.keys(data).length === 0 && <div>No product</div>
+            }
+            {
+                Object.keys(data).length !== 0 && Object.keys(data).map(item => {
+                    return (
+                        <Card product={data[item]} key={data[item].key} />
+                    )
+                })
+            }
         </div>
     )
 }
@@ -80,6 +114,9 @@ const Conten = (props) => {
 const Card = (props) => {
 
     const [clickCardFood, setClickCardFood] = useState(false);
+    const { category, link_img, name, side } = props.product
+    var sizeMax = Math.max(...side)
+        , sizeMin = Math.min(...side)
 
     function onclickCardFood() {
         setClickCardFood(!clickCardFood)
@@ -89,12 +126,14 @@ const Card = (props) => {
     return (
         <div className="card-food" onClick={onclickCardFood}>
             <div className="card-food-info">
-                <img src="https://cdn.caythuocdangian.com/2019/05/de-hap-la-tia-to.jpg" alt="" className="card-image"></img>
+                <img src={link_img} alt="" className="card-image"></img>
                 <div className="card-conten">
                     <div className="food-info">
-                        Dê hấp xả tía tô
+                        {name}
                         <br></br>
-                        (150k -200k)
+                        {
+                            `${shortenMoney(sizeMin)}-${shortenMoney(sizeMax)}`
+                        }
                     </div>
                 </div>
             </div>
@@ -111,12 +150,15 @@ const Card = (props) => {
                     </div>
                 </div>
                 <div className="btn-price">
-                    <div className="btn btn-price">
-                        150k
-                    </div>
-                    <div className="btn btn-price">
-                        200k
-                    </div>
+                    {
+                        side.map((item, index) => {
+                            return (
+                                <div className="btn btn-price" key={index}>
+                                    {shortenMoney(item)}
+                                </div>
+                            )
+                        })
+                    }
                 </div>
                 <div className="btn seleter">
                     Lưu lựa chọn
@@ -126,7 +168,7 @@ const Card = (props) => {
     )
 }
 
-const ShowCard = (props) => {
+const ShopCard = (props) => {
     return (
         <div className="shop-cart">
             <div className="icon-show">
@@ -160,8 +202,8 @@ function Oder(props) {
     return (
         <Router>
             <Header category={category} />
-            <Conten />
-            <ShowCard />
+            <Conten category={category} />
+            <ShopCard />
         </Router>
     );
 }
