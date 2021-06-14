@@ -14,17 +14,6 @@ const Header = (props) => {
     const { category } = props;
     const query = useQuery()
     const categoryName = query.get('category')
-    // useEffect(() => {
-    //     const navLink = document.querySelectorAll('.nav-link');
-    //     function linkAction() {
-    //         /*Active link*/
-    //         navLink.forEach(n => n.classList.remove('active'));
-    //         navLink.forEach(n => console.log(n));
-
-    //         this.classList.add('active');
-    //     }
-    //     navLink.forEach(n => n.addEventListener('click', linkAction));
-    // })
 
     // handing click class: header-toggle
     const [isClickToggle, setIsClickToggle] = useState(false)
@@ -33,7 +22,7 @@ const Header = (props) => {
     }
 
     //handling onclik link
-    const onClickLink = ()=>{
+    const onClickLink = () => {
         setIsClickToggle(!isClickToggle)
     }
     return (
@@ -61,11 +50,8 @@ const Header = (props) => {
                                 Object.keys(category).length !== 0 && category.map((item, index) => {
                                     return (
                                         <li className="nav-item" key={index}>
-                                            {/* {
-                                                category[index]=== categoryName&&
-                                            } */}
                                             <Link to={`/?category=${item}`}
-                                                className={classNames('nav-link', { 'active': categoryName ===category[index]})} 
+                                                className={classNames('nav-link', { 'active': categoryName === category[index] })}
                                                 onClick={onClickLink}>
                                                 {item}
                                             </Link>
@@ -112,7 +98,9 @@ const Conten = (props) => {
 }
 
 const Card = (props) => {
-
+    useEffect(() => {
+    })
+    //handling click food-card-info
     const [clickCardFood, setClickCardFood] = useState(false);
     const { category, link_img, name, side } = props.product
     var sizeMax = Math.max(...side)
@@ -121,11 +109,27 @@ const Card = (props) => {
     function onclickCardFood() {
         setClickCardFood(!clickCardFood)
     }
-    useEffect(() => {
-    })
+
+    //handling counter
+    const [count, setCount] = useState(1);
+    const clickPlus = () => {
+        setCount(count + 1)
+    }
+    const clickMinus = () => {
+        if (count === 0) return
+        setCount(count - 1)
+    }
+
+    //handling select price
+    const [price, setPrice] = useState([])
+    const selectPrice = (e) => {
+        console.log(e.target.id)
+    }
+
+    //handling btn select
     return (
-        <div className="card-food" onClick={onclickCardFood}>
-            <div className="card-food-info">
+        <div className="card-food">
+            <div className="card-food-info" onClick={onclickCardFood}>
                 <img src={link_img} alt="" className="card-image"></img>
                 <div className="card-conten">
                     <div className="food-info">
@@ -139,13 +143,13 @@ const Card = (props) => {
             </div>
             <div className={classNames('card-details', { 'active': clickCardFood })}  >
                 <div className="count">
-                    <div className="plus">
+                    <div className="minus" onClick={clickMinus}>
                         -
                     </div>
                     <div className="number-count">
-                        2
+                        {count}
                     </div>
-                    <div className="minus">
+                    <div className="plus" onClick={clickPlus}>
                         +
                     </div>
                 </div>
@@ -153,7 +157,7 @@ const Card = (props) => {
                     {
                         side.map((item, index) => {
                             return (
-                                <div className="btn btn-price" key={index}>
+                                <div className="btn btn-price" key={index} onClick={selectPrice} id={item}>
                                     {shortenMoney(item)}
                                 </div>
                             )
