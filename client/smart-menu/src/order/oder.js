@@ -98,14 +98,11 @@ const Conten = (props) => {
 }
 
 const Card = (props) => {
-    useEffect(() => {
-    })
     //handling click food-card-info
     const [clickCardFood, setClickCardFood] = useState(false);
-    const { category, link_img, name, side } = props.product
+    const { category, link_img, name, side, key } = props.product
     var sizeMax = Math.max(...side)
         , sizeMin = Math.min(...side)
-
     function onclickCardFood() {
         setClickCardFood(!clickCardFood)
     }
@@ -120,13 +117,32 @@ const Card = (props) => {
         setCount(count - 1)
     }
 
-    //handling select price
-    const [price, setPrice] = useState([])
-    const selectPrice = (e) => {
-        console.log(e.target.id)
+    //handling select prices
+    const [prices, setPrices] = useState(0)
+    const [select, setSelect] = useState(new Array(side.length).fill(false))
+    const pushItem = (itemSelect) => {
+        setPrices(itemSelect)
+        const newSelect=[]
+        side.map((item, index)=>{
+            if(item===itemSelect){
+                newSelect.push(true)
+            }
+            newSelect.push(false)
+        })
+        setSelect(
+            newSelect
+        )
     }
 
     //handling btn select
+    const clickBtnSleter = () => {
+        console.log({
+            name :name,
+            sl:count,
+            price:prices,
+            key : key
+        })
+    }
     return (
         <div className="card-food">
             <div className="card-food-info" onClick={onclickCardFood}>
@@ -157,17 +173,31 @@ const Card = (props) => {
                     {
                         side.map((item, index) => {
                             return (
-                                <div className="btn btn-price" key={index} onClick={selectPrice} id={item}>
-                                    {shortenMoney(item)}
-                                </div>
+                                <ListPrice item={item} key={index} pushItem={pushItem} select={select[index]} />
                             )
                         })
                     }
                 </div>
-                <div className="btn seleter">
+                <div className="btn seleter" onClick={clickBtnSleter}>
                     Lưu lựa chọn
                 </div>
             </div>
+        </div>
+    )
+}
+
+const ListPrice = (props) => {
+    const { item, pushItem, select } = props
+    const selectPrice = (item) => {
+        pushItem(item)
+    }
+    return (
+        <div
+            className={classNames('btn btn-price', { 'active': select })}
+            onClick={() => {
+                selectPrice(item)
+            }} >
+            {shortenMoney(item)}
         </div>
     )
 }
