@@ -81,6 +81,12 @@ const Conten = (props) => {
             }
         })
     }, [ref])
+
+    //hading data oder
+    const postData = (data) => {
+        props.getDataOder(data)
+    }
+
     return (
         <div className="cards-food">
             {
@@ -89,7 +95,7 @@ const Conten = (props) => {
             {
                 Object.keys(data).length !== 0 && Object.keys(data).map(item => {
                     return (
-                        <Card product={data[item]} key={data[item].key} />
+                        <Card product={data[item]} key={data[item].key} postData={postData} />
                     )
                 })
             }
@@ -97,10 +103,12 @@ const Conten = (props) => {
     )
 }
 
+
+
 const Card = (props) => {
     //handling click food-card-info
     const [clickCardFood, setClickCardFood] = useState(false);
-    const { category, link_img, name, side, key } = props.product
+    const { link_img, name, side, key } = props.product
     var sizeMax = Math.max(...side)
         , sizeMin = Math.min(...side)
     function onclickCardFood() {
@@ -122,9 +130,9 @@ const Card = (props) => {
     const [select, setSelect] = useState(new Array(side.length).fill(false))
     const pushItem = (itemSelect) => {
         setPrices(itemSelect)
-        const newSelect=[]
-        side.map((item, index)=>{
-            if(item===itemSelect){
+        const newSelect = []
+        side.map((item, index) => {
+            if (item === itemSelect) {
                 newSelect.push(true)
             }
             newSelect.push(false)
@@ -136,12 +144,15 @@ const Card = (props) => {
 
     //handling btn select
     const clickBtnSleter = () => {
-        console.log({
-            name :name,
-            sl:count,
-            price:prices,
-            key : key
-        })
+        const item = {
+            name: name,
+            sl: count,
+            price: prices,
+            key: key,
+            link_img: link_img
+        }
+        props.postData(item)
+        setClickCardFood(!clickCardFood)
     }
     return (
         <div className="card-food">
@@ -186,6 +197,7 @@ const Card = (props) => {
     )
 }
 
+
 const ListPrice = (props) => {
     const { item, pushItem, select } = props
     const selectPrice = (item) => {
@@ -203,27 +215,34 @@ const ListPrice = (props) => {
 }
 
 const ShopCard = (props) => {
+    const { data } = props;
     return (
         <div className="shop-cart">
             <div className="icon-show">
                 <i className='bx bx-chevron-up'></i>
             </div>
             <div className="shop-cart-conten">
-                <div className="item">
-                    <i className='bx bx-x'></i>
-                    <img src="https://cdn.caythuocdangian.com/2019/05/de-hap-la-tia-to.jpg"
-                        alt=""></img>
-                </div>
+                {
+                    data.map((item, index) => {
+                        return (
+                            <div className="item" key={index}>
+                                <i className='bx bx-x'></i>
+                                <img src={item.link_img}
+                                    alt=""></img>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )
 }
 
-
 function Oder(props) {
     const [products, setProducts] = useState(0),
-        [category, setCategory] = useState({})
+        [category, setCategory] = useState({});
 
+    //handling shop card
     useEffect(() => {
         database.ref('product').on('value', (listProduct) => {
             var data = listProduct.val()
@@ -232,12 +251,23 @@ function Oder(props) {
                 setProducts(Object.keys(data).map(k => data[k]))
             }
         })
+
     }, [])
+
+    //handling data oder
+    const [datasOder, setDataOder] = useState([]);
+    const getDataOder = (data) => {
+        const newDataOder = [...datasOder]
+        newDataOder.push(data);
+        setDataOder(newDataOder)
+
+    }
+
     return (
         <Router>
             <Header category={category} />
-            <Conten category={category} />
-            <ShopCard />
+            <Conten category={category} getDataOder={getDataOder} />
+            <ShopCard data={datasOder} />
         </Router>
     );
 }
