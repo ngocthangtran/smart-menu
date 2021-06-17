@@ -58,3 +58,68 @@ Menu:
                 err:"dasdsadasdasd"
             }
     Lấy một sản phẩm: Method: GET localhost:5000/menu/product/?category=Hấp&key=-MbVRM7ha66EfBvwFUb1
+- Oder:
+    Tạo bàn Oder: Method: GET Localhost:3000/oder/:keyTable
+    Body: none
+    - res 
+        + complete:
+        {
+            "message": "add oder successful",
+            "keyTable": data.keyTable
+        }
+        + err:
+        {
+            "message": "more failed oder"
+        }
+        or 
+        {
+            "message": "more failed oder",
+            "Details": "desk in use"
+        }
+
+    Thêm danh sách món vào bàn trong oder:
+    Method: POST Localhost:3000/oder/:keyTable
+    - Body:
+    {
+        "KeyMon": {
+            "name": "Dê hấp tía tô",
+            "sl": 6,
+            "price": 200000,
+            "key": "-Mbia4p5MArVnOAgkWKf",
+            "link_img": "https://firebasestorage.googleapis.com/v0/b/smart-menu-d89c1.appspot.com/o/images%2Fimg-9362-5272.jpg?alt=media&token=b612503d-8d94-4bbb-b5b0-170a60aab5f2"
+        }
+    }
+    - res
+        + complete:
+        {
+           "message": "Add food complete", 
+        }
+        + err:
+        {
+            message:err
+        }
+    Xóa sản phẩm khỏi bàn trong oder:
+    Method: POST Localhost:3000/oder/deletefood/:keyTable/:keyProduct
+    - Body: none
+    - res
+        + complete:
+        {
+           "message": "Delete food complete", 
+        }
+        + err:
+        {
+            message:err
+        }
+    Xóa bàn trong oder:
+    Method: POST Localhost:3000/oder/deletetable/:keyTable
+    - Body: none
+    - res
+        + complete:
+        {
+           "message": "Delete table complete", 
+        }
+        + err:
+        {
+            message:err
+        }
+
