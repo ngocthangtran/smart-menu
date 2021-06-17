@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 const qr = require('qr-image')
-const database = require('../firebase/handling')
+const database = require('../firebase/handlingRealtime')
 
 route.get('/qrimg', (req, res) => {
     var code = qr.image('https://www.facebook.com/tranthangit/', { type: 'png' });

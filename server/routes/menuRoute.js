@@ -1,30 +1,30 @@
 const express = require('express');
 const route = express.Router();
-const firebase = require('../firebase/handling');
+const Menu = require('../Controllers/MenuRouter');
 
 route.get('/allproduct', async (req, res) => {
-    let data = await firebase.getData('product');
+    let data = await Menu.getData('product');
     res.status(200).send(data);
 })
 
 route.get('/product', async (req, res) => {
     console.log(req.query)
-    firebase.getaData(`product/${req.query.category}/${req.query.key}`, res);
+    Menu.getaData(`product/${req.query.category}/${req.query.key}`, res);
 })
 
 route.post('/addproduct/', (req, res) => {
     const data = req.body;
-    firebase.addData(`product/${data.category}`, data, res);
+    Menu.addData(`product/${data.category}`, data, res);
 })
 
 route.post('/repairproduct', (req, res) => {
     const data = req.body;
-    firebase.repairData(`product/${data.category}`, data, data.key, res)
+    Menu.repairData(`product/${data.category}`, data, data.key, res)
 })
 
 route.get('/deleteproduct/', (req, res) => {
     const { category, key } = req.query;
-    firebase.deleteData(`product/${category}`, key, res)
+    Menu.deleteData(`product/${category}`, key, res)
 })
 
 module.exports = route;
