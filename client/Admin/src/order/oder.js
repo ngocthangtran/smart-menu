@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Link, Route, Switch, useLocation } from 'react
 import './oder.css'
 import { shortenMoney } from '../utils/shortenMoney';
 
+const tableKey = "-McEm9sL4p5yHByBiNpB"
+
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
@@ -260,7 +262,7 @@ function Oder(props) {
         const newDataOder = [...datasOder]
         newDataOder.push(data);
         setDataOder(newDataOder)
-
+        console.log(newDataOder)
     }
 
     return (
