@@ -1,0 +1,66 @@
+.product {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: cadetblue;
+    height: calc(100% - 7rem);
+
+    &__info {
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    &__image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    &__image>img {
+        border-radius: 50%;
+        width: 25rem;
+        height: 25rem;
+        object-fit: cover;
+    }
+}
+
+.details {
+    background-color: #95a5a6;
+    padding: 10px 20px;
+
+    &__count {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__btn {
+        border: 1px solid black;
+        width: 1.5em;
+        height: 1.5em;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__value {
+        display: block;
+        width: 2em;
+        background: none;
+        border: 1px solid black;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+
+    }
+
+    &__value:focus {
+        outline: none;
+    }
+}

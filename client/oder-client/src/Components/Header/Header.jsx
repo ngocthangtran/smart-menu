@@ -22,7 +22,7 @@ function Header(props) {
     return (
         <header className="header">
             <div className="header__title">
-                <img src={Image.logo} className="header__logo"></img>
+                <img src={Image.logo} className="header__logo" alt="logo not found"></img>
                 <h2 className="header__name">{name}</h2>
             </div>
             <ul className={active ? "header__menu active":"header__menu"}>
@@ -31,7 +31,7 @@ function Header(props) {
                 <li className="header__tag"><a href="/">Nướng</a></li>
             </ul>
             <div className="header__toggle" onClick={activeMenu}>
-                <i class='bx bx-menu'></i>
+                <i className='bx bx-menu'></i>
             </div>
         </header>
     );
