@@ -1,3 +1,11 @@
 .oder{
     height: calc(100vh - 3rem)
 }
+
+@media screen and (max-width:750px) {
+    .oder{
+        padding-top:2.5rem ;
+        width: 100%;
+        // height: calc(100vh - 2.5rem);
+    }   
+}

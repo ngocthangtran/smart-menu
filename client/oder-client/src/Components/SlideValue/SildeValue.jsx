@@ -24,11 +24,11 @@ SlideValue.defaultProps = {
         },
         {
             value: 100,
-            label: "200k",
+            label: "250k",
             price: 250000
         }
     ],
-    widthSlide: 400
+    // widthSlide: 1000
 }
 
 export default function SlideValue(props) {
@@ -46,7 +46,7 @@ export default function SlideValue(props) {
             <Slider
                 style={{
                     width: widthSlide,
-                    height:400
+                    color:'black'
                 }}
                 defaultValue={50}
                 valueLabelFormat={valueLabelFormat}

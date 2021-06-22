@@ -4,10 +4,11 @@ import Oder from './Features/Oder/index';
 
 function App(props) {
   return (
-    <div>
+    <>
         <Header name="Nhà hàng hưng thịnh"/>
         <Oder/>
-    </div>
+        
+    </>
   );
 }
 
