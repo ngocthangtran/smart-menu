@@ -1,8 +1,35 @@
-.listproduct{
+.listproduct {
     position: fixed;
     z-index: 99;
     width: 100%;
-    height: 4rem;
-    background-color: black;
+    height: 5rem;
+    background-color: #ecf0f1;
     bottom: 0;
+    display: flex;
+}
+
+.shopcart {
+    // background-color: ;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.list {
+    // background-color: chartreuse;
+    width: 100%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    padding-left: 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    overflow-y: hidden;
+
+    &>div {
+        margin-left: 10px;
+    }
 }
