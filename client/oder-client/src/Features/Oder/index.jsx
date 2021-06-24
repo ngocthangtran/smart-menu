@@ -1,24 +1,18 @@
 import React from 'react';
-import { useState } from 'react';
-import ListProduct from './Components/Listproduct/ListProduct';
-import Product from './Components/Product/Product';
+import {Switch, Route, useRouteMatch} from 'react-router-dom'
 import './oder.scss'
+import OderMain from './Features/OderMain/oder'
+import ShopCart from './Features/ShopCart/ShopCart';
+
 function Index(props) {
-
-    const [viewDetails, setViewDitails] = useState(false)
-
-    const clickOderNow = () => {
-        setViewDitails(!viewDetails)
-    }
-
-
+    const Match = useRouteMatch();
+    
     return (
         <div className='oder'>
-            <Product
-                viewDetail={viewDetails}
-                clickOderNow = {clickOderNow}
-            />
-            <ListProduct/>
+            <Switch>
+                <Route exact path={Match.url} component={OderMain}/>
+                <Route path={`${Match.url}/shopcart`} component={ShopCart}/>
+            </Switch>
         </div>
     );
 }

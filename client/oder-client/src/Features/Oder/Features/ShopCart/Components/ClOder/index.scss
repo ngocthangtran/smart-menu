@@ -1,0 +1,11 @@
+.customfoodter{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    & .sum{
+        text-align: right;
+        margin: auto 0;
+        padding-right: 10px;
+    }
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './index.scss'
-import { Image } from '../../Constants/Image';
+import { Image } from '../../../../Constants/Image';
 
 Header.propTypes = {
     name: PropTypes.string,

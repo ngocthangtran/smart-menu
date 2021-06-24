@@ -40,9 +40,9 @@ export default function SlideValue(props) {
     }
     return (
         <>
-            <Typography id="discrete-slider-restrict" gutterBottom>
+            {/* <Typography id="discrete-slider-restrict" gutterBottom>
                 {nameSlide}
-            </Typography>
+            </Typography> */}
             <Slider
                 style={{
                     width: widthSlide,

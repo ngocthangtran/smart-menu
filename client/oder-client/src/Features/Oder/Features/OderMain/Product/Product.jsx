@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './product.scss';
 import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import SlideValue from '../../../../Components/SlideValue/SildeValue'
+import SlideValue from '../../../../../Components/SlideValue/SildeValue'
 import { useEffect } from 'react';
 
 Product.propTypes = {
@@ -34,19 +34,14 @@ function Product(props) {
     }
 
     useEffect(() => {
-        var setHeight = 65;
-        const detailsElement = document.querySelector('.details')
-        Object.keys(detailsElement.children).map(item => {
-            setHeight += detailsElement.children[item].offsetHeight
-        })
-        
-        const activeDetails = document.querySelector('.details.active');
-        if(viewDetail){
-            console.log(activeDetails)
-            activeDetails.style.height=`${setHeight}px`
-        }else{
-            detailsElement.style.height=`0px`
-        }
+
+        // const detailsElement = document.querySelector('.details')
+        // const activeDetails = document.querySelector('.details.active');
+        // if (viewDetail) {
+        //     activeDetails.style.height = '160px'
+        // } else {
+        //     detailsElement.style.height = `0px`
+        // }
     })
 
     return (
@@ -54,17 +49,20 @@ function Product(props) {
             <div className="product__info">
                 <h1>{name}</h1>
                 <div>{describe}</div>
-                <div className={viewDetail ? 'details active' : 'details'} id='test'>
-                    Số lượng
+                <div className={viewDetail ? 'details active' : 'details'}>
+                    <div>
+                        Số lượng
+                    </div>
                     <div className='details__count'>
-                        <div className="details__btn">
+                        <div className="btn">
                             -
                         </div>
-                        <input className='details__value' value={0}></input>
-                        <div className="details__btn">
+                        <div className="btn" contenteditable="true" suppressContentEditableWarning={true}>4</div>
+                        <div className="btn">
                             +
                         </div>
                     </div>
+                    <div>Giá</div>
                     <SlideValue />
                 </div>
                 <Button
