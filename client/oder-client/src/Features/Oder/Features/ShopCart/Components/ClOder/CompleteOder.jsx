@@ -11,8 +11,9 @@ function CompleteOder(props) {
             <div className='customfoodter'>
                 <div className='sum'>
                     Tổng tiền thanh toán
-                    <br/>
+                    <br />
                     đ1.530.000
+                    <br/>
                 </div>
                 <Button
                     variant="contained"
@@ -23,7 +24,7 @@ function CompleteOder(props) {
                         borderRadius: 'uset'
                     }}
                 >
-                    Báo món
+                    Báo món (5)
                 </Button>
             </div>
         </>
