@@ -8,7 +8,7 @@ import {useRouteMatch} from 'react-router-dom'
 
 function SideBar(props) {
 
-    const [activeName, setActiveName] = useState('');
+    const [activeName, setActiveName] = useState('Trạng thái');
     const onClick = (name) => {
         setActiveName(name)
     }

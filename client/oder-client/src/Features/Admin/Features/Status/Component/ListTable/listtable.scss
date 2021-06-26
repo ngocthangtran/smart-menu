@@ -1,0 +1,9 @@
+.listtable {
+    width: 100%;
+    // height: calc(100vh - 5rem - 8rem);
+    margin-top: 8rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 10px;
+}

@@ -1,12 +1,12 @@
 .statistical {
-    width: calc(100% - 30%);
+    width: calc(100% - 25%);
     height: 8rem;
     position: fixed;
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-
+    background-color: #dadadb;
     &-item {
         width: 100%;
         height: 100%;
@@ -29,8 +29,4 @@
             font-weight: 600;
         }
     }
-}
-
-.listtable {
-    margin-top: 5rem;
 }

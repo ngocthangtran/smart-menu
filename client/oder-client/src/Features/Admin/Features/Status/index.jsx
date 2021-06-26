@@ -1,5 +1,6 @@
 import React from 'react';
 import MainHeader from '../../Components/MainHeader/MainHeader';
+import ListTable from './Component/ListTable/ListTable';
 import './index.scss'
 function index(props) {
     return (
@@ -15,7 +16,7 @@ function index(props) {
                             <div>
                                 4000
                             </div>
-                            <i class='bx bxs-category' style={{
+                            <i className='bx bxs-category' style={{
                                 color: '#0984e3'
                             }}></i>
                         </div>
@@ -28,7 +29,7 @@ function index(props) {
                             <div>
                                 23
                             </div>
-                            <i class='bx bx-shopping-bag' style={{
+                            <i className='bx bx-shopping-bag' style={{
                                 color: '#0984e3'
                             }} ></i>
                         </div>
@@ -41,14 +42,13 @@ function index(props) {
                             <div>
                                 12.540.000
                             </div>
-                            <i class='bx bx-dollar' style={{
+                            <i className='bx bx-dollar' style={{
                                 color: '#0984e3'
                             }}  ></i>
                         </div>
                     </div>
                 </div>
-                <div className="listtable">
-                </div>
+                <ListTable />
             </div>
         </>
     );
