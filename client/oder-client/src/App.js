@@ -1,6 +1,6 @@
 import React from 'react';
-import HeaderOder from './Features/Oder/Components/Header/Header';
 import Oder from './Features/Oder/index';
+import Admin from './Features/Admin/index';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 
@@ -9,9 +9,10 @@ function App(props) {
   return (
     <>
       <Router>
-        <HeaderOder name="Nhà hàng hưng thịnh" />
+
         <Switch>
-          <Redirect exact from='/' to='/oder' />
+          <Redirect exact from='/' to='/admin' />
+          <Route path='/admin' component={Admin} />
           <Route path='/oder' component={Oder} />
         </Switch>
       </Router>

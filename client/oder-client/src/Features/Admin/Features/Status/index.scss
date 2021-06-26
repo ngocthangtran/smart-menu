@@ -1,0 +1,36 @@
+.statistical {
+    width: calc(100% - 30%);
+    height: 8rem;
+    position: fixed;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    &-item {
+        width: 100%;
+        height: 100%;
+        background-color: blue;
+        border-radius: 10px;
+        background-color: #ffffff;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &-title{
+            font-size: 1.25em;
+            font-weight: 400;
+        }
+        &-count{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+    }
+}
+
+.listtable {
+    margin-top: 5rem;
+}

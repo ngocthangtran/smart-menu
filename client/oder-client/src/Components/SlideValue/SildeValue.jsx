@@ -1,16 +1,13 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import PropTypes from 'prop-types';
 import { shortenMoney } from "../../utils/convertPrice";
 
 SlideValue.propTypes = {
-    nameSlide: PropTypes.string,
     listValue: PropTypes.array,
     widthSlide: PropTypes.number
 };
 SlideValue.defaultProps = {
-    nameSlide: 'Giá sản phẩm',
     listValue: [
         {
             value: 0,
@@ -32,7 +29,7 @@ SlideValue.defaultProps = {
 }
 
 export default function SlideValue(props) {
-    const { nameSlide, listValue, widthSlide } = props
+    const { listValue, widthSlide } = props
     function valueLabelFormat(value) {
         const index = listValue.findIndex((mark) => mark.value === value)
         return shortenMoney(listValue[index].price)

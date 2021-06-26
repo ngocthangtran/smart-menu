@@ -1,0 +1,121 @@
+.side-bar {
+    width: calc(100% - 70%);
+    background-color: #ffffff;
+    padding: 10px 20px;
+    position: fixed;
+    height: 100vh;
+    border-right: 0.25px solid rgb(236, 234, 234);
+
+    &-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-logo>img {
+        border-top-left-radius: 50%;
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+    }
+
+    &-info {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        position: relative;
+
+        &>i {
+            font-size: 1.5rem;
+            position: absolute;
+            right: 0;
+        }
+    }
+}
+
+.info {
+    &-logo>img {
+        width: 40px;
+        height: 40px;
+
+        object-fit: cover;
+        border-radius: 20%;
+    }
+
+    &-name {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+}
+
+.sidebar-menu {
+    position: relative;
+    padding-top: 10px;
+    list-style-type: none;
+
+    & ul {
+        list-style-type: none;
+
+    }
+
+    a {
+
+        width: 100%;
+        text-decoration: none;
+        color: black;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-transform: capitalize;
+        transition: color 0.2s ease-in-out;
+    }
+
+    a:hover {
+        color: #d63031;
+    }
+
+    span {
+        margin-left: 10px;
+    }
+
+    .active {
+        background-color: rgba(62, 121, 247, 0.1);
+        color: #0652dd;
+    }
+
+    &-dropdown {
+        padding: 0 50px;
+        height: 0;
+        overflow-y: hidden;
+        transition: height 0.25s ease-in-out;
+
+        & a {
+            font-size: 1.15rem;
+        }
+
+        & a.active {
+            background-color: unset;
+        }
+
+        &.active {
+            height: 90px;
+            background-color: unset;
+        }
+    }
+
+
+    & .dropdown-icon {
+        position: absolute;
+        right: 0;
+        background-color: unset;
+        transition: transform 0.4s ease-in-out;
+        color: black;
+    }
+
+    & .dropdown-icon.active {
+        transform: rotate(180deg);
+    }
+}
