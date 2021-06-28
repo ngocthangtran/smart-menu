@@ -4,7 +4,6 @@ import Admin from './Features/Admin/index';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 
-
 function App(props) {
   return (
     <>
@@ -16,6 +15,7 @@ function App(props) {
           <Route path='/oder' component={Oder} />
         </Switch>
       </Router>
+
     </>
   );
 }

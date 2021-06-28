@@ -45,19 +45,7 @@ function SideBar(props) {
                         {name:'Thêm Món', href:'/addfood'},
                     ]}
                 />
-                {/* <li>
-                    <a className='active' >
-                        <i className='bx bx-food-menu'></i>
-                        <span>Thực đơn</span>
-                        <div className='dropdown-icon active'>
-                            <i className='bx bx-chevron-down'></i>
-                        </div>
-                    </a>
-                    <ul className='sidebar-menu-dropdown active'>
-                        <li><a href="/" className='active'>Danh sách</a></li>
-                        <li><a href="/">Thêm món</a></li>
-                    </ul>
-                </li> */}
+                
             </ul>
         </div>
     );

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './table.scss';
-import { orange } from '@material-ui/core/colors';
 
 const colorStatus = {
     'Trống': 'green',
