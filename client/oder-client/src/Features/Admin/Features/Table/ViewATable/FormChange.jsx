@@ -33,7 +33,7 @@ function FormChange(props) {
                 formilProps => {
                     const { values, touched, errors } = formilProps;
                     return (
-                        <Form>
+                        <Form className="infoFood">
                             <FastField
                                 name='name'
                                 component={InputField}

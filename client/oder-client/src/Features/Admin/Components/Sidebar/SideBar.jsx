@@ -41,8 +41,8 @@ function SideBar(props) {
                     onClick={onClick}
                     classNameParent={activeName === 'Thực đơn'}
                     nameChild={[
-                        {name:'Danh sách', href:'/foodlist'},
-                        {name:'Thêm Món', href:'/addfood'},
+                        {name:'Danh sách', href:`${Match.url}/menu`},
+                        {name:'Thêm Món', href:`${Match.url}/addfood`},
                     ]}
                 />
                 

@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 RecipeReviewCard.propTypes = {
     name:PropTypes.string,
-    price:PropTypes.number,
+    price:PropTypes.array,
     describeProduct:PropTypes.string,
     linkImg:PropTypes.string
 }

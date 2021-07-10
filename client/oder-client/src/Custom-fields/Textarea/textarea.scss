@@ -1,0 +1,26 @@
+.textarea__placeholder {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #979797;
+    border-radius: 5px;
+    position: relative;
+
+    &>textarea {
+        width: 100%;
+        height: 100%;
+        border: none;
+        padding: 18.5px 14px;
+
+    }
+
+    &>textarea:focus {
+        outline: none;
+    }
+
+    &>label {
+        color: rgba(0, 0, 0, 0.54);
+        position: absolute;
+        left: 14px;
+        top: 18.5px;
+    }
+}

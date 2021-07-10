@@ -166,7 +166,7 @@ export default function CardConten() {
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const [dataView, setDataView] = useState(demoData[Object.keys(demoData)[0]])
-    
+
     const handleChange = (event, newValue) => {
 
         // console.log(event.target.outerText)
@@ -193,7 +193,7 @@ export default function CardConten() {
                         {
                             Object.keys(dataView).map((item, index) => {
                                 return (
-                                    <Grid item xs={4}>
+                                    <Grid item xs={4} key={index}>
                                         <CardFood
                                             name={dataView[item].name}
                                             price={dataView[item].size}

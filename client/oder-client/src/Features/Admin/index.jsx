@@ -4,6 +4,7 @@ import Main from './Components/Main/Main';
 import Status from './Features/Status/index'
 import ViewATable from './Features/Table/ViewATable/ViewATable';
 import Menu from './Features/Menu';
+import AddFood from './Features/Menu/AddProduct/index';
 import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
 
 import'./index.scss'
@@ -23,6 +24,9 @@ function Index(props) {
                 </Route>
                 <Route path={`${Match.url}/menu`} >
                     <Main Component={Menu} />
+                </Route>
+                <Route path={`${Match.url}/addfood`} >
+                    <Main Component={AddFood} />
                 </Route>
             </Switch>
         </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+
 
 InputFields.propTypes = {
-    field: PropTypes.object.isRequired,
-    form: PropTypes.object.isRequired,
+    field: PropTypes.object,
+    form: PropTypes.object,
 
     lable: PropTypes.string,
     disabled: PropTypes.bool,
@@ -18,33 +18,26 @@ InputFields.defaultProps = {
     type: 'text'
 }
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-            width: '25ch',
-        },
-    },
-}));
+
 
 function InputFields(props) {
     const { field, form, lable, disabled, type } = props
-    const classes = useStyles();
-    return (
-        <div>
-            <TextField id="outlined-basic" label={lable} variant="outlined"
-                {
-                ...field
-                }
-                disabled={disabled}
-                type={type}
+    const { errors, touched } = form;
+    const showErrors = errors[field.name] && touched[field.name]
 
-                style={{
-                    width: '100%',
-                }}
-                className={classes.test}
-            />
-        </div>
+    return (
+        <TextField id="outlined-basic" label={lable} variant="outlined"
+            {
+            ...field
+            }
+            onKeyDown={field.onChange}
+            disabled={disabled}
+            type={type}
+            style={{ width: '100%' }}
+            error={showErrors ? true : false}
+            helperText={showErrors ? errors[field.name] : ''}
+        />
+
     );
 }
 
