@@ -10,6 +10,11 @@ import Textarea from '../../../../../Custom-fields/Textarea/Textarea';
 import { Button } from '@material-ui/core'
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addfood } from './addFood';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { storage } from '../../../../../utils/firebase';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -65,17 +70,43 @@ function Index(props) {
     const initialValues = {
         name: '', price: '', listPrice: [150000, 250000, 300000], imgAsFile: '', category: '', descirbeFood: ''
     }
-
+    const dispatch = useDispatch();
     const validationSchema = yup.object().shape({
         name: yup.string().required('Tên món không được để trống'),
         category: yup.string().required('Bạn chưa chọn danh mục cho món ăn'),
-        imgAsFile: yup.object().required('Bắt buộc phải có ảnh minh họa'),
-        listPrice:yup.array().min(1,'Sản phẩm phải có ít nhất một giá')
+        imgAsFile: yup.string().required('Hình ảnh còn trống'),
+        listPrice: yup.array().min(1, 'Sản phẩm phải có ít nhất một giá')
     })
 
-    const handlingSubmit = values => {
-    }
+    const handlingSubmit = async values => {
 
+        var { name, listPrice, imgAsFile, category, descirbeFood } = values;
+        if (descirbeFood.length === 0) {
+            descirbeFood = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+        const uploadTask = await storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile);
+        const linkImg = await storage.ref('images').child(imgAsFile.name).getDownloadURL()
+            .then(fireBaseUrl => {
+                return fireBaseUrl
+            })
+
+        const data = {
+            "category": category,
+            "name": name,
+            "link_img": linkImg,
+            "describe": descirbeFood,
+            "size": listPrice
+        }
+
+        try {
+            const action = addfood(data);
+            const actionResult = await dispatch(action);
+            unwrapResult(actionResult);
+        } catch (error) {
+            console.log("Error", error)
+        }
+
+    }
     function onKeyDown(keyEvent) {
         if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
             keyEvent.preventDefault();
@@ -94,7 +125,7 @@ function Index(props) {
                 >
                     {
                         formikProps => {
-                            const { values } = formikProps;
+                            const { values, isSubmitting } = formikProps;
                             return (
                                 <Form className={classes.form} onKeyDown={onKeyDown}>
                                     <div className={classes.inputName}>
@@ -151,7 +182,10 @@ function Index(props) {
                                         color="secondary"
                                         disableElevation
                                         type='submit'
-                                        endIcon={<DoneOutlineIcon />}
+                                        
+                                        endIcon={
+                                            isSubmitting ? <CircularProgress/> :<DoneOutlineIcon />
+                                        }
                                         style={{
                                             gridColumnStart: 2,
                                             // padding:10,

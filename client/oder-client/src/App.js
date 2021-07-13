@@ -9,13 +9,11 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 function App(props) {
   const dispatch = useDispatch()
-  const data = useSelector(state => state.allfood)
   useEffect(async () => {
     try {
       const action = getAllProduct()
       const actionResult = await dispatch(action)
       const currenListFood = unwrapResult(actionResult);
-      console.log(currenListFood)
     } catch (error) {
       console.log('Error get all product', error);
     }

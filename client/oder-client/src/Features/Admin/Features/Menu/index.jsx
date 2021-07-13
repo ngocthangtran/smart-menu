@@ -83,7 +83,6 @@ export default function CardConten(props) {
     const [value, setValue] = useState(0);
     const { data: demoData, loading, error } = useSelector(state => state.allfood)
     const [dataView, setDataView] = useState({})
-    console.log(error)
     useEffect(() => {
         if (Object.keys(demoData).length !== 0) {
             setDataView(demoData[Object.keys(demoData)[0]])

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import ListFoodAPI from '../API/listFoodApi';
+import ListFoodAPI from '../API/MenuApi';
 
 export const getAllProduct = createAsyncThunk('ListFood/getAllProduct', async (prams, thunkAPI) => {
     const ListProduct = await ListFoodAPI.getAll();
@@ -19,7 +19,7 @@ const listFoodSlice = createSlice({
         },
         [getAllProduct.fulfilled]: (state, actions) => {
             state.loading = false;
-            state.data = actions.payload;
+            state.data = actions.payload
         },
         [getAllProduct.rejected]: (state, actions) => {
             state.loading = false;

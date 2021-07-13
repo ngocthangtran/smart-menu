@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button';
-import {FormHelperText} from '@material-ui/core';
+import { FormHelperText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -28,27 +28,28 @@ const useStyles = makeStyles((theme) => ({
     },
     input: {
         display: 'none',
-        height:200
+        height: 200
     },
 }));
 
 function InputFile(props) {
     const { field, form, accept, lable, type } = props
 
-    const {errors, touched} = form;
+    const { errors, touched } = form;
     const showError = errors[field.name] && touched[field.name]
-    console.log(showError)
     const classes = useStyles();
-
-    const onSelectFile = event=>{
-        field.onChange({
-            target:{
-                name:field.name,
-                value:event.target.files[0]
-            }
-        })
+    const onSelectFile = event => {
+        if (event.target.files[0]) {
+            field.onChange({
+                target: {
+                    name: field.name,
+                    value: event.target.files[0]
+                }
+            })
+        }
     }
-
+    const onBlur = (event) => {
+    }
 
     return (
         <>
@@ -58,20 +59,20 @@ function InputFile(props) {
                 id="contained-button-file"
                 multiple
                 type={type}
-                
                 onChange={onSelectFile}
+
             />
             <label htmlFor="contained-button-file" >
                 <Button variant="contained"
                     style={{ width: '100%', height: '100%' }}
                     color='primary'
                     component="span"
-                    endIcon={<PhotoCamera/>}
+                    endIcon={<PhotoCamera />}
                 >
                     {lable}
                 </Button>
                 {
-                    showError&&<FormHelperText error>Phải có hình ảnh minh họa</FormHelperText>
+                    showError && <FormHelperText error>Phải có hình ảnh minh họa</FormHelperText>
                 }
             </label>
         </>

@@ -32,6 +32,7 @@ function FormChange(props) {
             {
                 formilProps => {
                     const { values, touched, errors } = formilProps;
+                    console.log(values)
                     return (
                         <Form className="infoFood">
                             <FastField
