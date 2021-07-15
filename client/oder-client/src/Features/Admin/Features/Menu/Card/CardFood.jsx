@@ -10,19 +10,22 @@ import Typography from '@material-ui/core/Typography';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React from 'react';
 import PropTypes from 'prop-types';
+import MenuClick from '../../../../../Components/ClickMenu/ClickMenu';
 
 RecipeReviewCard.propTypes = {
-    name:PropTypes.string,
-    price:PropTypes.array,
-    describeProduct:PropTypes.string,
-    linkImg:PropTypes.string
+    name: PropTypes.string,
+    price: PropTypes.object,
+    describeProduct: PropTypes.string,
+    linkImg: PropTypes.string,
+    deleteFood: PropTypes.func
 }
 
-RecipeReviewCard.defaultProps={
-    name:'No name',
-    price:0,
-    describeProduct:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam quia iure repudiandae vitae quidem, delectus quod ad voluptatibus expedita voluptates illo unde voluptate libero! Esse iure molestias excepturi sint quidem?',
-    linkImg:''
+RecipeReviewCard.defaultProps = {
+    name: 'No name',
+    price: 0,
+    describeProduct: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam quia iure repudiandae vitae quidem, delectus quod ad voluptatibus expedita voluptates illo unde voluptate libero! Esse iure molestias excepturi sint quidem?',
+    linkImg: '',
+    deleteFood: null
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -41,19 +44,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RecipeReviewCard(props) {
     const classes = useStyles();
-    const {name, price,linkImg, describeProduct} = props;
-    var minPrice = Intl.NumberFormat().format(Math.min.apply(Math, price))
-    
+    const { name, price, linkImg, describeProduct, handlingFoodCard, keyFood } = props;
+    var minPrice = Intl.NumberFormat().format(Math.min.apply(Math, price.size))
+
+    const getOptopn = (option) => {
+        if(option==="Xóa"){
+            handlingFoodCard.delete(keyFood)
+        }else{
+            handlingFoodCard.repair(keyFood)
+        }
+    }
     return (
         <Card className={classes.root}>
             <CardHeader
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
+                    <MenuClick getOption={getOptopn} />
                 }
                 title={name}
-                subheader={`Từ: ${minPrice}đ`}
+                subheader={`Từ: ${minPrice}đ / ${price.unit}`}
             />
             <CardMedia
                 className={classes.media}

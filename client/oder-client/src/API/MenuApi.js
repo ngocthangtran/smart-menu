@@ -8,6 +8,10 @@ const MenuApi = {
     addProduct: (data) => {
         const url = '/menu/addproduct';
         return axiosClient.post(url, data);
+    },
+    deleteProduct: (key) => {
+        const url='/menu/deleteproduct'
+        return axiosClient.get(url, key);
     }
 
 }

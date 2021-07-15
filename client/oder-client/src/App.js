@@ -8,16 +8,6 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 
 function App(props) {
-  const dispatch = useDispatch()
-  useEffect(async () => {
-    try {
-      const action = getAllProduct()
-      const actionResult = await dispatch(action)
-      const currenListFood = unwrapResult(actionResult);
-    } catch (error) {
-      console.log('Error get all product', error);
-    }
-  }, [])
   return (
     <>
       <Router>

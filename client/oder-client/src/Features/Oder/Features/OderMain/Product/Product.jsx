@@ -57,7 +57,7 @@ function Product(props) {
                         <div className="btn">
                             -
                         </div>
-                        <div className="btn" contenteditable="true" suppressContentEditableWarning={true}>4</div>
+                        <div className="btn" contentEditable="true" suppressContentEditableWarning={true}>4</div>
                         <div className="btn">
                             +
                         </div>

@@ -1,13 +1,13 @@
 import React from 'react';
-import SideBar from './Components/Sidebar/SideBar';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import Main from './Components/Main/Main';
-import Status from './Features/Status/index'
-import ViewATable from './Features/Table/ViewATable/ViewATable';
+import SideBar from './Components/Sidebar/SideBar';
 import Menu from './Features/Menu';
 import AddFood from './Features/Menu/AddProduct/index';
-import { Route, Switch, useRouteMatch, Redirect } from 'react-router-dom';
+import Status from './Features/Status/index';
+import ViewATable from './Features/Table/ViewATable/ViewATable';
+import './index.scss';
 
-import'./index.scss'
 
 function Index(props) {
     const Match = useRouteMatch();
@@ -15,7 +15,7 @@ function Index(props) {
         <div className='admin' >
             <SideBar />
             <Switch>
-                <Redirect exact from={`${Match.url}/`} to={`${Match.url}/status`}/>
+                <Redirect exact from={`${Match.url}/`} to={`${Match.url}/status`} />
                 <Route path={`${Match.url}/status`} >
                     <Main Component={Status} />
                 </Route>

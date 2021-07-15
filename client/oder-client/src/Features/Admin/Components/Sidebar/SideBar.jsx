@@ -45,7 +45,6 @@ function SideBar(props) {
                         {name:'Thêm Món', href:`${Match.url}/addfood`},
                     ]}
                 />
-                
             </ul>
         </div>
     );

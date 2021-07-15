@@ -28,7 +28,7 @@ function Textarea(props) {
             variant="outlined"
             label={placeholder}
             multiline
-            rows={7}
+            rows={10}
             style={{ width: "100%", height: '100%' }}
             className={classes.root}
             {...field}

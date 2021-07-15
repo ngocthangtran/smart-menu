@@ -47,7 +47,7 @@ function ChipField(props) {
                 color={showError ? 'secondary' : 'primary'}
             />
             {
-                showError && <FormHelperText error>Phải có ít nhất một giá trong sản phẩm</FormHelperText>
+                showError && <FormHelperText error>{errors[field.name]}</FormHelperText>
             }
             {
                 price.map((item, index) => {

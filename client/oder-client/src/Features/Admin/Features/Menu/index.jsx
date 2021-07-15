@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { object } from 'yup/lib/locale';
+import { getAllProduct, deleteAFood } from '../../../../APP/listFoodSlice';
 import LoadPage from '../../../../Components/LoadPage/LoadPage';
 import Header from '../../Components/MainHeader/MainHeader';
 import CardFood from './Card/CardFood';
@@ -80,19 +81,57 @@ const useStyles = makeStyles((theme) => ({
 export default function CardConten(props) {
     const classes = useStyles();
 
+    const dispatch = useDispatch()
+
     const [value, setValue] = useState(0);
-    const { data: demoData, loading, error } = useSelector(state => state.allfood)
     const [dataView, setDataView] = useState({})
+    
+    const { data: demoData, loading, error } = useSelector(state => state.allfood)
+    useEffect(async () => {
+        if (Object.keys(demoData).length === 0) {
+            try {
+                const action = getAllProduct();
+                const actionResult = await dispatch(action)
+                const currenListFood = unwrapResult(actionResult);
+            } catch (error) {
+                console.log('Error get all product', error);
+            }
+        }
+    }, [])
+
+    //handling set view default
     useEffect(() => {
         if (Object.keys(demoData).length !== 0) {
-            setDataView(demoData[Object.keys(demoData)[0]])
+            setDataView(demoData[Object.keys(demoData)[value]])
         }
+
     }, [demoData])
+
     const handleChange = (event, newValue) => {
         setDataView(demoData[Object.keys(demoData).find(key => key === event.target.outerText)])
         setValue(newValue);
+        console.log(newValue)
     };
+    // console.log(viewCategory)
 
+    //hadling longMenu card
+    const handlingFoodCard = {
+        repair: (keyFood) => {
+        },
+        delete: (keyFood) => {
+            const a = Object.keys(demoData).map(category => {
+                return Object.keys(demoData[category]).map(key => {
+                    if (key === keyFood) {
+                        const action = deleteAFood({
+                            category: category,
+                            key: key
+                        });
+                        const result = dispatch(action)
+                    }
+                })
+            })
+        }
+    }
     return (
         <>
             <Header name='Thực đơn' />
@@ -101,7 +140,7 @@ export default function CardConten(props) {
                     loading && <LoadPage />
                 }
                 {
-                    error&&<div>{error.message}</div>
+                    error && <div>{error.message}</div>
                 }
                 {
                     Object.keys(demoData).length !== 0 && <>
@@ -123,9 +162,11 @@ export default function CardConten(props) {
                                             <Grid item xs={4} key={index}>
                                                 <CardFood
                                                     name={dataView[item].name}
-                                                    price={dataView[item].size}
+                                                    price={dataView[item].price}
                                                     linkImg={dataView[item].link_img}
                                                     describeProduct={dataView[item].describeProduct}
+                                                    handlingFoodCard={handlingFoodCard}
+                                                    keyFood={item}
                                                 />
                                             </Grid>
                                         )
