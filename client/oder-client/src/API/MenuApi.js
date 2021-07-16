@@ -9,9 +9,13 @@ const MenuApi = {
         const url = '/menu/addproduct';
         return axiosClient.post(url, data);
     },
-    deleteProduct: (key) => {
+    deleteProduct: (data) => {
         const url='/menu/deleteproduct'
-        return axiosClient.get(url, key);
+        return axiosClient.post(url, data);
+    },
+    repairProduct:(data)=>{
+        const url='/menu/repairproduct';
+        return axiosClient.post(url, data)
     }
 
 }

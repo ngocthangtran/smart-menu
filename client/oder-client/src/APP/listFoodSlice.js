@@ -11,18 +11,27 @@ const listFoodSlice = createSlice({
     initialState: {
         data: {},
         loading: false,
-        error: ''
+        error: '',
+        selectFood: null
     },
     reducers: {
         deleteAFood: (state, action) => {
-            const foodCategory = {...state.data[action.payload.category]};
+            const foodCategory = { ...state.data[action.payload.category] };
             delete foodCategory[action.payload.key];
-            state.data = {...state.data, [action.payload.category]:foodCategory}
+            state.data = { ...state.data, [action.payload.category]: foodCategory }
+        },
+        repairData: (state, action) => {
+            const foodCategory = { ...state.data[action.payload.category], [action.payload.key]: action.payload.newData };
 
-            // const a = { ...state.data[action.payload.category] }
-            // delete a[action.payload.key]
-            // state.data = { ...state.data, [action.payload.category]: a }
-        }
+            state.data = { ...state.data, [action.payload.category]: foodCategory }
+        },
+        getKeyFood: (state, action) => {
+            state.selectFood = { ...state.data[action.payload.category][action.payload.key], key: action.payload.key }
+        },
+        clearSelectFood: (state) => {
+            state.selectFood = null
+        },
+
     },
     extraReducers: {
         [getAllProduct.pending]: (state) => {
@@ -40,5 +49,5 @@ const listFoodSlice = createSlice({
 })
 
 const { reducer: getAllReducer, actions } = listFoodSlice;
-export const { deleteAFood } = actions;
+export const { deleteAFood, getKeyFood, clearSelectFood, repairData } = actions;
 export default getAllReducer;

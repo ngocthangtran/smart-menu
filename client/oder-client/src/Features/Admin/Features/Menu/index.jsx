@@ -7,12 +7,13 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { object } from 'yup/lib/locale';
-import { getAllProduct, deleteAFood } from '../../../../APP/listFoodSlice';
+import { getAllProduct, deleteAFood, getKeyFood } from '../../../../APP/listFoodSlice';
 import LoadPage from '../../../../Components/LoadPage/LoadPage';
 import Header from '../../Components/MainHeader/MainHeader';
 import CardFood from './Card/CardFood';
-
+import { actionRemove } from './MenuSlide';
 
 
 const AntTabs = withStyles({
@@ -85,7 +86,7 @@ export default function CardConten(props) {
 
     const [value, setValue] = useState(0);
     const [dataView, setDataView] = useState({})
-    
+
     const { data: demoData, loading, error } = useSelector(state => state.allfood)
     useEffect(async () => {
         if (Object.keys(demoData).length === 0) {
@@ -110,23 +111,49 @@ export default function CardConten(props) {
     const handleChange = (event, newValue) => {
         setDataView(demoData[Object.keys(demoData).find(key => key === event.target.outerText)])
         setValue(newValue);
-        console.log(newValue)
     };
     // console.log(viewCategory)
 
     //hadling longMenu card
+    const history = useHistory();
     const handlingFoodCard = {
         repair: (keyFood) => {
-        },
-        delete: (keyFood) => {
-            const a = Object.keys(demoData).map(category => {
+
+            Object.keys(demoData).map(category => {
                 return Object.keys(demoData[category]).map(key => {
                     if (key === keyFood) {
-                        const action = deleteAFood({
+                        const selectFood = getKeyFood({
                             category: category,
                             key: key
                         });
-                        const result = dispatch(action)
+                        dispatch(selectFood);
+                        history.push(`addfood/`)
+
+                    }
+                })
+            })
+        },
+        delete: (keyFood) => {
+            Object.keys(demoData).map(category => {
+                return Object.keys(demoData[category]).map(async key => {
+                    if (key === keyFood) {
+                        try {
+                            const action = deleteAFood({
+                                category: category,
+                                key: key
+                            });
+                            const result = dispatch(action)
+
+                            const actionDelete = actionRemove({
+                                category: category,
+                                key: key
+                            })
+                            const resultDelete = await dispatch(actionDelete)
+                            unwrapResult(resultDelete)
+                        } catch (error) {
+
+                        }
+
                     }
                 })
             })

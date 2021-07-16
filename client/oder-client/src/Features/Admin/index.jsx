@@ -25,9 +25,10 @@ function Index(props) {
                 <Route path={`${Match.url}/menu`} >
                     <Main Component={Menu} />
                 </Route>
-                <Route path={`${Match.url}/addfood`} >
+                <Route path={`${Match.url}/addfood/`} >
                     <Main Component={AddFood} />
                 </Route>
+                
             </Switch>
         </div>
     );

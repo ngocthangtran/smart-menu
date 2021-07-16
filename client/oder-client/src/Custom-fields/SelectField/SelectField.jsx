@@ -13,13 +13,15 @@ SelectField.propTypes = {
 
     category: PropTypes.array,
     label: PropTypes.string,
-    addNewValue: PropTypes.bool
+    addNewValue: PropTypes.bool,
+    disabled: PropTypes.bool
 };
 
 SelectField.defaultProps = {
     category: [],
     label: 'No name',
-    addNewValue: false
+    addNewValue: false,
+    disabled: false
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 function SelectField(props) {
     const classes = useStyles();
 
-    const { field, form, category, label, addNewValue } = props;
+    const { field, form, category, label, addNewValue, disabled } = props;
     const { errors, touched } = form;
     const showError = errors[field.name] && touched[field.name];
 
@@ -93,6 +95,7 @@ function SelectField(props) {
                 >
                     {label}</InputLabel>
                 <Select
+                    disabled={disabled}
                     native
                     {
                     ...field
