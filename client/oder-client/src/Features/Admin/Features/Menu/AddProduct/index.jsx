@@ -15,7 +15,7 @@ import { addfood } from './addFood';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { deleteImg, storage } from '../../../../../utils/firebase';
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { clearSelectFood, getAllProduct, repairData } from '../../../../../APP/listFoodSlice';
+import { addNewData, clearSelectFood, getAllProduct, repairData } from '../../../../../APP/listFoodSlice';
 import LoadPage from '../../../../../Components/LoadPage/LoadPage';
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
@@ -158,13 +158,22 @@ function Index(props) {
         }
 
         //hading data with Api server
+        let newKey;
         try {
             const action = addfood(data);
             const actionResult = await dispatch(action);
-            unwrapResult(actionResult);
+            const res = unwrapResult(actionResult);
+            newKey = res.key
         } catch (error) {
             console.log("Error", error)
         }
+        //handling add data redux
+        const actionNewFoodRedux = addNewData({
+            category: category,
+            key: newKey,
+            newData: data
+        })
+        dispatch(actionNewFoodRedux);
 
     }
 

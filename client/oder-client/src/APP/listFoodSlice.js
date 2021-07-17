@@ -31,6 +31,11 @@ const listFoodSlice = createSlice({
         clearSelectFood: (state) => {
             state.selectFood = null
         },
+        addNewData: (state, action) => {
+            const foodCategory = { ...state.data[action.payload.category] };
+            foodCategory[action.payload.key] = action.payload.newData;
+            state.data = { ...state.data, [action.payload.category]: foodCategory }
+        }
 
     },
     extraReducers: {
@@ -49,5 +54,5 @@ const listFoodSlice = createSlice({
 })
 
 const { reducer: getAllReducer, actions } = listFoodSlice;
-export const { deleteAFood, getKeyFood, clearSelectFood, repairData } = actions;
+export const { deleteAFood, getKeyFood, clearSelectFood, repairData, addNewData } = actions;
 export default getAllReducer;
