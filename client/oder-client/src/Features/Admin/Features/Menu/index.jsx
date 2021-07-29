@@ -1,5 +1,7 @@
+import { FormControl, FormHelperText, InputLabel, NativeSelect, Select } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import zIndex from '@material-ui/core/styles/zIndex';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
@@ -9,11 +11,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { object } from 'yup/lib/locale';
+import { deleteADrinks, getDrinksAction, getKeyDrink } from '../../../../APP/listDrinks';
 import { getAllProduct, deleteAFood, getKeyFood } from '../../../../APP/listFoodSlice';
 import LoadPage from '../../../../Components/LoadPage/LoadPage';
+import { deleteImg } from '../../../../utils/firebase';
 import Header from '../../Components/MainHeader/MainHeader';
 import CardFood from './Card/CardFood';
 import { actionRemove } from './MenuSlide';
+
 
 
 const AntTabs = withStyles({
@@ -87,18 +92,41 @@ export default function CardConten(props) {
     const [value, setValue] = useState(0);
     const [dataView, setDataView] = useState({})
 
-    const { data: demoData, loading, error } = useSelector(state => state.allfood)
-    useEffect(async () => {
-        if (Object.keys(demoData).length === 0) {
-            try {
-                const action = getAllProduct();
-                const actionResult = await dispatch(action)
-                const currenListFood = unwrapResult(actionResult);
-            } catch (error) {
-                console.log('Error get all product', error);
+    const [classify, setClassify] = useState('food');
+    const handlingSelectClassify = (event) => {
+        setClassify(event.target.value)
+    }
+
+    const { data: demoData, loading, error } = useSelector(state => {
+        if (classify === 'food') {
+            return {
+                data: state.allfood.dataFood,
+                loading: state.allfood.loading,
+                error: state.allfood.error
+            }
+        } else {
+            return {
+                data: state.alldrinks.dataDrinks,
+                loading: state.alldrinks.loading,
+                error: state.alldrinks.error
             }
         }
-    }, [])
+    })
+    useEffect(async () => {
+        try {
+            if (classify === 'food') {
+                const action = getAllProduct(classify);
+                const actionResult = await dispatch(action)
+                const currenListFood = unwrapResult(actionResult);
+            } else {
+                const action = getDrinksAction(classify);
+                const actionResult = await dispatch(action)
+                const currenListFood = unwrapResult(actionResult);
+            }
+        } catch (error) {
+            console.log('Error get all product', error);
+        }
+    }, [classify])
 
     //handling set view default
     useEffect(() => {
@@ -118,17 +146,24 @@ export default function CardConten(props) {
     const history = useHistory();
     const handlingFoodCard = {
         repair: (keyFood) => {
-
             Object.keys(demoData).map(category => {
                 return Object.keys(demoData[category]).map(key => {
                     if (key === keyFood) {
-                        const selectFood = getKeyFood({
-                            category: category,
-                            key: key
-                        });
-                        dispatch(selectFood);
-                        history.push(`addfood/`)
-
+                        if (classify === 'food') {
+                            const selectFood = getKeyFood({
+                                category: category,
+                                key: key
+                            });
+                            dispatch(selectFood);
+                            history.push(`addfood/`)
+                        } else {
+                            const selectFood = getKeyDrink({
+                                category: category,
+                                key: key
+                            });
+                            dispatch(selectFood);
+                            history.push(`addrinks/`)
+                        }
                     }
                 })
             })
@@ -138,18 +173,30 @@ export default function CardConten(props) {
                 return Object.keys(demoData[category]).map(async key => {
                     if (key === keyFood) {
                         try {
-                            const action = deleteAFood({
-                                category: category,
-                                key: key
-                            });
-                            const result = dispatch(action)
+                            if (classify === 'food') {
+                                const action = deleteAFood({
+                                    category: category,
+                                    key: key,
+                                    classify: classify
+                                });
+                                const result = dispatch(action)
+                            } else {
+                                const action = deleteADrinks({
+                                    category: category,
+                                    key: key,
+                                    classify: classify
+                                });
+                                const result = dispatch(action)
+                            }
 
                             const actionDelete = actionRemove({
                                 category: category,
-                                key: key
+                                key: key,
+                                classify: classify
                             })
                             const resultDelete = await dispatch(actionDelete)
                             unwrapResult(resultDelete)
+                            deleteImg(demoData[key].link_img)
                         } catch (error) {
 
                         }
@@ -161,7 +208,7 @@ export default function CardConten(props) {
     }
     return (
         <>
-            <Header name='Thực đơn' />
+            <Header name='Thực đơn' select={{ bool: true, value: classify, handlingSelectClassify: handlingSelectClassify }} />
             <div className='conten' >
                 {
                     loading && <LoadPage />
@@ -185,6 +232,7 @@ export default function CardConten(props) {
                             <Grid container spacing={2} className={classes.grid}>
                                 {
                                     Object.keys(dataView).length !== 0 && Object.keys(dataView).map((item, index) => {
+                                        
                                         return (
                                             <Grid item xs={4} key={index}>
                                                 <CardFood
@@ -194,6 +242,8 @@ export default function CardConten(props) {
                                                     describeProduct={dataView[item].describeProduct}
                                                     handlingFoodCard={handlingFoodCard}
                                                     keyFood={item}
+                                                    classify={classify}
+                                                    category={dataView[item].category}
                                                 />
                                             </Grid>
                                         )

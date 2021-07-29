@@ -42,7 +42,8 @@ function SideBar(props) {
                     classNameParent={activeName === 'Thực đơn'}
                     nameChild={[
                         {name:'Danh sách', href:`${Match.url}/menu`},
-                        {name:'Thêm Món', href:`${Match.url}/addfood`},
+                        {name:'Thêm món', href:`${Match.url}/addfood`},
+                        {name:'Thêm đồ uống', href:`${Match.url}/addrinks`},
                     ]}
                 />
             </ul>

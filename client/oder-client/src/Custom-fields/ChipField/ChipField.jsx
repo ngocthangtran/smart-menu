@@ -8,14 +8,15 @@ import { makeStyles, FormHelperText } from '@material-ui/core';
 ChipField.propTypes = {
     price: PropTypes.array,
     deleteChip: PropTypes.func,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    addChip:PropTypes.bool
 };
 
 ChipField.defaultProps = {
     price: [150000, 200000],
     deleteChip: null,
-    onClick: null
-
+    onClick: null,
+    addChip:false
 }
 
 const useStyles = makeStyles({
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
 function ChipField(props) {
     const classes = useStyles();
 
-    const { price, deleteChip, onClick, form, field } = props;
+    const { price, deleteChip, onClick, form, field, addChip } = props;
 
     const handleDelete = (index) => {
         deleteChip(index);
@@ -36,16 +37,18 @@ function ChipField(props) {
     const showError = errors[field.name] && touched[field.name]
     return (
         <>
-            <Chip
-                label='Thêm giá'
-                color="primary"
-                variant="outlined"
-                style={{ marginTop: 20 }}
-                icon={<AddIcon />}
-                className={classes.item}
-                onClick={onClick}
-                color={showError ? 'secondary' : 'primary'}
-            />
+            {
+                addChip && <Chip
+                    label='Thêm giá'
+                    color="primary"
+                    variant="outlined"
+                    style={{ marginTop: 20 }}
+                    icon={<AddIcon />}
+                    className={classes.item}
+                    onClick={onClick}
+                    color={showError ? 'secondary' : 'primary'}
+                />
+            }
             {
                 showError && <FormHelperText error>{errors[field.name]}</FormHelperText>
             }

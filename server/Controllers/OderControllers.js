@@ -41,11 +41,9 @@ const CreateNewOder = (tableKey, res) => {
 }
 
 const CreateListFoodOder = (nameRef, data, res) => {
-    // const format = new Intl.NumberFormat("vi")
-    // console.log(format.format(500000))
     const ref = database.ref(nameRef)
-    ref.child('dataOder').update(data, (err)=>{
-        if(err) throw err
+    ref.child('dataOder').update(data, (err) => {
+        if (err) throw err
         res.status(200).send({
             "message": "Add food complete",
         })

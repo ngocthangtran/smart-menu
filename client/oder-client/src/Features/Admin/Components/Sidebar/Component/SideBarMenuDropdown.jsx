@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SideBarMenu from './SideBarMenu';
-import {Link, useRouteMatch}  from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { useEffect } from 'react';
 
 SideBarMenuDropdown.propTypes = {
     Icon: PropTypes.func,
@@ -20,11 +21,26 @@ SideBarMenuDropdown.defaultProps = {
 
 function SideBarMenuDropdown(props) {
     const { Icon, nameParentMenu, nameChild, classNameParent, onClick } = props
+
     const Match = useRouteMatch();
     const [activeName, setActiveName] = useState('');
     const onClickItemChil = (name) => {
         setActiveName(name)
     }
+
+    useEffect(() => {
+        const menuDropdown = document.querySelector('.sidebar-menu-dropdown')
+        const menuDropdownActive = document.querySelector('.sidebar-menu-dropdown.active')
+
+        if (menuDropdownActive) {
+            const countElement = menuDropdown.children.length;
+            menuDropdown.style.height = `${countElement * menuDropdown.children[0].offsetHeight}px`
+        }
+        else{
+            menuDropdown.style.height = `0px`
+        }
+    })
+
     return (
         <li>
             <Link to={Match.url} className={classNameParent ? 'active' : ''}

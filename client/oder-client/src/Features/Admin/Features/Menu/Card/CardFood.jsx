@@ -4,19 +4,22 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useState } from 'react';
 import MenuClick from '../../../../../Components/ClickMenu/ClickMenu';
+import DialogOderOption from './DialogOderOption';
 
 RecipeReviewCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.object,
     describeProduct: PropTypes.string,
     linkImg: PropTypes.string,
+    keyFood: PropTypes.string,
+    classify: PropTypes.string,
+    category: PropTypes.string,
     deleteFood: PropTypes.func
 }
 
@@ -39,23 +42,51 @@ const useStyles = makeStyles((theme) => ({
     cardActions: {
         display: 'flex',
         justifyContent: 'flex-end'
+    },
+    conten: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: "100%"
+    },
+    contenInput: {
+        flex: 1,
+        margin: 5
     }
 }));
 
 export default function RecipeReviewCard(props) {
     const classes = useStyles();
-    const { name, price, linkImg, describeProduct, handlingFoodCard, keyFood } = props;
+    const { name, price, linkImg, describeProduct, handlingFoodCard, keyFood, classify, category } = props;
     var minPrice = Intl.NumberFormat().format(Math.min.apply(Math, price.size))
 
+    const [open, setOpen] = useState(false)
+
     const getOptopn = (option) => {
-        if(option==="Xóa"){
+        if (option === "Xóa") {
             handlingFoodCard.delete(keyFood)
-        }else{
+        } if (option === "Sửa") {
             handlingFoodCard.repair(keyFood)
         }
+        if (option === 'Cài đặt Oder') {
+            setOpen(true)
+        }
     }
+    const closeDialog = () => {
+        setOpen(false)
+    }
+
+
     return (
         <Card className={classes.root}>
+            {
+                open && <DialogOderOption
+                    classify={classify}
+                    category={category}
+                    keyFood={keyFood}
+                    closeDialog={closeDialog}
+                    unit={price.unit}
+                />
+            }
             <CardHeader
                 action={
                     <MenuClick getOption={getOptopn} />

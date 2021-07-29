@@ -100,7 +100,7 @@ function InputChipField(props) {
             {
                 view && <InputFieldsAdd lable="Giá tiền" field={inputField} />
             }
-            <ChipField price={value} deleteChip={onChangeValuePrice} onClick={() => setView(!view)} form={form} field={field} />
+            <ChipField price={value} deleteChip={onChangeValuePrice} onClick={() => setView(!view)} form={form} field={field} addChip={true} />
         </>
     );
 }

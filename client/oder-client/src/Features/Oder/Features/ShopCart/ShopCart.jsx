@@ -10,7 +10,7 @@ function ShopCart(props) {
         <div className='shopcart'>
             <Link to='/oder'>Tiếp tục chọn món</Link>
             <ListCard />
-            <Foodter Component={CompleteOder}/>
+            <Foodter Component={<CompleteOder/>}/>
         </div>
     );
 }

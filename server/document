@@ -7,11 +7,15 @@ Menu:
             "category":"Hấp",
             "name":"Trà sữa chân châu",
             "link_img":"link",
-            "side":{
-                "M":25000,
-                "s":20000,
-                "l":30000
+            "price": {
+                "unit": "Kg",
+                 "size": [
+                    25000,
+                    20000,
+                    30000
+                ]
             }
+    }
         }
         - res:
             + complete:
@@ -24,14 +28,19 @@ Menu:
             }
     sửa sản phẩm: Method: POST localhost:3000/menu/repairproduct
     - body{
-            "data":{
-                "key":"Ma2DsLKQdoGGeLh3rUE",
-                "name":"Trà sữa chân châu chau",
-                "link_img":"link",
-                "side":{
-                    "M":25000,
-                    "s":20000,
-                    "l":30000
+            "key": "-Med9rcGL3VahQc6GkfB",
+            "data": {
+                "category": "Hấp",
+                "name": "Tét doi ten",
+                "link_img": "https://webaffiliatevn.com/storage/2020/08/IMGLOGO_Primary_CMYK_Blue_Rel_webready.jpg",
+                "describe": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                "price": {
+                    "unit": "Kg",
+                    "size": [
+                        25000,
+                        20000,
+                        30000
+                    ]
                 }
             }
         }
@@ -47,6 +56,7 @@ Menu:
     Xóa sản phẩm: Method: GET localhost:3000/menu/deleteproduct
      - body{
             "key":"Ma2DsLKQdoGGeLh3rUE",
+            "category":"Hap"
         }
     - res:
             + complete:

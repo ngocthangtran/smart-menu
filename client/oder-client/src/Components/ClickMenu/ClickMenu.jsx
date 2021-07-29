@@ -4,12 +4,12 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-const options = ['Xóa', 'Sửa'];
+const options = ['Xóa', 'Sửa', 'Cài đặt Oder'];
 
 const ITEM_HEIGHT = 48;
 
 export default function LongMenu(props) {
-    const {getOption} = props;
+    const { getOption } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
@@ -18,8 +18,8 @@ export default function LongMenu(props) {
     };
 
     const handleClose = (e) => {
-      getOption(e)
-      setAnchorEl(null)
+        getOption(e)
+        setAnchorEl(null)
     };
 
     return (
@@ -47,7 +47,7 @@ export default function LongMenu(props) {
                 {options.map((option) => (
                     <MenuItem
                         key={option}
-                        onClick={()=>{handleClose(option)}}
+                        onClick={() => { handleClose(option) }}
                     >
                         {option}
                     </MenuItem>

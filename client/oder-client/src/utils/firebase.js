@@ -22,7 +22,7 @@ const deleteImg = (link_img) => {
     var links = link_img.split('?')[0].split('/')
     links = links[links.length - 1].split('%2F')
     const nameRef = links[0], nameImg = links[1]
-    return storage.ref(nameRef).child(nameImg).delete().catch(err=>{console.log(err)});
+    return storage.ref(nameRef).child(nameImg).delete().catch(err => { console.log(err) });
 }
 
 export {

@@ -13,7 +13,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addfood } from './addFood';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { deleteImg, storage } from '../../../../../utils/firebase';
+import { database, deleteImg, storage } from '../../../../../utils/firebase';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { addNewData, clearSelectFood, getAllProduct, repairData } from '../../../../../APP/listFoodSlice';
 import LoadPage from '../../../../../Components/LoadPage/LoadPage';
@@ -91,11 +91,11 @@ function Index(props) {
         } :
         { name: '', unit: '', listPrice: [150000, 250000, 300000], imgAsFile: '', category: '', descirbeFood: '' }
 
-    const { data, loading, error } = useSelector(state => state.allfood)
+    const { dataFood, loading, error } = useSelector(state => state.allfood)
     useEffect(async () => {
-        if (Object.keys(data).length === 0) {
+        if (Object.keys(dataFood).length === 0) {
             try {
-                const action = getAllProduct();
+                const action = getAllProduct('food');
                 const actionResult = await dispatch(action)
                 const currenListFood = unwrapResult(actionResult);
             } catch (error) {
@@ -108,15 +108,15 @@ function Index(props) {
     const [category, setCategory] = useState([])
     // setCategory
     useEffect(() => {
-        if (Object.keys(data).length !== 0) {
-            setCategory(Object.keys(data));
+        if (Object.keys(dataFood).length !== 0) {
+            setCategory(Object.keys(dataFood));
         } else {
             setCategory(["Hấp"])
         }
         return () => {
             dispatch(clearSelectFood());
         }
-    }, [data])
+    }, [dataFood])
 
     //usign yup check validationSchema
     const validationSchema = yup.object().shape({
@@ -140,8 +140,9 @@ function Index(props) {
         }
 
         //upload img to firebase
-        const uploadTask = await storage.ref(`/images/${imgAsFile.name}`).put(imgAsFile);
-        const linkImg = await storage.ref('images').child(imgAsFile.name).getDownloadURL()
+        const keyImg = database.ref('imgage').child('update').push().key;
+        await storage.ref(`/images/${keyImg}`).put(imgAsFile);
+        const linkImg = await storage.ref('images').child(keyImg).getDownloadURL()
             .then(fireBaseUrl => {
                 return fireBaseUrl
             })
@@ -160,7 +161,10 @@ function Index(props) {
         //hading data with Api server
         let newKey;
         try {
-            const action = addfood(data);
+            const action = addfood({
+                data: data,
+                classify: 'food'
+            });
             const actionResult = await dispatch(action);
             const res = unwrapResult(actionResult);
             newKey = res.key
@@ -217,7 +221,8 @@ function Index(props) {
         try {
             const actionRepair = actionRepairData({
                 key: selectFood.key,
-                data: data
+                data: data,
+                classify: 'food'
             });
             const result = await dispatch(actionRepair);
             unwrapResult(result);

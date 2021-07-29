@@ -7,4 +7,7 @@
     align-items: center;
     padding-left: 1rem;
     box-shadow: rgba(3, 4, 5, 0.1) 0px 10px 10px -10px;
+    &>div{
+        margin-left: 1rem;
+    }
 }

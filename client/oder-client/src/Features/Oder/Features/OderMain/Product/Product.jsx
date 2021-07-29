@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './product.scss';
 import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import SlideValue from '../../../../../Components/SlideValue/SildeValue'
-import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import OderForm from '../../OderForm/OderForm';
+import './product.scss';
 
 Product.propTypes = {
     name: PropTypes.string,
     describe: PropTypes.string,
     imageUrl: PropTypes.string,
-    viewDetail: PropTypes.bool,
+    price: PropTypes.object,
     clickOderNow: PropTypes.func
 };
 Product.defaultProps = {
@@ -23,59 +23,57 @@ Product.defaultProps = {
 
 
 function Product(props) {
-    const { name, describe, imageUrl, viewDetail, clickOderNow } = props
-    const styleBt = {
-        borderRadius: 20,
-        backgroundColor: "#2ecc71",
-        padding: "10px 36px",
-        fontSize: "18px",
-        width: '12em',
-        marginTop: 10
+    const { dataFood } = props
+
+    const minPrice = Intl.NumberFormat().format(Math.min(...dataFood.price.size))
+
+    const [select, setSelect] = useState(false);
+    const onClick = () => {
+        setSelect(true)
     }
 
     useEffect(() => {
-
-        // const detailsElement = document.querySelector('.details')
-        // const activeDetails = document.querySelector('.details.active');
-        // if (viewDetail) {
-        //     activeDetails.style.height = '160px'
-        // } else {
-        //     detailsElement.style.height = `0px`
-        // }
-    })
-
+        setSelect(false)
+    }, [dataFood])
+    
     return (
         <div className="product">
+            <img src={dataFood.link_img} alt="img" />
             <div className="product__info">
-                <h1>{name}</h1>
-                <div>{describe}</div>
-                <div className={viewDetail ? 'details active' : 'details'}>
-                    <div>
-                        Số lượng
-                    </div>
-                    <div className='details__count'>
-                        <div className="btn">
-                            -
-                        </div>
-                        <div className="btn" contentEditable="true" suppressContentEditableWarning={true}>4</div>
-                        <div className="btn">
-                            +
-                        </div>
-                    </div>
-                    <div>Giá</div>
-                    <SlideValue />
+                <div className="product__name">
+                    {dataFood.name}
                 </div>
-                <Button
-                    variant="contained"
-                    style={styleBt}
-                    startIcon={<AddShoppingCartIcon />}
-                    onClick={clickOderNow}
-                >
-                    Oder Now
-                </Button>
-            </div>
-            <div className="product__image">
-                <img src={imageUrl} alt="img product not found"></img>
+                <div className="product__price">
+                    <i className='bx bx-dollar'></i>
+                    Từ: đ{minPrice}/{dataFood.price.unit}
+                </div>
+                {
+                    !select && <>
+                        <div className="product__describe">
+                            {dataFood.describe}
+                        </div>
+                        <Button
+                            variant='contained'
+                            startIcon={<AddShoppingCartIcon />}
+                            style={{
+                                backgroundColor: "#74b9ff",
+                                height: '3rem',
+                                marginTop: '10px'
+                            }}
+                            onClick={onClick}
+                        >Lựa chọn</Button>
+                    </>
+                }
+                {
+                    select && <div className="product__oder">
+                        <OderForm
+                            arrPrice={dataFood.price.size}
+                            oderOption={dataFood.oderOption}
+                            keyFood={dataFood.key}
+                            nameFood={dataFood.name}
+                        />
+                    </div>
+                }
             </div>
         </div>
     );

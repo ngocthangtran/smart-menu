@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import Main from './Components/Main/Main';
 import SideBar from './Components/Sidebar/SideBar';
 import Menu from './Features/Menu';
+import AddDrinks from './Features/Menu/AddDrinks';
 import AddFood from './Features/Menu/AddProduct/index';
 import Status from './Features/Status/index';
 import ViewATable from './Features/Table/ViewATable/ViewATable';
@@ -28,7 +29,10 @@ function Index(props) {
                 <Route path={`${Match.url}/addfood/`} >
                     <Main Component={AddFood} />
                 </Route>
-                
+                <Route path={`${Match.url}/addrinks`} >
+                    <Main Component={AddDrinks} />
+                </Route>
+
             </Switch>
         </div>
     );

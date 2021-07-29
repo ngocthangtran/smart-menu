@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './foodter.scss'
 
 Foodter.propTypes = {
-    Component: PropTypes.func
+    Component: PropTypes.object
 };
 
 Foodter.defauldProps = {
@@ -15,7 +15,7 @@ function Foodter(props) {
     
     return (
         <div className="foodter">
-            {Component&&<Component/>}
+            {Component&&Component}
         </div>
     );
 }

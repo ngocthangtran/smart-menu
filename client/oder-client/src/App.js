@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Oder from './Features/Oder/index';
 import Admin from './Features/Admin/index';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'

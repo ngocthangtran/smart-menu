@@ -1,30 +1,48 @@
 const express = require('express');
 const route = express.Router();
-const Menu = require('../Controllers/MenuRouter');
+const Menu = require('../Controllers/MenuController');
 
-route.get('/allproduct', async (req, res) => {
-    let data = await Menu.getData('product');
+route.get('/allproduct/:classify', async (req, res) => {
+    const { classify } = req.params
+    let data = await Menu.getData(classify);
+    if (data === null) {
+        res.status(404).send({
+            message: 'Không có sản phẩm nào'
+        });
+        return
+    }
     res.status(200).send(data);
 })
 
 route.get('/product', async (req, res) => {
     console.log(req.query)
-    Menu.getaData(`product/${req.query.category}/${req.query.key}`, res);
+    Menu.getaData(`${req.query.classify}/${req.query.category}/${req.query.key}`, res);
 })
 
 route.post('/addproduct/', (req, res) => {
-    const data = req.body;
-    Menu.addData(`product/${data.category}`, data, res);
+    const { data, classify } = req.body;
+
+    Menu.addData(`${classify}/${data.category}`, data, res);
 })
 
 route.post('/repairproduct', (req, res) => {
-    const data = req.body;
-    Menu.repairData(`product/${data.category}`, data, data.key, res)
+    const { data, key, classify } = req.body;
+
+    Menu.repairData(`${classify}/${data.category}`, data, key, res)
 })
 
-route.get('/deleteproduct/', (req, res) => {
-    const { category, key } = req.query;
-    Menu.deleteData(`product/${category}`, key, res)
+route.post('/deleteproduct/', (req, res) => {
+    const { category, key, classify } = req.body;
+    Menu.deleteData(`${classify}/${category}`, key, res)
 })
 
+route.post('/oderoption', (req, res) => {
+    const { data, key, classify } = req.body;
+    Menu.repairData(`${classify}/${data.category}`, data, key, res)
+})
+
+route.get('/category', (req, res) => {
+    const { classify } = req.query;
+    Menu.getKeyOfParent(classify, res)
+})
 module.exports = route;

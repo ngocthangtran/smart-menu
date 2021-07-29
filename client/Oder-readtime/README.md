@@ -1,3 +1,0 @@
-- Database: firebase realtime database
-- Storage: firebase Storage
-- Technology: Redux, reactjs

@@ -8,6 +8,10 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom'
 
 import Avatar from '@material-ui/core/Avatar';
+import { useEffect } from 'react';
+import { database, realTime } from '../../../../../utils/firebase';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -21,7 +25,8 @@ const StyledBadge = withStyles((theme) => ({
 
 ListProduct.propTypes = {
     countProduct: PropTypes.number,
-    countShop: PropTypes.number
+    countShop: PropTypes.number,
+    foodCategory: PropTypes.object
 };
 
 ListProduct.defaultProps = {
@@ -29,7 +34,44 @@ ListProduct.defaultProps = {
     countShop: 0
 }
 
+function IconProduct(props) {
+    const { clickItem, index, linkImg, keyFood } = props;
+    const { keyTable } = useSelector(state => state.oderReducer)
+    const [badge, setBadge] = useState(undefined)
+    
+    useEffect(() => {
+        database.ref(`Oder/${keyTable}/dataOder/${keyFood}/amount`).on('value', res => {
+            var data = res.val()
+            if (data) {
+
+                if (data.oderOption) {
+                    const nhan = data.amount * data.oderOption.factor
+                    setBadge(Math.round(nhan * 1000) / 1000)
+                }
+                else {
+                    setBadge(data.amount)
+                }
+            }
+        })
+        return ()=>{
+            setBadge(undefined)
+        }
+    })
+    return (
+        <IconButton key={index} onClick={() => {
+            clickItem(index)
+        }}
+        >
+            <StyledBadge badgeContent={badge} invisible={badge ? false : true} color="secondary">
+                <Avatar style={{ width: '60px', height: '60px' }} src={linkImg}>Q</Avatar>
+            </StyledBadge>
+        </IconButton>
+    )
+}
+
 function ListProduct(props) {
+    const { foodCategory, clickItem } = props;
+
     return (
         <>
             <div className='shopcartIcon'>
@@ -42,31 +84,23 @@ function ListProduct(props) {
                 </Link>
             </div>
             <div className='list'>
-                <IconButton>
-                    <StyledBadge badgeContent={4} color="secondary">
-                        <Avatar style={{ width: '60px', height: '60px' }} src='https://cdn.daotaobeptruong.vn/wp-content/uploads/2019/09/thit-de-hap-tia-to.jpg'>Q</Avatar>
-                    </StyledBadge>
-                </IconButton>
-                <Avatar style={{ width: '60px', height: '60px' }} src='https://wna.cdnxbvn.com/wp-content/uploads/2019/09/cach-nau-lau-ga-tiem-ot-hiem-ngon.jpg'>W</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>E</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>R</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>T</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>Y</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>U</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>I</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>O</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>P</Avatar>
+                {
+                    foodCategory && Object.keys(foodCategory).map((item, index) => {
+                        const linkImg = foodCategory[item].link_img
 
-                <Avatar style={{ width: '60px', height: '60px' }}>Q</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>W</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>E</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>R</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>T</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>Y</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>U</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>I</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>O</Avatar>
-                <Avatar style={{ width: '60px', height: '60px' }}>P</Avatar>
+                        return (
+                            <div key={index}>
+                                <IconProduct
+
+                                    index={index}
+                                    linkImg={linkImg}
+                                    clickItem={clickItem}
+                                    keyFood={foodCategory[item].key}
+                                />
+                            </div>
+                        )
+                    })
+                }
             </div>
         </>
     );

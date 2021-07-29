@@ -8,8 +8,8 @@ class App extends Component {
   render() {
     return (
       <>
-        {/* <Admin/> */}
-        <Oder/>
+        <Admin/>
+        {/* <Oder/> */}
       </>
     );
   }
