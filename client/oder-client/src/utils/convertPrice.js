@@ -1,6 +1,7 @@
 export const shortenMoney = (money) => {
-    if (typeof (money) !== "string") {
-        money = money.toString()
-    }
-    return money.slice(0, -3) + "k"
+    return `đ${Intl.NumberFormat().format(money)}`
+}
+
+export const fixNumberFloat = (numberFloat) => {
+    return Math.round(numberFloat * 1000) / 1000
 }

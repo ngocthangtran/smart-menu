@@ -12,9 +12,8 @@ function MenuOption(props) {
     const { oderOption, onChangeFactor, selectItem } = props;
 
     const [value, setValue] = useState(selectItem.unit)
-    
+
     useEffect(() => {
-        console.log('test')
         setValue(selectItem.unit)
     }, [selectItem])
     const [anchorEl, setAnchorEl] = React.useState(null);

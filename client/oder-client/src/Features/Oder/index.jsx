@@ -7,6 +7,8 @@ import { getAllProduct } from '../../APP/listFoodSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { getDrinksAction } from '../../APP/listDrinks';
+import { amount, dataoder, sumprice } from './cartSlide';
+import { database } from '../../utils/firebase';
 
 function Index(props) {
     const Match = useRouteMatch();
@@ -26,6 +28,41 @@ function Index(props) {
             console.error(error)
         }
     })
+
+    //test real time
+    useEffect(() => {
+
+        const nameRef = `Oder/-McEm9sL4p5yHByBiNpB/dataOder`
+        database.ref(nameRef).on('value', (snapShort) => {
+            if (snapShort.val()) {
+                try {
+                    const amountProduct = Object.keys(snapShort.val()).length;
+                    const addAmountAction = amount(amountProduct)
+                    const addDataoder = dataoder(snapShort.val());
+                    var sumPrice = 0;
+                    Object.keys(snapShort.val()).map(item => {
+                        const { amount: amountProduct, selectPrice } = snapShort.val()[item];
+                        const { amount: amountForUnit, oderOption } = amountProduct
+
+                        if (oderOption) {
+                            sumPrice += selectPrice * amountForUnit * oderOption.factor
+                        } else {
+                            sumPrice += selectPrice * amountProduct.amount
+                        }
+                    })
+                    dispatch(sumprice(sumPrice))
+                    dispatch(addAmountAction)
+                    dispatch(addDataoder)
+                } catch (error) {
+                    console.error(error)
+                }
+            } else {
+                dispatch(sumprice(0))
+                dispatch(amount(0))
+                dispatch(dataoder({}))
+            }
+        })
+    }, [])
 
     return (
         <>

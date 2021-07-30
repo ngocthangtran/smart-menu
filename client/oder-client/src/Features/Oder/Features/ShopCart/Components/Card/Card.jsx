@@ -2,42 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './card.scss'
+import { shortenMoney } from '../../../../../../utils/convertPrice';
 
 Card.propTypes = {
     name: PropTypes.string,
-    price: PropTypes.number,
-    count: PropTypes.number,
-    sum: PropTypes.number,
-    removeProduct: PropTypes.func
+    unit: PropTypes.string,
+    viewUnit: PropTypes.string,
+    selectPrice: PropTypes.number,
+    viewAmount: PropTypes.number,
+    sumPrice: PropTypes.number,
 };
 
-Card.defauldProps = {
-    name: '',
-    price: 0,
-    count: 1,
-    sum: 0,
-    removeProduct: null
+Card.defaultProps = {
+    sumPrice: 0,
+    viewUnit: 'no unit',
+    viewAmount: 0,
+    selectPrice: 0,
+    name: 'no name'
 }
 
 function Card(props) {
+    const {
+        selectPrice, name, viewAmount, viewUnit, sumPrice, unit,
+        btnMinus, btnPlus, btnRemove
+    } = props;
+
+
     return (
         <div className='productcard'>
             <div className='productcard__info'>
-                <p>Dê hấp xả tía tô</p>
-                <div className='option'>150.000</div>
+                <p>{name}</p>
+                <div className='option'>{`${shortenMoney(selectPrice)}/${unit}`}</div>
                 <div className="count">
-                    <div>-</div>
-                    <div contentEditable="true" suppressContentEditableWarning={true}>4</div>
-                    <div >+</div>
+                    <div onClick={btnMinus}>-</div>
+                    <div contentEditable="true" suppressContentEditableWarning={true}>{viewAmount}</div>
+                    <div onClick={btnPlus}>+</div>
+
                 </div>
             </div>
             <div className='productcard__count'>
-                <div className="option">Loại bỏ</div>
+                <div className="option" onClick={btnRemove}>Loại bỏ</div>
                 <div className='productcard__sum'>
-                    150.000 x 4 = 600.000
+                    {selectPrice} x {viewAmount} /{viewUnit}
+                    <div className="prices">
+                        = {shortenMoney(sumPrice)}
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

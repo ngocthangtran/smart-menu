@@ -21,8 +21,9 @@ OderForm.defaultProps = {
 }
 
 function OderForm(props) {
-    const { arrPrice, oderOption, nameFood, keyFood } = props
-    const { keyTable } = useSelector(state => state.oderReducer)
+    const { arrPrice, oderOption, nameFood, keyFood, unit } = props
+
+    const { keyTable } = useSelector(state => state.oderreducer)
     const dispatch = useDispatch();
 
     const [initialValues, setInitialValues] = useState({
@@ -32,7 +33,8 @@ function OderForm(props) {
             amount: 1,
             oderOption: oderOption ? oderOption[0] : undefined
         },
-        "selectPrice": arrPrice[0]
+        "selectPrice": arrPrice[0],
+        "unit": unit
     })
     //GET REALTIME DATABASE
     useEffect(() => {
@@ -49,7 +51,8 @@ function OderForm(props) {
                             oderOption: data.amount.oderOption
 
                         },
-                        "selectPrice": data.selectPrice
+                        "selectPrice": data.selectPrice,
+                        "unit": unit
                     }
                 )
             }

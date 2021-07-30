@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import oderApi from "./oderApi";
+import oderApi from '../../oderApi';
 
 export const addProductAction = createAsyncThunk('addProducAtTable', async (params, thunkApi) => {
     const res = await oderApi.addProduct(params)

@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { database, realTime } from '../../../../../utils/firebase';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { fixNumberFloat } from '../../../../../utils/convertPrice';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -36,9 +37,9 @@ ListProduct.defaultProps = {
 
 function IconProduct(props) {
     const { clickItem, index, linkImg, keyFood } = props;
-    const { keyTable } = useSelector(state => state.oderReducer)
+    const { keyTable } = useSelector(state => state.oderreducer)
     const [badge, setBadge] = useState(undefined)
-    
+
     useEffect(() => {
         database.ref(`Oder/${keyTable}/dataOder/${keyFood}/amount`).on('value', res => {
             var data = res.val()
@@ -46,14 +47,14 @@ function IconProduct(props) {
 
                 if (data.oderOption) {
                     const nhan = data.amount * data.oderOption.factor
-                    setBadge(Math.round(nhan * 1000) / 1000)
+                    setBadge(fixNumberFloat(nhan))
                 }
                 else {
                     setBadge(data.amount)
                 }
             }
         })
-        return ()=>{
+        return () => {
             setBadge(undefined)
         }
     })
@@ -68,16 +69,16 @@ function IconProduct(props) {
         </IconButton>
     )
 }
-
 function ListProduct(props) {
     const { foodCategory, clickItem } = props;
-
+    const { amount: amountProduct } = useSelector(state => state.cartreducer)
+    
     return (
         <>
             <div className='shopcartIcon'>
                 <Link to='/oder/shopcart' >
                     <IconButton>
-                        <StyledBadge badgeContent={4} color="secondary" >
+                        <StyledBadge badgeContent={amountProduct} invisible={amountProduct === 0 ? true : false} color="secondary" >
                             <LocalGroceryStoreIcon fontSize={"large"} color={"action"} />
                         </StyledBadge>
                     </IconButton>

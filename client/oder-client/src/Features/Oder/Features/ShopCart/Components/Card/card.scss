@@ -53,10 +53,19 @@
 
         padding-right: 10px;
         & .option{
-            position: absolute;
-            top: 5px;
+            flex-shrink: 0;
+            height: 20px;
             color: red;
             text-decoration:underline red solid ;
+        }
+    }
+    &__sum{
+        padding-top: 10px;
+        flex: 1;
+        & .prices{
+            padding-top: 5px;
+            text-align: right;
+            color: red;
         }
     }
 }

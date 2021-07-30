@@ -1,25 +1,9 @@
 import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import OderForm from '../../OderForm/OderForm';
 import './product.scss';
-
-Product.propTypes = {
-    name: PropTypes.string,
-    describe: PropTypes.string,
-    imageUrl: PropTypes.string,
-    price: PropTypes.object,
-    clickOderNow: PropTypes.func
-};
-Product.defaultProps = {
-    name: 'Gà tiềm ớt hiểm',
-    describe: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, sunt illum id, accusamus est esse sapiente aut praesentium perspiciatis, reprehenderit et recusandae molestiae quod eius possimus fuga nisi architecto ad!",
-    imageUrl: 'https://wna.cdnxbvn.com/wp-content/uploads/2019/09/cach-nau-lau-ga-tiem-ot-hiem-ngon.jpg',
-    viewDetail: false,
-    clickOderNow: null
-}
 
 
 function Product(props) {
@@ -35,7 +19,7 @@ function Product(props) {
     useEffect(() => {
         setSelect(false)
     }, [dataFood])
-    
+
     return (
         <div className="product">
             <img src={dataFood.link_img} alt="img" />
@@ -71,6 +55,7 @@ function Product(props) {
                             oderOption={dataFood.oderOption}
                             keyFood={dataFood.key}
                             nameFood={dataFood.name}
+                            unit={dataFood.price.unit}
                         />
                     </div>
                 }
