@@ -132,7 +132,7 @@ function DialogOderOption(props) {
                 {
                     oderOption && oderOption.map((item, index) => {
                         return (
-                            <Chip label={`${item.unit}: 24 x ${item.factor} (${unit})`} onDelete={() => onDelete(index)} key={index} />
+                            <Chip label={`${item.unit}: 1 x ${item.factor} (${unit})`} onDelete={() => onDelete(index)} key={index} />
                         )
                     })
                 }

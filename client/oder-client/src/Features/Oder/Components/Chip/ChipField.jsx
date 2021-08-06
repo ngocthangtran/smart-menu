@@ -34,7 +34,7 @@ const convertNumberPrice = (number) => {
 }
 
 function ChipField(props) {
-    const { field, form, arrPrice } = props;
+    const { field, arrPrice } = props;
 
     const { value, onChange, name } = field;
 

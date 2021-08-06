@@ -4,7 +4,7 @@ import { Image } from '../../../../Constants/Image';
 import SideBarMenu from "./Component/SideBarMenu";
 import SideBarMenuDropdown from './Component/SideBarMenuDropdown';
 import './sidebar.scss';
-import {useRouteMatch} from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 
 function SideBar(props) {
 
@@ -41,9 +41,20 @@ function SideBar(props) {
                     onClick={onClick}
                     classNameParent={activeName === 'Thực đơn'}
                     nameChild={[
-                        {name:'Danh sách', href:`${Match.url}/menu`},
-                        {name:'Thêm món', href:`${Match.url}/addfood`},
-                        {name:'Thêm đồ uống', href:`${Match.url}/addrinks`},
+                        { name: 'Danh sách', href: `${Match.url}/menu` },
+                        { name: 'Thêm món', href: `${Match.url}/addfood` },
+                        { name: 'Thêm đồ uống', href: `${Match.url}/addrinks` },
+                    ]}
+                />
+                <SideBarMenuDropdown
+                    nameParentMenu='Quản lý bàn'
+                    Icon={() => <i className='bx bx-scan' ></i>}
+                    onClick={onClick}
+                    classNameParent={activeName === 'Quản lý bàn'}
+                    nameChild={[
+                        { name: 'Tạo bàn', href: `${Match.url}/addtable` },
+                        { name: 'Thêm món', href: `${Match.url}/addfood` },
+                        { name: 'Thêm đồ uống', href: `${Match.url}/addrinks` },
                     ]}
                 />
             </ul>

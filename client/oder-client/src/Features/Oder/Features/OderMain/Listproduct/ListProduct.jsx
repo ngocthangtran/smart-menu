@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 import Avatar from '@material-ui/core/Avatar';
 import { useEffect } from 'react';
-import { database, realTime } from '../../../../../utils/firebase';
+import { database } from '../../../../../utils/firebase';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { fixNumberFloat } from '../../../../../utils/convertPrice';

@@ -5,6 +5,11 @@ export const removeFoodAction = createAsyncThunk('ShopCartSlide-remove', async (
     const res = await oderApi.removeProduct(params);
     return res;
 })
+
+export const quantityChangeFood = createAsyncThunk('ShopCartSlide-change', async (params, thunkApi) => {
+    const res = await oderApi.quantityChange(params);
+    return res;
+})
 const ShopCartSlide = createSlice({
     name: 'ShopCartSlide',
     initialState: {
@@ -23,6 +28,10 @@ const ShopCartSlide = createSlice({
         },
         [removeFoodAction.pending]: (state) => {
             state.loading = true
+        },
+        [quantityChangeFood.fulfilled]: (state, action) => {
+            state.res = action.payload;
+            state.loading = false
         }
     }
 })

@@ -36,6 +36,7 @@ function Header(props) {
                     category: item,
                     categoryImg: dataFood[item][Object.keys(dataFood[item])[0]]['link_img']
                 })
+                return 1
             })
             setCategoryFood(dataCovertFood)
         }
@@ -47,13 +48,14 @@ function Header(props) {
                     categoryImg: dataDrinks[item][Object.keys(dataDrinks[item])[0]]['link_img'],
                     length: Object.keys(dataDrinks[item]).length
                 })
+                return 1;
             })
             setCategoryDrinks(dataCovertDrinks)
         }
         if (document.querySelector('.menu__food__card')) {
             setHeightCard(document.querySelector('.menu__food__card').offsetWidth * 1.5)
         }
-    }, [dataFood, dataDrinks])
+    }, [dataFood, dataDrinks, loading, loadingDrink])
     return (
         <header className="header">
             <div className="header__title">

@@ -1,11 +1,9 @@
 import React from 'react';
 import PropsType from 'prop-types'
 import Card from '../Card/Card';
-import { amount } from '../../../../cartSlide';
-import { removeFoodAction } from './ShopCartSlide';
+import { quantityChangeFood, removeFoodAction } from './ShopCartSlide';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { fixNumberFloat } from '../../../../../../utils/convertPrice';
 
 ListCard.propTypes = {
     dataoder: PropsType.object
@@ -19,14 +17,37 @@ function ListCard(props) {
     const { dataoder } = props;
     const { keyTable } = useSelector(state => state.oderreducer)
     const dispatch = useDispatch();
-    // Xu ly shop cart
-    const clickBtnMinu = (keyFood) => {
 
+
+    // Xu ly shop cart
+    const clickBtnMinu = (keyFood, quantity) => {
+        if (quantity === 1) return
+        const params = {
+            keyTable,
+            keyFood,
+            quantityChange: quantity - 1
+        }
+        try {
+            const actionQuantityChange = quantityChangeFood(params)
+            unwrapResult(dispatch(actionQuantityChange))
+        } catch (error) {
+            console.error(error)
+        }
     }
-    const clickBtnPlus = (keyFood) => {
-        console.log('+', keyFood)
+    const clickBtnPlus = (keyFood, quantity) => {
+        const params = {
+            keyTable,
+            keyFood,
+            quantityChange: quantity + 1
+        }
+        try {
+            const actionQuantityChange = quantityChangeFood(params)
+            unwrapResult(dispatch(actionQuantityChange))
+        } catch (error) {
+            console.error(error)
+        }
     }
-    const clickBtnRemove = (keyFood) => {
+    const clickBtnRemove = (keyFood, quantity) => {
         const params = {
             keyFood,
             keyTable
@@ -34,8 +55,7 @@ function ListCard(props) {
         try {
             const removeAction = removeFoodAction(params);
             const resultRemove = dispatch(removeAction);
-            const result = unwrapResult(resultRemove);
-
+            unwrapResult(resultRemove);
         } catch (error) {
             console.error(error)
         }
@@ -52,7 +72,7 @@ function ListCard(props) {
                         viewAmount = amountForUnit
                         viewFactor = oderOption.factor
                         viewUnit = oderOption.unit
-                        sumPrice = selectPrice * viewAmount* oderOption.factor
+                        sumPrice = selectPrice * viewAmount * oderOption.factor
                     } else {
                         viewAmount = amountProduct.amount
                         viewUnit = unit
@@ -68,9 +88,9 @@ function ListCard(props) {
                             unit={unit}
                             sumPrice={sumPrice}
 
-                            btnMinus={() => { clickBtnMinu(key) }}
-                            btnPlus={() => { clickBtnPlus(key) }}
-                            btnRemove={() => { clickBtnRemove(key) }}
+                            btnMinus={() => { clickBtnMinu(key, viewAmount) }}
+                            btnPlus={() => { clickBtnPlus(key, viewAmount) }}
+                            btnRemove={() => { clickBtnRemove(key, viewAmount) }}
                         />
                     )
                 })

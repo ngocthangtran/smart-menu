@@ -1,0 +1,82 @@
+.info__table {
+    display: flex;
+    flex-direction: row;
+    height: calc(100% / 2);
+    margin: 10px;
+    background-color: #fff;
+
+    &>form {
+        width: calc(100% / 2);
+        flex: 1;
+        background-color: #fff;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 2rem;
+    }
+
+    & .qr__conten {
+        width: calc(100% / 2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #fdcb6e;
+        overflow: hidden;
+        &>canvas{
+            background-color: #fff;
+            padding: 15px;
+        }
+        &__name {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        &__intro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            &>div {
+                margin-top: 1rem;
+                font-size: 1.5rem;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .input__copy {
+        margin-top: 20px;
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    
+    .input__conten {
+        display: flex;
+        flex-direction: row;
+
+        &>i{
+            padding-left: 10px;
+        }
+    
+        &>div {
+            top: 0;
+            display: block;
+    
+            max-width: calc(100% - 100px);
+            min-width: 100px;
+    
+            font-size: 1.5rem;
+            font-weight: 200;
+    
+            overflow-x: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
+.history__table{
+    border: 1px solid black;
+    height: calc(100% / 2 - 20px);
+    margin: 10px;
+}

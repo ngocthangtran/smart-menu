@@ -3,7 +3,13 @@ import ListFoodAPI from '../API/MenuApi';
 
 export const getAllProduct = createAsyncThunk('ListFood/getAllProduct', async (params, thunkAPI) => {
     const ListProduct = await ListFoodAPI.getAll(params);
-    return ListProduct;
+    if (ListProduct) {
+        return ListProduct;
+    }
+    return thunkAPI.rejectWithValue({
+        status: 404,
+        message: 'Không có sản phẩm nào'
+    })
 })
 
 const listFoodSlice = createSlice({
@@ -22,7 +28,7 @@ const listFoodSlice = createSlice({
         },
         repairData: (state, action) => {
             const foodCategory = { ...state.data[action.payload.category], [action.payload.key]: action.payload.newData };
-
+            console.log(foodCategory)
             state.dataFood = { ...state.dataFood, [action.payload.category]: foodCategory }
         },
         getKeyFood: (state, action) => {

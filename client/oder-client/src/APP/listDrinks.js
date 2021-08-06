@@ -3,7 +3,13 @@ import MenuApi from "../API/MenuApi";
 
 export const getDrinksAction = createAsyncThunk('all_drinks', async (params, thunkApi) => {
     const res = await MenuApi.getAll(params)
-    return res;
+    if (res) {
+        return res;
+    }
+    return thunkApi.rejectWithValue({
+        status: 404,
+        message: 'Không có sản phẩm nào'
+    })
 })
 
 const DrinkSlice = createSlice({

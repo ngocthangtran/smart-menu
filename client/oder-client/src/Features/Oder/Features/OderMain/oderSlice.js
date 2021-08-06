@@ -16,8 +16,14 @@ const oderSlide = createSlice({
         [addProductAction.fulfilled]: (state, action) => {
             state.res = action.payload
         }
+    },
+    reducers: {
+        addKeyTable: (state, action) => {
+            state.keyTable = action.payload;
+        }
     }
 })
 
-const { reducer: oderReducer } = oderSlide
+const { reducer: oderReducer, actions } = oderSlide
+export const { addKeyTable } = actions
 export default oderReducer

@@ -34,6 +34,7 @@ function Index(props) {
                     if (index === activeCategory.index) {
                         return setDataviewFoodter(data[item])
                     }
+                    return 1
                 })
                 setActiveFood(0);
             }
@@ -47,6 +48,7 @@ function Index(props) {
                     if (index === activeCategory.index) {
                         return setDataviewFoodter(drinks[item])
                     }
+                    return 1
                 })
                 setActiveFood(0);
             }
@@ -60,6 +62,7 @@ function Index(props) {
                 if (activeFood === index) {
                     setDataViewFood(dataViewFoodter[item])
                 }
+                return 1
             })
         }
     }, [activeFood, dataViewFoodter])

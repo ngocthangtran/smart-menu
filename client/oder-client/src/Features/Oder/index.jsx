@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { Switch, Route, useRouteMatch, useParams } from 'react-router-dom'
 import './oder.scss'
 import OderMain from './Features/OderMain/oder'
 import ShopCart from './Features/ShopCart/ShopCart';
 import { getAllProduct } from '../../APP/listFoodSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { getDrinksAction } from '../../APP/listDrinks';
 import { amount, dataoder, sumprice } from './cartSlide';
 import { database } from '../../utils/firebase';
+import { addKeyTable } from './Features/OderMain/oderSlice';
 
 function Index(props) {
     const Match = useRouteMatch();
     const dispatch = useDispatch();
+    const { keytable } = useParams()
 
     //handling getdata
 
@@ -24,6 +26,9 @@ function Index(props) {
             const actionGetAllDrinks = getDrinksAction('drinks');
             const resultGetAllDrinks = dispatch(actionGetAllDrinks);
             unwrapResult(resultGetAllDrinks);
+
+            const actionAddKeyTable = addKeyTable(keytable)
+            dispatch(actionAddKeyTable);
         } catch (error) {
             console.error(error)
         }
@@ -32,7 +37,8 @@ function Index(props) {
     //test real time
     useEffect(() => {
 
-        const nameRef = `Oder/-McEm9sL4p5yHByBiNpB/dataOder`
+        // const nameRef = `Oder/-McEm9sL4p5yHByBiNpB/dataOder`
+        const nameRef = `Oder/${keytable}/dataOder`
         database.ref(nameRef).on('value', (snapShort) => {
             if (snapShort.val()) {
                 try {
@@ -49,6 +55,7 @@ function Index(props) {
                         } else {
                             sumPrice += selectPrice * amountProduct.amount
                         }
+                        return 1
                     })
                     dispatch(sumprice(sumPrice))
                     dispatch(addAmountAction)
@@ -62,14 +69,14 @@ function Index(props) {
                 dispatch(dataoder({}))
             }
         })
-    }, [])
+    })
 
     return (
         <>
 
             <div className='oder'>
                 <Switch>
-                    <Route exact path={Match.url} component={OderMain} />
+                    <Route exact path={`${Match.url}`} component={OderMain} />
                     <Route path={`${Match.url}/shopcart`} component={ShopCart} />
                 </Switch>
             </div>

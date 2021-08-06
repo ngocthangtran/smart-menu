@@ -7,8 +7,8 @@ import AddDrinks from './Features/Menu/AddDrinks';
 import AddFood from './Features/Menu/AddProduct/index';
 import Status from './Features/Status/index';
 import ViewATable from './Features/Table/ViewATable/ViewATable';
+import CreateTable from './Features/Table/CreateTable/CreateTable';
 import './index.scss';
-
 
 function Index(props) {
     const Match = useRouteMatch();
@@ -31,6 +31,9 @@ function Index(props) {
                 </Route>
                 <Route path={`${Match.url}/addrinks`} >
                     <Main Component={AddDrinks} />
+                </Route>
+                <Route path={`${Match.url}/addtable`}>
+                    <Main Component={CreateTable} />
                 </Route>
 
             </Switch>

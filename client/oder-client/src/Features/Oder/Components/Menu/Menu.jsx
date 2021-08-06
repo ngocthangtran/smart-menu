@@ -1,11 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button, Menu, MenuItem } from '@material-ui/core'
 import { useState } from 'react';
 import { useEffect } from 'react';
-Menu.propTypes = {
-
-};
 
 function MenuOption(props) {
 

@@ -87,7 +87,8 @@ function Index(props) {
             listPrice: selectFood.price.size,
             imgAsFile: selectFood.link_img,
             category: selectFood.category,
-            descirbeFood: selectFood.describe
+            descirbeFood: selectFood.describe,
+            key: selectFood.key
         } :
         { name: '', unit: '', listPrice: [150000, 250000, 300000], imgAsFile: '', category: '', descirbeFood: '' }
 
@@ -178,13 +179,12 @@ function Index(props) {
             newData: data
         })
         dispatch(actionNewFoodRedux);
-
+        history.push('/admin/menu')
     }
 
     //handling on submit repair food
     const handlingRepairSubmit = async values => {
-
-        var { name, listPrice, imgAsFile, category, descirbeFood, unit } = values;
+        var { name, listPrice, imgAsFile, category, descirbeFood, unit, key } = values;
 
         if (descirbeFood.length === 0) {
             descirbeFood = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
@@ -214,7 +214,8 @@ function Index(props) {
             "price": {
                 "unit": unit,
                 "size": listPrice,
-            }
+            },
+            "key": key
         }
 
         //hading data width Api repair data server
@@ -232,11 +233,12 @@ function Index(props) {
                 key: selectFood.key,
                 newData: data
             })
+            dispatch(actionRepairRedux)
             unwrapResult(dispatch(actionRepairRedux))
-            history.push('/admin/menu')
         } catch (error) {
             console.log(error)
         }
+        history.push('/admin/menu')
 
     }
 
@@ -246,6 +248,7 @@ function Index(props) {
             keyEvent.preventDefault();
         }
     }
+
     return (
 
         <>

@@ -140,7 +140,6 @@ export default function CardConten(props) {
         setDataView(demoData[Object.keys(demoData).find(key => key === event.target.outerText)])
         setValue(newValue);
     };
-    // console.log(viewCategory)
 
     //hadling longMenu card
     const history = useHistory();
@@ -196,7 +195,7 @@ export default function CardConten(props) {
                             })
                             const resultDelete = await dispatch(actionDelete)
                             unwrapResult(resultDelete)
-                            deleteImg(demoData[key].link_img)
+                            deleteImg(demoData[category][keyFood].link_img)
                         } catch (error) {
 
                         }
@@ -206,6 +205,7 @@ export default function CardConten(props) {
             })
         }
     }
+    
     return (
         <>
             <Header name='Thực đơn' select={{ bool: true, value: classify, handlingSelectClassify: handlingSelectClassify }} />
@@ -232,7 +232,7 @@ export default function CardConten(props) {
                             <Grid container spacing={2} className={classes.grid}>
                                 {
                                     Object.keys(dataView).length !== 0 && Object.keys(dataView).map((item, index) => {
-                                        
+
                                         return (
                                             <Grid item xs={4} key={index}>
                                                 <CardFood

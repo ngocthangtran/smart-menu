@@ -7,7 +7,6 @@ import { Button } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductAction } from '../OderMain/oderSlice';
-import { string } from 'yup';
 import { useEffect } from 'react';
 import { database } from '../../../../utils/firebase';
 import { useState } from 'react';
@@ -57,7 +56,7 @@ function OderForm(props) {
                 )
             }
         })
-    }, [])
+    }, [keyFood, keyTable, unit])
 
     const onSubmit = async (values) => {
         const stringJson = JSON.stringify(values)
@@ -81,7 +80,6 @@ function OderForm(props) {
         >
             {
                 formikProps => {
-                    const { values } = formikProps;
                     // console.log(values);
                     return (
                         <Form>

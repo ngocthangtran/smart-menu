@@ -27,17 +27,21 @@ function SideBarMenuDropdown(props) {
     const onClickItemChil = (name) => {
         setActiveName(name)
     }
+    const [height, setHeight] = useState(0)
 
     useEffect(() => {
-        const menuDropdown = document.querySelector('.sidebar-menu-dropdown')
-        const menuDropdownActive = document.querySelector('.sidebar-menu-dropdown.active')
+        if (classNameParent) {
+            const menuDropdown = document.querySelector('.sidebar-menu-dropdown')
+            const menuDropdownActive = document.querySelector('.sidebar-menu-dropdown.active')
 
-        if (menuDropdownActive) {
-            const countElement = menuDropdown.children.length;
-            menuDropdown.style.height = `${countElement * menuDropdown.children[0].offsetHeight}px`
+            if (menuDropdownActive) {
+                const countElement = menuDropdown.children.length;
+                setHeight(countElement * menuDropdown.children[0].offsetHeight)
+            }
+
         }
-        else{
-            menuDropdown.style.height = `0px`
+        else {
+            setHeight(0);
         }
     })
 
@@ -49,13 +53,16 @@ function SideBarMenuDropdown(props) {
                 }}
             >
                 {Icon && <Icon />}
+                <i class='bx bx-qr' ></i>
                 <span>{nameParentMenu}</span>
                 <div className={classNameParent ? 'dropdown-icon active' : 'dropdown-icon'}>
                     <i className='bx bx-chevron-down'></i>
                 </div>
             </Link>
 
-            <ul className={classNameParent ? 'sidebar-menu-dropdown active' : 'sidebar-menu-dropdown'}>
+            <ul className={classNameParent ? 'sidebar-menu-dropdown active' : 'sidebar-menu-dropdown'}
+                style={{ height: height }}
+            >
                 {
                     nameChild.map((item, index) => {
                         return (

@@ -2,6 +2,7 @@ import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import OderForm from '../../OderForm/OderForm';
 import './product.scss';
 
@@ -19,6 +20,8 @@ function Product(props) {
     useEffect(() => {
         setSelect(false)
     }, [dataFood])
+
+    const { keyTable } = useSelector(state => state.oderreducer);
 
     return (
         <div className="product">
