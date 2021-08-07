@@ -6,6 +6,7 @@ import PropsType from 'prop-types';
 import React, { useState } from 'react';
 import DialogChangeDomain from '../DialogChangeDomain/DialogChangeDomain';
 
+
 const ColorButton = withStyles((theme) => ({
     root: {
         color: '#fff',
@@ -27,6 +28,8 @@ FormInfoTable.propTypes = {
     numberTable: PropsType.number,
     systemLink: PropsType.string,
     onChange: PropsType.func,
+    changeSystemLink: PropsType.func,
+    onSubmit: PropsType.func,
 }
 
 FormInfoTable.defaultProps = {
@@ -37,7 +40,7 @@ FormInfoTable.defaultProps = {
 
 function FormInfoTable(props) {
 
-    const { numberTable, systemLink, linkOderTable, onChange, changeSystemLink } = props
+    const { numberTable, systemLink, linkOderTable, onChange, changeSystemLink, onSubmit } = props
     const initialValues = {
         numberTable, systemLink, linkOderTable
     }
@@ -45,10 +48,10 @@ function FormInfoTable(props) {
     const submitForm = value => {
         const dataTable = {
             keyTable: value.linkOderTable.split('/').pop(),
-            name: `Bàn số ${value.numberTable}`,
+            numberTable: value.numberTable,
             linkOderQr: value.linkOderTable
         }
-        console.log(dataTable);
+        onSubmit(dataTable)
     }
 
     //Handling openDialog
@@ -69,6 +72,7 @@ function FormInfoTable(props) {
     }
     return (
         <>
+
             <DialogChangeDomain
                 domain={systemLink}
                 open={open}
