@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, useRouteMatch, useParams } from 'react-router-dom'
+import { Switch, Route, useRouteMatch, useParams, useHistory } from 'react-router-dom'
 import './oder.scss'
 import OderMain from './Features/OderMain/oder'
 import ShopCart from './Features/ShopCart/ShopCart';
@@ -7,37 +7,108 @@ import { getAllProduct } from '../../APP/listFoodSlice';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { getDrinksAction } from '../../APP/listDrinks';
-import { amount, dataoder, sumprice } from './cartSlide';
+import { addDataTable, amount, dataoder, sumprice } from './cartSlide';
 import { database } from '../../utils/firebase';
 import { addKeyTable } from './Features/OderMain/oderSlice';
+import { checkTableExits } from '../Admin/Features/Table/TableSlice';
+import { ProcessDate } from '../../utils/Date';
+import oderApi from './oderApi';
+import Cookies from 'js-cookie';
+import InputCode from './Features/OderMain/InputCodeTable/InputCode';
+import { useState } from 'react';
 
 function Index(props) {
     const Match = useRouteMatch();
+    const history = useHistory();
     const dispatch = useDispatch();
     const { keytable } = useParams()
+    const [cookieTable, setCookieTable] = useState(Cookies.get('table'))
 
-    //handling getdata
+    //check key table
+    useEffect(async () => {
+        var dataTable;//contains information name table, code table
+        //processing keyTable on database: Tables/keyTable
+        //if keyTable not exsit on database => user modify url conten. Must redirect user to 403
+        const checkTableInTables = await checkTableExits({ keyTable: keytable });
+        if (checkTableInTables.status !== 200) {
+            history.push(`/authenticator`)
+            return
+        }
+        //handling keyTable on databse: Tables/ketTable
+        const checkTableInOder = await oderApi.checkTableExsitInOder({ keyTable: keytable })
+        if (checkTableInOder.status === 200) {
+            //da ton tai
+            //handlink scurity oder ex: ramdom a key 3 
 
-    useEffect(() => {
+            if (cookieTable) {
+                console.log(cookieTable)
+                const dataCookie = JSON.parse(cookieTable)
+                // console.log(cookieTable, checkTableInOder.data.code)
+
+                if (checkTableInOder.data.code !== dataCookie.code) {
+                    Cookies.set('table', JSON.stringify({
+                        table: checkTableInTables.data.numberTable
+                    }))
+                    history.push(`${Match.url}/input-code`)
+                } else {
+                    history.push(`${Match.url}`)
+                }
+            } else {
+                Cookies.set('table', JSON.stringify({
+                    table: checkTableInTables.data.numberTable
+                }))
+                history.push(`${Match.url}/input-code`)
+            }
+
+            // console.log(cookieTable, checkTableInOder.data.code)
+        }
+        else {
+            //chua ton tai
+            const date = new Date();
+            const day = ProcessDate.dayNow()
+            const time = ProcessDate.timeNow()
+            const code = Math.floor(1000 + Math.random() * 9000);
+            const data = {
+                date: day,
+                keyTable: keytable,
+                timeIn: time,
+                code
+            }
+
+            const params = {
+                keyTable: keytable,
+                data: data
+            }
+            dataTable = {
+                table: checkTableInTables.data.numberTable,
+                code
+            }
+
+            Cookies.set('table', JSON.stringify(dataTable));
+            oderApi.addNewTable(params)
+        }
+
+        //handling getdata
         try {
             const actionGetAllFood = getAllProduct('food');
             const resultGetAllFood = dispatch(actionGetAllFood);
             unwrapResult(resultGetAllFood)
             const actionGetAllDrinks = getDrinksAction('drinks');
             const resultGetAllDrinks = dispatch(actionGetAllDrinks);
-            unwrapResult(resultGetAllDrinks);
+
+            unwrapResult(resultGetAllDrinks)
 
             const actionAddKeyTable = addKeyTable(keytable)
             dispatch(actionAddKeyTable);
         } catch (error) {
             console.error(error)
         }
-    })
 
-    //test real time
+
+    }, [cookieTable])
+
     useEffect(() => {
-
-        // const nameRef = `Oder/-McEm9sL4p5yHByBiNpB/dataOder`
+        //Processing realtime database
         const nameRef = `Oder/${keytable}/dataOder`
         database.ref(nameRef).on('value', (snapShort) => {
             if (snapShort.val()) {
@@ -78,6 +149,9 @@ function Index(props) {
                 <Switch>
                     <Route exact path={`${Match.url}`} component={OderMain} />
                     <Route path={`${Match.url}/shopcart`} component={ShopCart} />
+                    <Route path={`${Match.url}/input-code`}>
+                        <InputCode setCookieTable={setCookieTable} />
+                    </Route>
                 </Switch>
             </div>
         </>

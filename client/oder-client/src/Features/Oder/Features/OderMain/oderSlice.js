@@ -9,7 +9,7 @@ export const addProductAction = createAsyncThunk('addProducAtTable', async (para
 const oderSlide = createSlice({
     name: 'oderSlice',
     initialState: {
-        keyTable: '-McEm9sL4p5yHByBiNpB',
+        keyTable: '',
         res: ''
     },
     extraReducers: {

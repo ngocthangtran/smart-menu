@@ -114,6 +114,23 @@
     }
 }
 
+.tableoder{
+    padding: 0 10px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    &>div, span{
+        display: flex;
+        align-items: center;
+        &>i{
+            padding-right: 5px;
+        }
+    }
+}
+
 .menu__food {
     &__list {
         // height: 30%;

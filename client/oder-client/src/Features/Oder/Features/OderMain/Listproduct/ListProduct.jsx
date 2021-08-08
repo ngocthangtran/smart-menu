@@ -72,11 +72,12 @@ function IconProduct(props) {
 function ListProduct(props) {
     const { foodCategory, clickItem } = props;
     const { amount: amountProduct } = useSelector(state => state.cartreducer)
-    
+    const { keyTable } = useSelector(state => state.oderreducer)
+
     return (
         <>
             <div className='shopcartIcon'>
-                <Link to='/oder/shopcart' >
+                <Link to={`/oder/${keyTable}/shopcart`} >
                     <IconButton>
                         <StyledBadge badgeContent={amountProduct} invisible={amountProduct === 0 ? true : false} color="secondary" >
                             <LocalGroceryStoreIcon fontSize={"large"} color={"action"} />

@@ -5,6 +5,8 @@ import { Image } from '../../../../Constants/Image';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import LoadPage from '../../../../Components/LoadPage/LoadPage';
+import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 Header.propTypes = {
     name: PropTypes.string,
@@ -28,6 +30,18 @@ function Header(props) {
 
     const { dataFood, loading, error } = useSelector(state => state.allfood);
     const { dataDrinks, loadingDrink, errorDrinks } = useSelector(state => state.alldrinks);
+
+    var desk = Cookies.get('table')
+    if (desk) {
+        desk = JSON.parse(desk);
+    }else{
+        desk={
+            table:1,
+            code:12345
+        }
+    }
+
+
     useEffect(() => {
         const dataCovertFood = []
         if (!loading) {
@@ -63,6 +77,16 @@ function Header(props) {
                 <h2 className="header__name">{name}</h2>
             </div>
             <div className={activeMenuTongle ? "header__menu active" : "header__menu"}>
+                <div className="tableoder">
+                    <div>
+                        <i className='bx bxl-codepen' ></i>
+                        Bàn số: {desk.table}
+                    </div>
+                    <span>
+                        <i className='bx bx-pencil' ></i>
+                        Code: {desk.code}
+                    </span>
+                </div>
                 {/* <div className={"header__menu active"}> */}
                 <div className="menu__food__list">
                     <h1 style={{ padding: "0 10px" }}>Danh mục đồ ăn</h1>

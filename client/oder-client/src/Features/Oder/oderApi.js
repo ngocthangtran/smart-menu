@@ -55,6 +55,53 @@ const oderApi = {
                 message: "Có lỗi"
             }
         })
+    },
+    getATable: (params) => {
+
+    },
+    addNewTable: async (params) => {
+        const { keyTable, data } = params
+        const res = await database.ref(`${nameRef}/${keyTable}`).set(data)
+            .then(res => {
+                return {
+                    status: 200,
+                    message: "Hoàn thành"
+                }
+            }).catch(err => {
+                console.error('OderApi/AddNewTable')
+                return {
+                    status: 500,
+                    message: "Có lỗi"
+                }
+            })
+    },
+    checkTableExsitInOder: async (params) => {
+        const { keyTable } = params;
+        const ref = await database.ref(`${nameRef}/${keyTable}`)
+            .get()
+            .then(snapShort => {
+                if (snapShort.exists()) {
+                    return {
+                        status: 200,
+                        message: 'Tồn tại bàn này',
+                        data: snapShort.val()
+                    }
+                }
+                else {
+                    return {
+                        status: 404,
+                        message: 'Không tìm thấy bàn'
+                    }
+                }
+            }).catch(err => {
+                console.log('err on TableApi/CheckTable')
+                throw {
+                    status: 500,
+                    message: 'Lỗi không thể lấy bàn',
+                    location: 'TableApi/getlasttable'
+                }
+            })
+        return ref;
     }
 }
 
