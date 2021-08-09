@@ -1,57 +1,36 @@
 import React from 'react';
 import MainHeader from '../../Components/MainHeader/MainHeader';
 import ListTable from './Component/ListTable/ListTable';
+import Statistic from './Component/Statistic/Statistic';
 import './index.scss'
-function index(props) {
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getAllTableAction, setTableOder } from './statusSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { database } from '../../../../utils/firebase';
+const oderRef = process.env.REACT_APP_NAME_REF_ODER
+function Index(props) {
+    const dispatch = useDispatch();
+    useEffect(async () => {
+        const allDeskAction = getAllTableAction();
+        const result = unwrapResult(await dispatch(allDeskAction))
+        database.ref(oderRef).on('value', snapShort => {
+            if (snapShort.val()) {
+                dispatch(setTableOder(snapShort.val()))
+            }else{
+                dispatch(setTableOder({}))
+            }
+        })
+    })
     return (
         <>
             <MainHeader name={'Trạng thái'} />
             <div className="conten">
-                <div className='statistical'>
-                    <div className='statistical-item'>
-                        <div className='statistical-item-title' >
-                            Số bàn sử dụng
-                        </div>
-                        <div className='statistical-item-count' >
-                            <div>
-                                4000
-                            </div>
-                            <i className='bx bxs-category' style={{
-                                color: '#0984e3'
-                            }}></i>
-                        </div>
-                    </div>
-                    <div className='statistical-item'>
-                        <div className='statistical-item-title' >
-                            Số món đã bán
-                        </div>
-                        <div className='statistical-item-count' >
-                            <div>
-                                23
-                            </div>
-                            <i className='bx bx-shopping-bag' style={{
-                                color: '#0984e3'
-                            }} ></i>
-                        </div>
-                    </div>
-                    <div className='statistical-item'>
-                        <div className='statistical-item-title' >
-                            Thu nhập
-                        </div>
-                        <div className='statistical-item-count' >
-                            <div>
-                                12.540.000
-                            </div>
-                            <i className='bx bx-dollar' style={{
-                                color: '#0984e3'
-                            }}  ></i>
-                        </div>
-                    </div>
-                </div>
+                <Statistic />
                 <ListTable />
             </div>
         </>
     );
 }
 
-export default index;
+export default Index;

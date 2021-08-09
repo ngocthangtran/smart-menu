@@ -13,7 +13,8 @@ Table.propTypes = {
     statusTable: PropTypes.string,
     numberPeple: PropTypes.number,
     numberFood: PropTypes.number,
-    price: PropTypes.number
+    price: PropTypes.number,
+    keyTable: PropTypes.string
 };
 
 Table.defaultProps = {
@@ -25,7 +26,8 @@ Table.defaultProps = {
 }
 
 function Table(props) {
-    const { nameTable, statusTable, numberPeple, numberFood, price } = props;
+    const { nameTable, statusTable, numberPeple, numberFood, price, keyTable } = props;
+    
     return (
         <div className='table'>
             <div className='table-title' >
@@ -34,7 +36,7 @@ function Table(props) {
                 </div>
                 <div className='status' >
                     {statusTable}
-                    <div className={'led '+colorStatus[statusTable]}></div>
+                    <div className={'led ' + colorStatus[statusTable]}></div>
                 </div>
             </div>
             <div className='table-details'>
