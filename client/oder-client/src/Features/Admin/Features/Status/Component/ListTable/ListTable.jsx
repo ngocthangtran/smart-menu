@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import Table from '../Table/Table';
 import './listtable.scss'
 import { useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 ListTable.propTypes = {
     table: PropTypes.array
 };
 
 function ListTable(props) {
+    const history = useHistory();
+    const Match = useRouteMatch();
+
     const { listTable, tableOder } = useSelector(state => state.statusReducer);
+    const onClickItem = (keyTable) => {
+        history.push(`${Match.url}/${keyTable}`)
+    }
     return (
         <div className='listtable' >
             {
@@ -20,13 +27,13 @@ function ListTable(props) {
                             status = 'Đang oder'
                         }
                     })
-                    console.log(status)
                     return (
                         <Table
                             key={index}
                             nameTable={`Bàn số ${numberTable}`}
                             keyTable={keyTable}
                             statusTable={status}
+                            onClickItem={onClickItem}
                         />
                     )
                 })

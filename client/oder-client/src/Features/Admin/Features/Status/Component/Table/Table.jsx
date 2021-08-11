@@ -14,7 +14,8 @@ Table.propTypes = {
     numberPeple: PropTypes.number,
     numberFood: PropTypes.number,
     price: PropTypes.number,
-    keyTable: PropTypes.string
+    keyTable: PropTypes.string,
+    onClickItem: PropTypes.func
 };
 
 Table.defaultProps = {
@@ -26,10 +27,10 @@ Table.defaultProps = {
 }
 
 function Table(props) {
-    const { nameTable, statusTable, numberPeple, numberFood, price, keyTable } = props;
-    
+    const { nameTable, statusTable, numberPeple, numberFood, price, keyTable, onClickItem } = props;
+
     return (
-        <div className='table'>
+        <div className='table' onClick={() => { onClickItem(keyTable) }}>
             <div className='table-title' >
                 <div className='name' >
                     {nameTable}
