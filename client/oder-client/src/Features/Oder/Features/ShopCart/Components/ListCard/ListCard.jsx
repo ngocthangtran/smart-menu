@@ -65,8 +65,7 @@ function ListCard(props) {
         <div className='listcard'>
             {
                 Object.keys(dataoder).map((item, index) => {
-                    const { amount: amountProduct, name, selectPrice, key, unit } = dataoder[item];
-                    console.log(dataoder[item])
+                    const { amount: amountProduct, name, selectPrice, key, unit, confirmOder } = dataoder[item];
 
                     const { amount: amountForUnit, oderOption } = amountProduct
                     let viewAmount, viewFactor, viewUnit, sumPrice;
@@ -75,7 +74,6 @@ function ListCard(props) {
                         viewFactor = oderOption.factor
                         viewUnit = oderOption.unit
                         sumPrice = selectPrice * viewAmount * oderOption.factor
-                        // console.log(sumPrice, viewAmount, oderOption.factor)
                     } else {
                         viewAmount = amountProduct.amount
                         viewUnit = unit
@@ -94,6 +92,7 @@ function ListCard(props) {
                             btnMinus={() => { clickBtnMinu(key, viewAmount) }}
                             btnPlus={() => { clickBtnPlus(key, viewAmount) }}
                             btnRemove={() => { clickBtnRemove(key, viewAmount) }}
+                            confirmOder={confirmOder}
                         />
                     )
                 })

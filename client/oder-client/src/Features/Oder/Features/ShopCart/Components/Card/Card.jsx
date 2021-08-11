@@ -23,13 +23,17 @@ Card.defaultProps = {
 
 function Card(props) {
     const {
-        selectPrice, name, viewAmount, viewUnit, sumPrice, unit,
+        selectPrice, name, viewAmount, viewUnit, sumPrice, unit, confirmOder,
         btnMinus, btnPlus, btnRemove
     } = props;
 
-
     return (
-        <div className='productcard'>
+        <div className='productcard' style={confirmOder ? {
+            pointerEvents: 'none',
+            opacity: 0.6
+        } : {
+
+        }}>
             <div className='productcard__info'>
                 <p>{name}</p>
                 <div className='option'>{`${shortenMoney(selectPrice)}/${unit}`}</div>

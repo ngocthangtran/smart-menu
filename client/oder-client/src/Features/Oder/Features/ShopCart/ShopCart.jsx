@@ -10,6 +10,7 @@ function ShopCart(props) {
     const { dataOder, amount, sumPrice } = useSelector(state => state.cartreducer)
     const { keyTable } = useSelector(state => state.oderreducer)
     
+    
     return (
         <div className='shopcart'>
             <Link to={`/oder/${keyTable}`}>Tiếp tục chọn món</Link>
