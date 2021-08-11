@@ -1,53 +1,54 @@
+import { Button } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
-import './index.scss'
-import Cookies from 'js-cookie';
-import { Code } from '@material-ui/icons';
+import './index.scss';
 
 function InputNumber(props) {
-    const { getCode } = props;
+    const { getCode, message: messageProps, hidden } = props;
     const inputEl = useRef(null);
     const [value, setValue] = useState('');
-    const [message, setMessage] = useState('');
-    useEffect(() => {
-        inputEl.current.focus()
-    })
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
-        const cook = JSON.parse(Cookies.get('table'))
-        if (cook.code) {
-            setMessage("Mã bạn vừa nhập không đúng! Vui lòng nhập lại")
-        }
-        if (getCode(value)) {
-            inputEl.current.blur()
-            setValue('')
-        }
+        inputEl.current.focus()
     })
 
     return (
         <div className='center'>
             <div className={message.length !== 0 ? "mesgcircle red" : "mesgcircle"}>
+                {/* <div className="mesgcircle"> */}
                 <div className="mesgcircle__title">
                     <i className='bx bx-message-alt-error'></i>
                     Thông báo:
                 </div>
 
-                {
-                    message.length !== 0 ?
-                        message
-                        :
-                        "Bàn này đã có người oder!Để xác nhận bạn cũng là người bàn này xin vui lòng lấy mã xác nhận từ người đã truy cập được vào hệ thống.<br />Mã có trong phần menu, nhập ở bên dưới"
-                }
+                {message.length !== 0 ? message : messageProps}
             </div>
             <input
                 ref={inputEl}
                 type="number"
                 className="input"
                 value={value}
-                onChange={(e) => {
+                onChange={async (e) => {
                     setValue(e.target.value)
-                    getCode(e.target.value)
+                    const notification = await getCode(e.target.value)
+                    if (notification) {
+                        if (notification.status === false) {
+                            inputEl.current.focus()
+                            setMessage(notification.message)
+                            setValue('')
+                        }
+                    }
                 }}
             />
+            <Button
+                variant='outlined'
+                style={{
+                    marginTop: 10,
+                    display: hidden ? 'none' : false
+
+                }}
+                onClick={() => { getCode(value, { asda:123 }) }}                
+            >Xác nhận</Button>
 
         </div>
     );

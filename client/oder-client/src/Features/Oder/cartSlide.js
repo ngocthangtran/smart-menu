@@ -5,6 +5,7 @@ const cartSlide = createSlice({
     initialState: {
         amount: 0,
         dataOder: {},
+        dataOderOld:{},
         sumPrice: 0,
         dataTable: {}
     },
@@ -21,7 +22,10 @@ const cartSlide = createSlice({
         },
         addDataTable: (state, action) => {
             state.dataTable = action.payload
-        }
+        },
+        addDataOderOld: (state, action) => {
+            state.dataOderOld = action.payload
+        },
     },
 })
 

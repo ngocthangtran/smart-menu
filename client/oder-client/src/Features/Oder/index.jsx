@@ -9,7 +9,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { getDrinksAction } from '../../APP/listDrinks';
 import { addDataTable, amount, dataoder, sumprice } from './cartSlide';
 import { database } from '../../utils/firebase';
-import { addKeyTable } from './Features/OderMain/oderSlice';
+import { addKeyTable, addProductAction } from './Features/OderMain/oderSlice';
 import { checkTableExits } from '../Admin/Features/Table/TableSlice';
 import { ProcessDate } from '../../utils/Date';
 import oderApi from './oderApi';
@@ -23,7 +23,7 @@ function Index(props) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { keytable } = useParams()
-    const [cookieTable, setCookieTable] = useState(Cookies.get('table'))
+    const [cookieTable, setCookieTable] = useState(Cookies.get('table'));
 
     //check key table
     useEffect(async () => {
@@ -40,9 +40,7 @@ function Index(props) {
         if (checkTableInOder.status === 200) {
             //da ton tai
             //handlink scurity oder ex: ramdom a key 3 
-            console.log(1234)
             if (cookieTable) {
-                console.log(cookieTable)
                 const dataCookie = JSON.parse(cookieTable)
                 // console.log(cookieTable, checkTableInOder.data.code)
 
@@ -132,7 +130,7 @@ function Index(props) {
                     })
                     dispatch(sumprice(sumPrice))
                     dispatch(addAmountAction)
-                    dispatch(addDataoder)
+                    unwrapResult(dispatch(addDataoder))
                 } catch (error) {
                     console.error(error)
                 }
@@ -145,19 +143,38 @@ function Index(props) {
     })
 
     //Processing input code 
-    const getCode = (value) => {
+    const getCode = async (value) => {
         if (value.length === 4) {
-                window.close()
-                const table = JSON.parse(Cookies.get('table'))
-                const newCookie = {
-                    ...table,
-                    code: parseInt(value)
+            const checkTableInOder = await oderApi.checkTableExsitInOder({ keyTable: keytable })
+            if (checkTableInOder.data.code !== parseInt(value)) {
+                return {
+                    status: false,
+                    message: "Mã bàn không đúng"
                 }
-                Cookies.set("table", JSON.stringify(newCookie))
-                setCookieTable(Cookies.get('table'))
-                return true
+            }
+            const table = JSON.parse(Cookies.get('table'))
+            const newCookie = {
+                ...table,
+                code: parseInt(value)
+            }
+            Cookies.set("table", JSON.stringify(newCookie))
+            setCookieTable(Cookies.get('table'))
+
         }
-        return false
+        return true
+    }
+
+    const confirmOder = (value, dataOder) => {
+        if (dataOder) {
+            const params = {
+                keyTable: keytable,
+                data: {
+                    numberPeople: parseInt(value)
+                }
+            }
+            oderApi.addNewTable(params)
+            history.goBack()
+        }
     }
 
     return (
@@ -168,7 +185,10 @@ function Index(props) {
                     <Route exact path={`${Match.url}`} component={OderMain} />
                     <Route path={`${Match.url}/shopcart`} component={ShopCart} />
                     <Route path={`${Match.url}/input-code`}>
-                        <InputNumber getCode={getCode} />
+                        <InputNumber getCode={getCode} message={'Bàn này đã đang được sử dụng! Lấy mã trong danh mục đồ ăn của người dùng đã vào được hệ thống'} hidden={true} />
+                    </Route>
+                    <Route path={`${Match.url}/input-people`}>
+                        <InputNumber getCode={confirmOder} message={"Cho tôi biết số người trong bàn của bạn?"} hidden={false} />
                     </Route>
                 </Switch>
             </div>

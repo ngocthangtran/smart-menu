@@ -10,11 +10,16 @@ const oderSlide = createSlice({
     name: 'oderSlice',
     initialState: {
         keyTable: '',
-        res: ''
+        res: '',
+        loading: false
     },
     extraReducers: {
         [addProductAction.fulfilled]: (state, action) => {
             state.res = action.payload
+            state.loading = false
+        },
+        [addProductAction.pending]: (state, action) => {
+            state.loading = true
         }
     },
     reducers: {

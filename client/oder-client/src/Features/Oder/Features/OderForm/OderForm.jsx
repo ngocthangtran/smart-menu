@@ -67,8 +67,12 @@ function OderForm(props) {
             dataOder: JSON.parse(dataOder)
         }
 
-        const actionAddFood = addProductAction(data);
-        dispatch(actionAddFood);
+        try {
+            const actionAddFood = addProductAction(data);
+            dispatch(actionAddFood);
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 

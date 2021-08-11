@@ -61,7 +61,7 @@ const oderApi = {
     },
     addNewTable: async (params) => {
         const { keyTable, data } = params
-        const res = await database.ref(`${nameRef}/${keyTable}`).set(data)
+        const res = await database.ref(`${nameRef}/${keyTable}`).update(data)
             .then(res => {
                 return {
                     status: 200,
