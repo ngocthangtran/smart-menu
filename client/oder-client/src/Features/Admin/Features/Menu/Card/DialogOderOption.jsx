@@ -52,8 +52,10 @@ function DialogOderOption(props) {
         unit: '',
         factor: 0
     })
+
+    const [factorErr, setFactorErr] = useState(null)
     const onChange = (event, classify) => {
-        const value = event.target.value;
+        var value = event.target.value;
         if (classify === 'unit') {
             setState({
                 ...state,
@@ -69,18 +71,28 @@ function DialogOderOption(props) {
     const KeyDownEnter = (event) => {
         if (event.keyCode === 13) {
             if (state.factor && state.unit) {
-                //Add reducer local
-                let newData;
-                if (dataOder.oderOption) {
-                    newData = { ...dataOder, oderOption: [...dataOder.oderOption, state] }
+                if (!isNaN(state.factor)) {
+                    setFactorErr(null)
+                    let newData;
+                    const oderOption = { ...state, factor: parseFloat(state.factor) }
+                    if (dataOder.oderOption) {
+                        newData = { ...dataOder, oderOption: [...dataOder.oderOption, oderOption] }
 
-                } else {
-                    const oderOption = new Array();
-                    oderOption.push(state)
-                    newData = { ...dataOder, oderOption: oderOption }
+                    } else {
+                        const oderOption = new Array();
+                        oderOption.push(state)
+                        newData = { ...dataOder, oderOption: oderOption }
+                    }
+                    const actionLocalAddNew = addNewOption(newData)
+                    dispatch(actionLocalAddNew)
+                    setState({
+                        unit: '',
+                        factor: 0
+                    })
                 }
-                const actionLocalAddNew = addNewOption(newData)
-                dispatch(actionLocalAddNew)
+                else {
+                    setFactorErr('Hệ số phải là dạng số')
+                }
             }
         }
     }
@@ -124,6 +136,8 @@ function DialogOderOption(props) {
                         value={state.factor}
                         onChange={(e) => { onChange(e, 'factor') }}
                         onKeyDown={KeyDownEnter}
+                        error={factorErr ? true : false}
+                        helperText={factorErr ? factorErr : false}
                     />
                 </div>
                 {
