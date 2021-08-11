@@ -40,7 +40,7 @@ function Index(props) {
         if (checkTableInOder.status === 200) {
             //da ton tai
             //handlink scurity oder ex: ramdom a key 3 
-
+            console.log(1234)
             if (cookieTable) {
                 console.log(cookieTable)
                 const dataCookie = JSON.parse(cookieTable)
@@ -144,6 +144,22 @@ function Index(props) {
         })
     })
 
+    //Processing input code 
+    const getCode = (value) => {
+        if (value.length === 4) {
+                window.close()
+                const table = JSON.parse(Cookies.get('table'))
+                const newCookie = {
+                    ...table,
+                    code: parseInt(value)
+                }
+                Cookies.set("table", JSON.stringify(newCookie))
+                setCookieTable(Cookies.get('table'))
+                return true
+        }
+        return false
+    }
+
     return (
         <>
 
@@ -152,8 +168,7 @@ function Index(props) {
                     <Route exact path={`${Match.url}`} component={OderMain} />
                     <Route path={`${Match.url}/shopcart`} component={ShopCart} />
                     <Route path={`${Match.url}/input-code`}>
-                        <InputCode setCookieTable={setCookieTable} />
-                        {/* <InputNumber /> */}
+                        <InputNumber getCode={getCode} />
                     </Route>
                 </Switch>
             </div>
