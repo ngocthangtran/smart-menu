@@ -4,6 +4,7 @@ import { Formik, FastField, Form } from 'formik';
 import InputField from '../../../../../Custom-fields/Input/InputFields';
 import './formchange.scss'
 import Button from '@material-ui/core/Button';
+import { fixNumberFloat, shortenMoney } from '../../../../../utils/convertPrice';
 
 FormChange.propTypes = {
     name: PropTypes.string,
@@ -20,19 +21,20 @@ FormChange.defaultProps = {
 }
 
 function FormChange(props) {
-    const { name, price, count, sumPrice } = props;
+    const { name, price, count, changeValue } = props;
     const initialValues = {
-        name: name, price: price, count: count, sumPrice: sumPrice
+        name: name, price: price, count: count, sumPrice: shortenMoney(count * price)
     }
     return (
         <Formik
             initialValues={initialValues}
             onSubmit={(vl) => console.log(vl)}
+            enableReinitialize
         >
             {
                 formilProps => {
                     const { values, touched, errors } = formilProps;
-                    console.log(values)
+                    values.sumPrice = shortenMoney(fixNumberFloat(values.count * values.price))
                     return (
                         <Form className="infoFood">
                             <FastField
@@ -67,7 +69,7 @@ function FormChange(props) {
                                 color="primary"
                                 type='submit'
                                 style={{
-                                    colol:'black'
+                                    colol: 'black'
                                 }}
                             >
                                 Lưu lại
