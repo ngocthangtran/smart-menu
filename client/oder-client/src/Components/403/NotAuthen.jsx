@@ -15,8 +15,8 @@ function NotAuthen(props) {
             <div className="not-authen-conten">
                 <div id="background"></div>
                 <div className="top">
-                    <h1>403</h1>
-                    <h3>Từ chối truy cập</h3>
+                    <h1 className='h1-authen'>403</h1>
+                    <h3 className='h3-authen'>Từ chối truy cập</h3>
                 </div>
                 <div className="container">
                     <div className="ghost-copy">
@@ -36,8 +36,8 @@ function NotAuthen(props) {
                 </div>
 
                 <div className="bottom">
-                    <p>Bạn không có quyền truy cập vào trang web này</p>
-                    <a className="home">Trở lại trang chủ ({time}s)</a>
+                    <p className='p-authen'>Bạn không có quyền truy cập vào trang web này</p>
+                    <a className="home-authen">Trở lại trang chủ ({time}s)</a>
                 </div>
             </div>
         </div>

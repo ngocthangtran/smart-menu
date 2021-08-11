@@ -57,7 +57,7 @@ const oderApi = {
         })
     },
     getATable: (params) => {
-
+        
     },
     addNewTable: async (params) => {
         const { keyTable, data } = params

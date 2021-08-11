@@ -53,7 +53,7 @@ function SideBarMenuDropdown(props) {
                 }}
             >
                 {Icon && <Icon />}
-                <i class='bx bx-qr' ></i>
+                <i className='bx bx-qr' ></i>
                 <span>{nameParentMenu}</span>
                 <div className={classNameParent ? 'dropdown-icon active' : 'dropdown-icon'}>
                     <i className='bx bx-chevron-down'></i>

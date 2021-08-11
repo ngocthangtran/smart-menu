@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
-import { useHistory } from 'react-router-dom';
+
 
 function InputCode({ setCookieTable }) {
     const [value, setValue] = useState('');
-    const history = useHistory();
+    
     return (
         <div>
             <input type="text" value={value} onChange={(e) => { setValue(e.target.value) }} />

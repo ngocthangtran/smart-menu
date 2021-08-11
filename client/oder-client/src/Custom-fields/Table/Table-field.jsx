@@ -8,13 +8,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
+import { shortenMoney } from '../../utils/convertPrice';
 
 TableFields.propTypes = {
-    size: PropTypes.number
+    size: PropTypes.number,
+    rows: PropTypes.array,
+    clickRow: PropTypes.func
 };
 
 TableFields.defaultProps = {
-    size:500
+    size: 500,
+    rows: []
 }
 
 const StyledTableCell = withStyles((theme) => ({
@@ -41,43 +45,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 function TableFields(props) {
 
-    const {size} = props
-
-    const formatNumber = (number) => Intl.NumberFormat().format(number)
-
-    function createData(name, price, count, sumPrice) {
-        return { name, price, count, sumPrice };
-    }
-
-    const rows = [
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-        createData('Dê hấp xả tía tô', formatNumber(150000), 2, formatNumber(300000)),
-
-    ];
+    const { size, rows, clickRow } = props;
 
     const useStyles = makeStyles({
         table: {
@@ -100,19 +68,19 @@ function TableFields(props) {
                     <TableRow>
                         <StyledTableCell>Tên món</StyledTableCell>
                         <StyledTableCell align="right" >Đơn giá&nbsp;(đ)</StyledTableCell>
-                        <StyledTableCell align="right">Số lượng&nbsp;(phần)</StyledTableCell>
+                        <StyledTableCell align="right">Số lượng&nbsp;</StyledTableCell>
                         <StyledTableCell align="right">Thành tiền&nbsp;(đ)</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name} >
+                    {rows.map((row, index) => (
+                        <StyledTableRow key={index} onClick={() => { clickRow(row, index) }} >
                             <StyledTableCell component="th" scope="row" className={classes.rowStyle}>
                                 {row.name}
                             </StyledTableCell>
-                            <StyledTableCell align="right" className={classes.rowStyle}>{row.price}</StyledTableCell>
-                            <StyledTableCell align="right" className={classes.rowStyle}>{row.count}</StyledTableCell>
-                            <StyledTableCell align="right" className={classes.rowStyle}>{row.sumPrice}</StyledTableCell>
+                            <StyledTableCell align="right" className={classes.rowStyle}>{shortenMoney(row.price)}</StyledTableCell>
+                            <StyledTableCell align="right" className={classes.rowStyle}>{`${row.count} (${row.unit})`}</StyledTableCell>
+                            <StyledTableCell align="right" className={classes.rowStyle}>{shortenMoney(row.sumPrice)}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

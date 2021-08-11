@@ -18,7 +18,8 @@ sans-serif;
     height: 100vh;
     user-select: none;
     position: relative;
-    &-conten{
+
+    &-conten {
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -166,10 +167,12 @@ sans-serif;
 .bottom {
     margin-top: 10px;
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 /*text styling*/
-h1 {
+.h1-authen {
     font-family: $big;
     color: $white;
     text-align: center;
@@ -178,7 +181,7 @@ h1 {
     text-shadow: -1px 0 $gray, 0 1px $gray, 1px 0 $gray, 0 -1px $gray;
 }
 
-h3 {
+.h3-authen {
     font-size: 2em;
     text-transform: uppercase;
     text-align: center;
@@ -187,7 +190,7 @@ h3 {
     font-weight: 900;
 }
 
-p {
+.p-authen {
     text-align: center;
     font-family: $body;
     color: $dark;
@@ -195,8 +198,9 @@ p {
     margin-top: -20px;
     text-transform: uppercase;
 }
-.home {
-    display: block;
+
+.home-authen {
+    display: inline-block;
     text-align: center;
     font-family: $body;
     color: $dark;
@@ -266,27 +270,5 @@ p {
     &:hover {
         background: $gray;
         transition: all .4s ease-out;
-    }
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    text-align: center;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    padding: 10px;
-    color: #EA7996;
-    letter-spacing: 3px;
-    font-family: $body;
-
-    a {
-        color: #ffffff;
-        text-decoration: none;
-
-        &:hover {
-            color: #7d7d7d;
-        }
     }
 }

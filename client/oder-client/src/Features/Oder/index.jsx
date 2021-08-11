@@ -16,6 +16,7 @@ import oderApi from './oderApi';
 import Cookies from 'js-cookie';
 import InputCode from './Features/OderMain/InputCodeTable/InputCode';
 import { useState } from 'react';
+import InputNumber from './Components/InputNumber/InputNumber';
 
 function Index(props) {
     const Match = useRouteMatch();
@@ -72,7 +73,8 @@ function Index(props) {
                 date: day,
                 keyTable: keytable,
                 timeIn: time,
-                code
+                code,
+                numberTable: checkTableInTables.data.numberTable,
             }
 
             const params = {
@@ -151,6 +153,7 @@ function Index(props) {
                     <Route path={`${Match.url}/shopcart`} component={ShopCart} />
                     <Route path={`${Match.url}/input-code`}>
                         <InputCode setCookieTable={setCookieTable} />
+                        {/* <InputNumber /> */}
                     </Route>
                 </Switch>
             </div>

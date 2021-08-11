@@ -4,6 +4,7 @@ import Card from '../Card/Card';
 import { quantityChangeFood, removeFoodAction } from './ShopCartSlide';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { sumprice } from '../../../../cartSlide';
 
 ListCard.propTypes = {
     dataoder: PropsType.object
@@ -65,6 +66,7 @@ function ListCard(props) {
             {
                 Object.keys(dataoder).map((item, index) => {
                     const { amount: amountProduct, name, selectPrice, key, unit } = dataoder[item];
+                    console.log(dataoder[item])
 
                     const { amount: amountForUnit, oderOption } = amountProduct
                     let viewAmount, viewFactor, viewUnit, sumPrice;
@@ -73,6 +75,7 @@ function ListCard(props) {
                         viewFactor = oderOption.factor
                         viewUnit = oderOption.unit
                         sumPrice = selectPrice * viewAmount * oderOption.factor
+                        // console.log(sumPrice, viewAmount, oderOption.factor)
                     } else {
                         viewAmount = amountProduct.amount
                         viewUnit = unit
