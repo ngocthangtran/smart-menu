@@ -24,11 +24,12 @@ Table.defaultProps = {
     statusTable: 'Trống',
     numberPeple: 0,
     numberFood: 0,
-    price: 0
+    price: 0,
+    code:'null'
 }
 
 function Table(props) {
-    const { nameTable, statusTable, numberPeple, numberFood, price, keyTable, onClickItem } = props;
+    const { nameTable, statusTable, numberPeple, numberFood, price, keyTable, onClickItem, code } = props;
 
     return (
         <div className='table' onClick={() => { onClickItem(keyTable) }}>
@@ -46,6 +47,8 @@ function Table(props) {
                 <div className='details-right'> {numberPeple}</div>
                 <div className='details-left'>Số món:</div>
                 <div className='details-right'>{numberFood}</div>
+                <div className='details-left'>Mã bàn:</div>
+                <div className='details-right'>{code}</div>
                 <div className='details-left'>Số tiền:</div>
                 <div className='details-right'>{shortenMoney(price)}</div>
             </div>

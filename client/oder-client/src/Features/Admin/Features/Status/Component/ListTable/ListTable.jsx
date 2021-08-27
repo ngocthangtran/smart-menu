@@ -26,12 +26,14 @@ function ListTable(props) {
                     var numberPeple = 0
                     var price = 0
                     var numberFood = 0
+                    var code;
                     Object.keys(tableOder).forEach(item => {
                         if (tableOder[item].keyTable === keyTable) {
                             status = 'Đang oder'
                             numberPeple = tableOder[item].numberPeople
                             numberFood = tableOder[item].confirmOder.length
                             price = SumPriceObject({ ...tableOder[item].confirmOder })
+                            code = tableOder[item].code
                         }
                     })
                     return (
@@ -43,6 +45,7 @@ function ListTable(props) {
                             numberPeple={numberPeple}
                             numberFood={numberFood}
                             price={price}
+                            code={code}
                             onClickItem={onClickItem}
                         />
                     )
