@@ -37,9 +37,10 @@ function ViewATable(props) {
 
     //get realtime database oder with desk
     useEffect(() => {
-        database.ref(`${refOder}/${keytable}/dataOder`).on('value', snapShort => {
+        database.ref(`${refOder}/${keytable}/confirmOder`).on('value', snapShort => {
             if (snapShort.val()) {
                 try {
+                    console.log(snapShort.val().length)
                     const amountProduct = Object.keys(snapShort.val()).length;
                     const addAmountAction = amount(amountProduct)
                     const addDataoder = dataoder(snapShort.val());

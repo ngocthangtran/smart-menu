@@ -5,7 +5,7 @@ const cartSlide = createSlice({
     initialState: {
         amount: 0,
         dataOder: {},
-        dataOderOld:{},
+        dataOderOld: [],
         sumPrice: 0,
         dataTable: {}
     },
@@ -30,5 +30,5 @@ const cartSlide = createSlice({
 })
 
 const { reducer: cartReducer, actions } = cartSlide;
-export const { amount, dataoder, sumprice, addDataTable } = actions
+export const { amount, dataoder, sumprice, addDataTable, addDataOderOld } = actions
 export default cartReducer;

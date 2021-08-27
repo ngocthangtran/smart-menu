@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import PropsType from 'prop-types';
 import './index.scss'
-import { shortenMoney } from '../../../../../../utils/convertPrice';
+import { fixNumberFloat, shortenMoney } from '../../../../../../utils/convertPrice';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductAction } from '../../../OderMain/oderSlice';
@@ -26,7 +26,7 @@ function CompleteOder(props) {
 
     const dispatch = useDispatch();
 
-    const { dataOder } = useSelector(state => state.cartreducer)
+    const { dataOder, dataOderOld } = useSelector(state => state.cartreducer)
     const { loading, keyTable } = useSelector(state => state.oderreducer)
     return (
         <>
@@ -48,16 +48,18 @@ function CompleteOder(props) {
                         borderRadius: 'uset'
                     }}
                     onClick={async () => {
-                        var confirmOder = { ...dataOder }
-                        Object.keys(dataOder).map(items => {
-                            confirmOder = { ...confirmOder, [items]: { ...confirmOder[items], confirmOder: true } }
+                        var pendingFood = dataOderOld.length ? [...dataOderOld] : [];
+                        Object.keys(dataOder).forEach(item => {
+                            pendingFood.push({
+                                ...dataOder[item]
+                            })
+
                         })
-                        const data = {
-                            keyTable: keyTable,
-                            dataOder: confirmOder
-                        }
-                        const actionAddFood = addProductAction(data);
-                        dispatch(actionAddFood);
+                        oderApi.addConfirmData({
+                            keyTable, dataConfirm: pendingFood  
+                        })
+                        oderApi.removeAllProduct({ keyTable })
+
                         //check number people
                         const { data: oderData } = await oderApi.checkTableExsitInOder({ keyTable: keyTable })
                         if (!oderData.numberPeople) {

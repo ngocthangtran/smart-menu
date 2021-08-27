@@ -4,10 +4,10 @@ import './oder.scss'
 import OderMain from './Features/OderMain/oder'
 import ShopCart from './Features/ShopCart/ShopCart';
 import { getAllProduct } from '../../APP/listFoodSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { getDrinksAction } from '../../APP/listDrinks';
-import { addDataTable, amount, dataoder, sumprice } from './cartSlide';
+import { addDataOderOld, addDataTable, amount, dataoder, sumprice } from './cartSlide';
 import { database } from '../../utils/firebase';
 import { addKeyTable, addProductAction } from './Features/OderMain/oderSlice';
 import { checkTableExits } from '../Admin/Features/Table/TableSlice';
@@ -17,6 +17,7 @@ import Cookies from 'js-cookie';
 import InputCode from './Features/OderMain/InputCodeTable/InputCode';
 import { useState } from 'react';
 import InputNumber from './Components/InputNumber/InputNumber';
+import { SumPriceObject } from '../../utils/SumPrice';
 
 function Index(props) {
     const Match = useRouteMatch();
@@ -107,6 +108,7 @@ function Index(props) {
 
     }, [cookieTable])
 
+    //get data oder
     useEffect(() => {
         //Processing realtime database
         const nameRef = `Oder/${keytable}/dataOder`
@@ -116,18 +118,7 @@ function Index(props) {
                     const amountProduct = Object.keys(snapShort.val()).length;
                     const addAmountAction = amount(amountProduct)
                     const addDataoder = dataoder(snapShort.val());
-                    var sumPrice = 0;
-                    Object.keys(snapShort.val()).map(item => {
-                        const { amount: amountProduct, selectPrice } = snapShort.val()[item];
-                        const { amount: amountForUnit, oderOption } = amountProduct
-
-                        if (oderOption) {
-                            sumPrice += selectPrice * amountForUnit * oderOption.factor
-                        } else {
-                            sumPrice += selectPrice * amountProduct.amount
-                        }
-                        return 1
-                    })
+                    var sumPrice = SumPriceObject(snapShort.val())
                     dispatch(sumprice(sumPrice))
                     dispatch(addAmountAction)
                     unwrapResult(dispatch(addDataoder))
@@ -140,6 +131,18 @@ function Index(props) {
                 dispatch(dataoder({}))
             }
         })
+
+    })
+    //get data oder confirm
+    useEffect(() => {
+        //Processing realtime database
+        const nameRef = `Oder/${keytable}/confirmOder`
+        database.ref(nameRef).on('value', (snapShort) => {
+            if (snapShort.val()) {
+                dispatch(addDataOderOld(snapShort.val()))
+            }
+        })
+
     })
 
     //Processing input code 

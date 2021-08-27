@@ -15,7 +15,7 @@ ListCard.defaultProps = {
 }
 
 function ListCard(props) {
-    const { dataoder } = props;
+    const { dataoder, dataOderOld } = props;
     const { keyTable } = useSelector(state => state.oderreducer)
     const dispatch = useDispatch();
 
@@ -63,6 +63,40 @@ function ListCard(props) {
     }
     return (
         <div className='listcard'>
+            {
+                dataOderOld.map((item, index) => {
+                    const { amount: amountProduct, name, selectPrice, key, unit, confirmOder } = item
+
+                    const { amount: amountForUnit, oderOption } = amountProduct
+                    let viewAmount, viewFactor, viewUnit, sumPrice;
+                    if (oderOption) {
+                        viewAmount = amountForUnit
+                        viewFactor = oderOption.factor
+                        viewUnit = oderOption.unit
+                        sumPrice = selectPrice * viewAmount * oderOption.factor
+                    } else {
+                        viewAmount = amountProduct.amount
+                        viewUnit = unit
+                        sumPrice = selectPrice * viewAmount
+                    }
+                    return (
+                        <Card key={index}
+                            name={name}
+                            viewAmount={viewAmount}
+                            viewUnit={viewUnit}
+                            viewFactor={viewFactor}
+                            selectPrice={selectPrice}
+                            unit={unit}
+                            sumPrice={sumPrice}
+
+                            btnMinus={() => { clickBtnMinu(key, viewAmount) }}
+                            btnPlus={() => { clickBtnPlus(key, viewAmount) }}
+                            btnRemove={() => { clickBtnRemove(key, viewAmount) }}
+                            confirmOder={true}
+                        />
+                    )
+                })
+            }
             {
                 Object.keys(dataoder).map((item, index) => {
                     const { amount: amountProduct, name, selectPrice, key, unit, confirmOder } = dataoder[item];
