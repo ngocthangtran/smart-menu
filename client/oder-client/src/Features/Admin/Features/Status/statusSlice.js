@@ -11,7 +11,7 @@ const statuSlide = createSlice({
     initialState: {
         statistic: '',
         listTable: [],//table in table
-        tableOder: {}//table in odert
+        tableOder: {},//table in odert,
     },
     reducers: {
         setTableOder: (state, action) => {

@@ -4,6 +4,7 @@ import Table from '../Table/Table';
 import './listtable.scss'
 import { useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { SumPriceObject } from '../../../../../../utils/SumPrice';
 ListTable.propTypes = {
     table: PropTypes.array
 };
@@ -22,9 +23,14 @@ function ListTable(props) {
                 listTable.map((item, index) => {
                     const { keyTable, numberTable } = item
                     var status = 'Trống'
+                    var numberPeple = 0
+                    var price = 0
                     Object.keys(tableOder).forEach(item => {
                         if (tableOder[item].keyTable === keyTable) {
                             status = 'Đang oder'
+                            numberPeple = tableOder[item].numberPeople
+
+                            price = SumPriceObject({ ...tableOder[item].confirmOder })
                         }
                     })
                     return (
@@ -33,6 +39,8 @@ function ListTable(props) {
                             nameTable={`Bàn số ${numberTable}`}
                             keyTable={keyTable}
                             statusTable={status}
+                            numberPeple={numberPeple}
+                            price={price}
                             onClickItem={onClickItem}
                         />
                     )

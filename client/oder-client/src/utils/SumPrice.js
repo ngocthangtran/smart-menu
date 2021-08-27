@@ -1,4 +1,5 @@
 export const SumPriceObject = (object) => {
+    
     var sumPrice = 0;
     Object.keys(object).forEach(item => {
         const { amount: amountProduct, selectPrice } = object[item];

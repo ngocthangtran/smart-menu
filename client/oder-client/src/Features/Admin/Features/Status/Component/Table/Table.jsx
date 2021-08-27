@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './table.scss';
+import { shortenMoney } from '../../../../../../utils/convertPrice';
 
 const colorStatus = {
     'Trống': 'green',
@@ -46,7 +47,7 @@ function Table(props) {
                 <div className='details-left'>Số món:</div>
                 <div className='details-right'>{numberFood}</div>
                 <div className='details-left'>Số tiền:</div>
-                <div className='details-right'>{price}</div>
+                <div className='details-right'>{shortenMoney(price)}</div>
             </div>
         </div>
     );
